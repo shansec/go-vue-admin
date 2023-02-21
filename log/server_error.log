@@ -1,0 +1,2 @@
+[may]181811-18-27 - 20:27:00.010	[31merror[0m	E:/code/private/open-source-project/go-vue-admin/core/server.go:29	listen tcp: address 8888: missing port in address
+[may]18185-18-27 - 20:27:00.883	[31merror[0m	E:/code/private/open-source-project/go-vue-admin/core/server.go:29	listen tcp: address 8888: missing port in address
