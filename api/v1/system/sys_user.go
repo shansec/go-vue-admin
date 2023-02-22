@@ -3,7 +3,6 @@ package system
 import (
 	"github.com/gin-gonic/gin"
 	"go-vue-admin/model/common/response"
-	"go-vue-admin/model/system"
 	systemReq "go-vue-admin/model/system/request"
 	"go-vue-admin/utils"
 )
@@ -17,6 +16,6 @@ func (b *BaseApi) Login(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	u := &system.SysUser{Username: login.Username, Password: login.Password}
+	//u := &system.SysUser{Username: login.Username, Password: login.Password}
 
 }
