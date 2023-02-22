@@ -12,9 +12,6 @@ type SysUser struct {
 	Password  string    `json:"-" gorm:"comment: 用户登录密码"`
 	NickName  string    `json:"nickName" gorm:"default: 系统用户; comment: 用户昵称"`
 	HeaderImg string    `json:"headerImg" gorm:"default: 1111;comment: 用户头像"`
-	AuthorityId
-	Authorities
-	AuthorityId string `json:"authorityId" gorm:"default: 888; comment: 用户角色ID"`
-	Phone       string `json:"phone" gorm:"comment: 用户手机号"`
-	Email       string `json:"email" gorm:"comment: 用户邮箱"`
+	Phone     string    `json:"phone" gorm:"comment: 用户手机号"`
+	Email     string    `json:"email" gorm:"comment: 用户邮箱"`
 }
