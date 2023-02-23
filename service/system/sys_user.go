@@ -1,6 +1,7 @@
 package system
 
 import (
+	"errors"
 	"fmt"
 	"go-vue-admin/global"
 	"go-vue-admin/model/system"
@@ -15,11 +16,18 @@ type UserService struct{}
 // @param: u *model.SysUser
 // @return: err error, userInfo *model.SysUser
 
-func (userService *UserService) Login(u *system.SysUser) (err error, userInfo *system.SysUser) {
+func (userService *UserService) Login(u *system.SysUser) (userInfo *system.SysUser, err error) {
 	if nil == global.GVA_DB {
-		return fmt.Errorf("db not init"), nil
+		return nil, fmt.Errorf("db not init")
 	}
-	//var user system.SysUser
-	u.Password = utils.MD5([]byte(u.Password))
-	//err = global.GVA_DB.Where("username = ? AND password = ?", u.Username, u.Password).Preload()
+	var user system.SysUser
+	//u.Password = utils.MD5([]byte(u.Password))
+	err = global.GVA_DB.Where("username = ? AND password = ?", u.Username, u.Password).First(&user).Error
+	if err == nil {
+		if ok := utils.BcryptCheck(u.Password, userInfo.Password); !ok {
+			return nil, errors.New("密码错误")
+		}
+		return &user, nil
+	}
+	return &user, err
 }
