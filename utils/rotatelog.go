@@ -21,7 +21,7 @@ func GetWriteSyncer(file string) zapcore.WriteSyncer {
 		Compress: true,
 	}
 
-	if global.GVA_CONFIG.Zap.LogInConsole {
+	if global.MAY_CONFIG.Zap.LogInConsole {
 		return zapcore.NewMultiWriteSyncer(zapcore.AddSync(os.Stdout), zapcore.AddSync(lumberJackLogger))
 	}
 	return zapcore.AddSync(lumberJackLogger)
