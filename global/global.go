@@ -2,7 +2,7 @@ package global
 
 import (
 	"github.com/spf13/viper"
-	"go-vue-admin/config"
+	"github/May-cloud/go-vue-admin/config"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 )

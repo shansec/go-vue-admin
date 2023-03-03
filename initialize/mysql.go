@@ -1,7 +1,7 @@
 package initialize
 
 import (
-	"go-vue-admin/global"
+	"github/May-cloud/go-vue-admin/global"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -17,4 +17,8 @@ func GormMysql() *gorm.DB {
 		SkipInitializeWithVersion: false,
 	}
 	gorm.Open(mysql.New(mysqlConfig), &gorm.Config{})
+
+	// 暂时解决报错
+	var test *gorm.DB
+	return test
 }

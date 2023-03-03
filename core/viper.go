@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
-	"go-vue-admin/global"
-	"go-vue-admin/utils"
+	"github/May-cloud/go-vue-admin/global"
+	"github/May-cloud/go-vue-admin/utils"
 	"os"
 )
 

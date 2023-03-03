@@ -2,8 +2,8 @@ package core
 
 import (
 	"fmt"
-	"go-vue-admin/global"
-	"go-vue-admin/utils"
+	"github/May-cloud/go-vue-admin/global"
+	"github/May-cloud/go-vue-admin/utils"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"os"

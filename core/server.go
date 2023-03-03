@@ -3,7 +3,7 @@ package core
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"go-vue-admin/global"
+	"github/May-cloud/go-vue-admin/global"
 	"go.uber.org/zap"
 	"net/http"
 	"time"
