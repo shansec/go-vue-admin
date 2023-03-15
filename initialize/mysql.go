@@ -16,9 +16,13 @@ func GormMysql() *gorm.DB {
 		DefaultStringSize:         171,
 		SkipInitializeWithVersion: false,
 	}
-	gorm.Open(mysql.New(mysqlConfig), &gorm.Config{})
+	if db, err := gorm.Open(mysql.New(mysqlConfig), &gorm.Config{}); err != nil {
+		return nil
+	} else {
+		sqlDB, _ := db.DB()
+		sqlDB.SetMaxIdleConns(m.MaxIdleConns)
+		sqlDB.SetMaxOpenConns(m.MaxOpenConns)
+		return db
+	}
 
-	// 暂时解决报错
-	var test *gorm.DB
-	return test
 }

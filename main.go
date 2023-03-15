@@ -1,9 +1,9 @@
 package main
 
 import (
-	"go-vue-admin/core"
-	"go-vue-admin/global"
-	"go-vue-admin/initialize"
+	"github/May-cloud/go-vue-admin/core"
+	"github/May-cloud/go-vue-admin/global"
+	"github/May-cloud/go-vue-admin/initialize"
 	"go.uber.org/zap"
 )
 
@@ -15,6 +15,11 @@ func main() {
 	zap.ReplaceGlobals(global.MAY_LOGGER)
 	// gorm 链接数据库
 	global.MAY_DB = initialize.Gorm()
+	if global.MAY_DB != nil {
+		initialize.RegisterTable(global.MAY_DB)
 
+		db, _ := global.MAY_DB.DB()
+		defer db.Close()
+	}
 	core.RunWindowsServer()
 }

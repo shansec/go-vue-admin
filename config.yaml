@@ -2,7 +2,7 @@ mysql:
   path: 127.0.0.1
   port: 3306
   config: charset=utf8mb4&parseTime=True&loc=Local
-  db-name: MAY
+  db-name: may_db
   username: root
   password: root
   max-idle-conns: 10

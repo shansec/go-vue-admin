@@ -1,0 +1,4 @@
+[may]15156-15-37 - 30:37:00.002	[34minfo[0m	E:/Go/go-vue-admin/core/server.go:24	server run success on	{"address": "8888"}
+[may]15156-15-37 - 30:37:00.812	[34minfo[0m	E:/Go/go-vue-admin/core/server.go:24	server run success on	{"address": "8888"}
+[may]15156-15-37 - 30:37:00.472	[34minfo[0m	E:/Go/go-vue-admin/initialize/gorm.go:28	初始化数据库表成功
+[may]15156-15-37 - 30:37:00.502	[34minfo[0m	E:/Go/go-vue-admin/core/server.go:24	server run success on	{"address": "8888"}

@@ -6,6 +6,7 @@ require (
 	github.com/fsnotify/fsnotify v1.6.0
 	github.com/gin-gonic/gin v1.9.0
 	github.com/natefinch/lumberjack v2.0.0+incompatible
+	github.com/satori/uuid v1.2.0
 	github.com/spf13/viper v1.15.0
 	go.uber.org/zap v1.24.0
 	golang.org/x/crypto v0.6.0

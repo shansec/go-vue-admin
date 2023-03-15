@@ -22,6 +22,7 @@ func RunWindowsServer() {
 
 	time.Sleep(10 * time.Microsecond)
 	global.MAY_LOGGER.Info("server run success on", zap.String("address", address))
+	initServer(address, nil)
 }
 
 func initServer(address string, router *gin.Engine) server {
