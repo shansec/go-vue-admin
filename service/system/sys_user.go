@@ -29,9 +29,24 @@ func (userService *UserService) Register(u system.SysUser) (userInfo system.SysU
 	return u, err
 }
 
+// @author: [Shansec](https://github.com/shansec)
+// @function: Login
+// @description: 用户登录
+// @param: u *system.SysUser
+// @return: userInfo *system.SysUser, err error
+
 func (userService *UserService) Login(u *system.SysUser) (userInfo *system.SysUser, err error) {
 	if nil == global.MAY_DB {
 		return nil, fmt.Errorf("db not init")
 	}
-	return nil, err
+
+	var user system.SysUser
+	err = global.MAY_DB.Where("username = ?", u.Username).First(&user).Error
+	if err == nil {
+		if ok := utils.BcryptCheck(u.Password, user.Password); !ok {
+			return nil, errors.New("密码错误")
+		}
+		return &user, nil
+	}
+	return &user, err
 }

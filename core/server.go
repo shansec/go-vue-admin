@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github/May-cloud/go-vue-admin/global"
+	"github/May-cloud/go-vue-admin/initialize"
 	"go.uber.org/zap"
 	"net/http"
 	"time"
@@ -20,16 +21,10 @@ func RunWindowsServer() {
 
 	address := fmt.Sprintf("%d", global.MAY_CONFIG.System.Addr)
 
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
-	r.Run()
+	router := initialize.Routers()
 	time.Sleep(10 * time.Microsecond)
 	global.MAY_LOGGER.Info("server run success on", zap.String("address", address))
-	initServer(address, r)
+	initServer(address, router)
 }
 
 func initServer(address string, router *gin.Engine) server {
