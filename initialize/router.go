@@ -3,6 +3,7 @@ package initialize
 import (
 	"github.com/gin-gonic/gin"
 	"github/May-cloud/go-vue-admin/global"
+	"github/May-cloud/go-vue-admin/middleware"
 	"github/May-cloud/go-vue-admin/router"
 )
 
@@ -17,8 +18,12 @@ func Routers() *gin.Engine {
 			c.JSON(200, "OK")
 		})
 	}
+	{
+		systemRouter.InitBaseRouter(publicGroup)
+	}
 
 	PrivateGroup := Router.Group("")
+	PrivateGroup.Use(middleware.JwtAuth())
 	{
 		systemRouter.InitUserRouter(PrivateGroup)
 	}

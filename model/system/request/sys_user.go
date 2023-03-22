@@ -1,5 +1,7 @@
 package request
 
+// Register structure
+
 type Register struct {
 	Username  string `json:"username"`                                                                // 用户登录名
 	Password  string `json:"password"`                                                                // 用户登录密码
@@ -7,4 +9,11 @@ type Register struct {
 	HeaderImg string `json:"headerImg" gorm:"default:https://qmplusimg.henrongyi.top/gva_header.jpg"` // 用户头像 	// 用户角色ID
 	Phone     string `json:"phone"`                                                                   // 用户手机号
 	Email     string `json:"email"`
+}
+
+// Login structure
+
+type Login struct {
+	Username string `json:"username"` // 用户名
+	Password string `json:"password"` // 密码
 }

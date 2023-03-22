@@ -9,7 +9,7 @@ type UserRouter struct{}
 
 func (s *UserRouter) InitUserRouter(Router *gin.RouterGroup) {
 	useRouter := Router.Group("user")
-	baseApi := v1.ApiGroupApp.SystemApiGroup.BaseApi
+	baseApi := v1.ApiGroupAlias.SystemApiGroup.BaseApi
 	{
 		// 注册
 		useRouter.POST("register", baseApi.Register)
