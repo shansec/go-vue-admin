@@ -2,7 +2,7 @@ mysql:
   path: 127.0.0.1
   port: 3306
   config: charset=utf8mb4&parseTime=True&loc=Local
-  db-name: gva
+  db-name: may_db
   username: root
   password: root
   max-idle-conns: 10
@@ -11,7 +11,7 @@ mysql:
   log-zap: false
 system:
   env: public
-  addr: 8888
+  addr: 8080
   db-type: mysql
   oss-type: local
   use-multipoint: false
@@ -21,9 +21,14 @@ system:
 zap:
   level: info
   format: console
-  prefix: '[may]'
+  prefix: 'Shansec'
   director: log
   show-line: true
   encode-level: LowercaseColorLevelEncoder
   stacktrace-key: stacktrace
   log-in-console: true
+jwt:
+  signing-key: 'Shansec'
+  expires-time: 604800
+  buffer-time: 604800
+  issuer: 'Shansec'

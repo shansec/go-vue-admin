@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
-	"go-vue-admin/global"
-	"go-vue-admin/utils"
+	"github/May-cloud/go-vue-admin/global"
+	"github/May-cloud/go-vue-admin/utils"
 	"os"
 )
 
@@ -41,11 +41,11 @@ func Viper(path ...string) *viper.Viper {
 
 	v.OnConfigChange(func(e fsnotify.Event) {
 		fmt.Printf("config file changed:", e.Name)
-		if err := v.Unmarshal(&global.GVA_CONFIG); err != nil {
+		if err := v.Unmarshal(&global.MAY_CONFIG); err != nil {
 			fmt.Println(err)
 		}
 	})
-	if err := v.Unmarshal(&global.GVA_CONFIG); err != nil {
+	if err := v.Unmarshal(&global.MAY_CONFIG); err != nil {
 		fmt.Println(err)
 	}
 

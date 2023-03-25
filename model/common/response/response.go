@@ -12,7 +12,7 @@ type Response struct {
 }
 
 const (
-	ERROR   = 7
+	ERROR   = 9
 	SUCCESS = 0
 )
 
@@ -33,10 +33,10 @@ func OkWithMessage(message string, c *gin.Context) {
 }
 
 func OkWithData(data interface{}, c *gin.Context) {
-	Result(SUCCESS, data, "操作成功", c)
+	Result(SUCCESS, data, "查询成功", c)
 }
 
-func OkWithDetail(data interface{}, message string, c *gin.Context) {
+func OkWithDetailed(data interface{}, message string, c *gin.Context) {
 	Result(SUCCESS, data, message, c)
 }
 
@@ -48,6 +48,6 @@ func FailWithMessage(message string, c *gin.Context) {
 	Result(ERROR, map[string]interface{}{}, message, c)
 }
 
-func FailWithDetail(data interface{}, message string, c *gin.Context) {
+func FailWithDetailed(data interface{}, message string, c *gin.Context) {
 	Result(ERROR, data, message, c)
 }

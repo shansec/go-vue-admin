@@ -1,7 +1,9 @@
 package router
 
-import "go-vue-admin/router/system"
+import "github/May-cloud/go-vue-admin/router/system"
 
 type RouterGroup struct {
-	system.RouterGroup
+	System system.RouterGroup
 }
+
+var RouterGroupAlias = new(RouterGroup)

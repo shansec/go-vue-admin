@@ -1,2 +1,26 @@
-[may]181811-18-27 - 20:27:00.010	[31merror[0m	E:/code/private/open-source-project/go-vue-admin/core/server.go:29	listen tcp: address 8888: missing port in address
-[may]18185-18-27 - 20:27:00.883	[31merror[0m	E:/code/private/open-source-project/go-vue-admin/core/server.go:29	listen tcp: address 8888: missing port in address
+[may]22223-22-37 - 30:37:00.183	[31merror[0m	E:/Go/go-vue-admin/core/server.go:28	listen tcp: address 8888: missing port in address
+[may]22223-22-37 - 30:37:00.136	[31merror[0m	E:/Go/go-vue-admin/core/server.go:28	listen tcp: address 8080: missing port in address
+Shansec22226-22-37 - 30:37:00.382	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:75	获取token失败	{"error": "key is of invalid type"}
+Shansec22226-22-37 - 30:37:00.281	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:75	获取token失败	{"error": "key is of invalid type"}
+Shansec22226-22-37 - 30:37:00.021	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:56	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec22226-22-37 - 30:37:00.013	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:75	获取token失败	{"error": "key is of invalid type"}
+Shansec22226-22-37 - 30:37:00.099	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:56	登陆失败，用户名不存在或者密码错误	{"error": "密码错误"}
+Shansec22226-22-37 - 30:37:00.445	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:75	获取token失败	{"error": "key is of invalid type"}
+Shansec22226-22-37 - 30:37:00.848	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:75	获取token失败	{"error": "key is of invalid type"}
+Shansec22226-22-37 - 30:37:00.600	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:75	获取token失败	{"error": "key is of invalid type"}
+Shansec232312-23-37 - 30:37:00.694	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:75	获取token失败	{"error": "key is of invalid type"}
+Shansec24243-24-37 - 30:37:00.239	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:56	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec24243-24-37 - 30:37:00.596	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:56	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec24243-24-37 - 30:37:00.650	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:56	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec24243-24-37 - 30:37:00.971	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:56	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec24243-24-37 - 30:37:00.644	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:56	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec24243-24-37 - 30:37:00.563	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:56	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec24243-24-37 - 30:37:00.492	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:56	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec25252-25-37 - 30:37:00.251	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:63	登陆失败，用户名不存在或者密码错误	{"error": "密码错误"}
+Shansec25254-25-37 - 30:37:00.138	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:63	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec25254-25-37 - 30:37:00.622	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:63	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec25254-25-37 - 30:37:00.419	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:63	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec25254-25-37 - 30:37:00.090	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:63	登陆失败，用户名不存在或者密码错误	{"error": "密码错误"}
+Shansec25254-25-37 - 30:37:00.667	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:63	登陆失败，用户名不存在或者密码错误	{"error": "密码错误"}
+Shansec25254-25-37 - 30:37:00.632	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:63	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec25254-25-37 - 30:37:00.337	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:63	登陆失败，用户名不存在或者密码错误	{"error": "密码错误"}

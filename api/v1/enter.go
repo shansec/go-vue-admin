@@ -1,7 +1,9 @@
 package v1
 
-import "go-vue-admin/api/v1/system"
+import "github/May-cloud/go-vue-admin/api/v1/system"
 
 type ApiGroup struct {
 	SystemApiGroup system.ApiGroup
 }
+
+var ApiGroupAlias = new(ApiGroup)

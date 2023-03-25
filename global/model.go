@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-type GVA_MODEL struct {
+type MAY_MODEL struct {
 	// 主键 ID
 	ID uint `gorm:"primarykey"`
 	// 创建时间

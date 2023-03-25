@@ -1,23 +1,22 @@
 package initialize
 
 import (
-	"go-vue-admin/global"
-	"go-vue-admin/initialize/internal"
+	"github/May-cloud/go-vue-admin/global"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
 func GormMysql() *gorm.DB {
-	m := global.GVA_CONFIG.Mysql
+	m := global.MAY_CONFIG.Mysql
 	if m.Dbname == "" {
 		return nil
 	}
 	mysqlConfig := mysql.Config{
 		DSN:                       m.Dns(),
-		DefaultStringSize:         191,
+		DefaultStringSize:         171,
 		SkipInitializeWithVersion: false,
 	}
-	if db, err := gorm.Open(mysql.New(mysqlConfig), internal.Gorm.Config()); err != nil {
+	if db, err := gorm.Open(mysql.New(mysqlConfig), &gorm.Config{}); err != nil {
 		return nil
 	} else {
 		sqlDB, _ := db.DB()
@@ -25,4 +24,5 @@ func GormMysql() *gorm.DB {
 		sqlDB.SetMaxOpenConns(m.MaxOpenConns)
 		return db
 	}
+
 }
