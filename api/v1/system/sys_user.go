@@ -16,9 +16,9 @@ type BaseApi struct{}
 // @Tags SysUser
 // @Summary 用户注册账号
 // @Produce json
-// @Param data body systemReq.Register {用户名、密码、昵称、手机号}
+// @Param data body systemReq.Register { 用户名、密码、昵称、手机号 }
 // @Success 200
-// @Router /user/register POST
+// @Router /base/register POST
 
 func (b *BaseApi) Register(c *gin.Context) {
 	var register systemReq.Register
@@ -43,6 +43,13 @@ func (b *BaseApi) Register(c *gin.Context) {
 	}
 }
 
+// @Tags SysUser
+// @Summary 用户登录
+// @Produce json
+// @Param data body systemReq.Login { 用户名、密码 }
+// @Success 200
+// @Router /base/login POST
+
 func (b *BaseApi) Login(c *gin.Context) {
 	var login systemReq.Login
 	_ = c.ShouldBindJSON(&login)
@@ -60,8 +67,7 @@ func (b *BaseApi) Login(c *gin.Context) {
 	}
 }
 
-// 登录成功签发 jwt
-
+// TokenNext 登录成功签发 jwt
 func (b *BaseApi) TokenNext(c *gin.Context, user system.SysUser) {
 	jwt := &utils.JWT{SigningKey: []byte(global.MAY_CONFIG.JWT.SigningKey)}
 	claims := jwt.CreateClaims(systemReq.BaseClaims{
@@ -81,4 +87,29 @@ func (b *BaseApi) TokenNext(c *gin.Context, user system.SysUser) {
 		Token:     token,
 		ExpiresAt: claims.StandardClaims.ExpiresAt * 1000,
 	}, "登录成功", c)
+}
+
+// @Tags SysUser
+// @Summary 修改密码
+// @Produce json
+// @Param data body systemReq.ChangePassword { 原密码，新密码 }
+// @Success 200
+// @Router /base/login POST
+
+func (b *BaseApi) ModifyPassword(c *gin.Context) {
+	var modifyPassword systemReq.ChangePassword
+	_ = c.ShouldBindJSON(&modifyPassword)
+
+	if err := utils.Verify(modifyPassword, utils.ChangePasswordVerify); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	uid := utils.GetUID(c)
+	changePassword := &system.SysUser{MAY_MODEL: global.MAY_MODEL{ID: uid}, Password: modifyPassword.Password}
+	if _, err := userService.ChangePassword(changePassword, modifyPassword.NewPassword); err != nil {
+		global.MAY_LOGGER.Error("修改失败", zap.Error(err))
+		response.FailWithMessage("修改失败，原密码不正确", c)
+	} else {
+		response.OkWithMessage("修改成功", c)
+	}
 }

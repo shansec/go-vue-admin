@@ -1,7 +1,6 @@
 package request
 
 // Register structure
-
 type Register struct {
 	Username  string `json:"username"`                                                                // 用户登录名
 	Password  string `json:"password"`                                                                // 用户登录密码
@@ -12,8 +11,14 @@ type Register struct {
 }
 
 // Login structure
-
 type Login struct {
 	Username string `json:"username"` // 用户名
 	Password string `json:"password"` // 密码
+}
+
+// ChangePassword structure
+type ChangePassword struct {
+	ID          uint   `json:"-"`           // user.id
+	Password    string `json:"password"`    // 旧密码
+	NewPassword string `json:"newPassword"` // 新密码
 }

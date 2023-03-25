@@ -50,3 +50,23 @@ func (userService *UserService) Login(u *system.SysUser) (userInfo *system.SysUs
 	}
 	return &user, err
 }
+
+// @author: [Shansec](https://github.com/shansec)
+// @function: ChangePassword
+// @description: 修改密码
+// @param: u *system.SysUser, newPassword string
+// @return: userInfo *system.SysUser, err error
+
+func (userService *UserService) ChangePassword(u *system.SysUser, newPassword string) (userInfo *system.SysUser, err error) {
+	var user system.SysUser
+	err = global.MAY_DB.Where("id = ?", u.ID).First(&user).Error
+	if err == nil {
+		if passIsRight := utils.BcryptCheck(u.Password, user.Password); !passIsRight {
+			return nil, errors.New("原密码有误")
+		}
+		user.Password = utils.BcryptHash(newPassword)
+		err = global.MAY_DB.Save(&user).Error
+		return &user, err
+	}
+	return nil, errors.New("非法访问")
+}

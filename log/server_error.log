@@ -9,3 +9,18 @@ Shansec22226-22-37 - 30:37:00.445	[31merror[0m	E:/Go/go-vue-admin/api/v1/syste
 Shansec22226-22-37 - 30:37:00.848	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:75	获取token失败	{"error": "key is of invalid type"}
 Shansec22226-22-37 - 30:37:00.600	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:75	获取token失败	{"error": "key is of invalid type"}
 Shansec232312-23-37 - 30:37:00.694	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:75	获取token失败	{"error": "key is of invalid type"}
+Shansec24243-24-37 - 30:37:00.239	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:56	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec24243-24-37 - 30:37:00.596	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:56	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec24243-24-37 - 30:37:00.650	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:56	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec24243-24-37 - 30:37:00.971	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:56	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec24243-24-37 - 30:37:00.644	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:56	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec24243-24-37 - 30:37:00.563	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:56	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec24243-24-37 - 30:37:00.492	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:56	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec25252-25-37 - 30:37:00.251	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:63	登陆失败，用户名不存在或者密码错误	{"error": "密码错误"}
+Shansec25254-25-37 - 30:37:00.138	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:63	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec25254-25-37 - 30:37:00.622	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:63	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec25254-25-37 - 30:37:00.419	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:63	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec25254-25-37 - 30:37:00.090	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:63	登陆失败，用户名不存在或者密码错误	{"error": "密码错误"}
+Shansec25254-25-37 - 30:37:00.667	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:63	登陆失败，用户名不存在或者密码错误	{"error": "密码错误"}
+Shansec25254-25-37 - 30:37:00.632	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:63	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec25254-25-37 - 30:37:00.337	[31merror[0m	E:/Go/go-vue-admin/api/v1/system/sys_user.go:63	登陆失败，用户名不存在或者密码错误	{"error": "密码错误"}
