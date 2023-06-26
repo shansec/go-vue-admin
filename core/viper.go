@@ -16,9 +16,9 @@ func Viper(path ...string) *viper.Viper {
 		flag.StringVar(&config, "c", "", "choose config file")
 		flag.Parse()
 		if config == "" {
-			if configEnv := os.Getenv(utils.ConfigEnv); configEnv == "" {
-				config = utils.ConfigFile
-				fmt.Printf("你正在使用 config 的默认值,config 的路径为%v\n", utils.ConfigFile)
+			if configEnv := os.Getenv(utils.CONFIG_ENV); configEnv == "" {
+				config = utils.CONFIG_FILE
+				fmt.Printf("你正在使用 config 的默认值,config 的路径为%v\n", utils.CONFIG_FILE)
 			} else {
 				config = configEnv
 				fmt.Printf("你正在使用 CONFIG 环境变量,config 的路径为%v\n", config)
