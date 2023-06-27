@@ -1,4 +1,4 @@
-module github/May-cloud/go-vue-admin
+module github/shansec/go-vue-admin
 
 go 1.20
 
