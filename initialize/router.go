@@ -1,10 +1,11 @@
 package initialize
 
 import (
-	"github.com/gin-gonic/gin"
 	"github/May-cloud/go-vue-admin/global"
 	"github/May-cloud/go-vue-admin/middleware"
 	"github/May-cloud/go-vue-admin/router"
+
+	"github.com/gin-gonic/gin"
 )
 
 func Routers() *gin.Engine {

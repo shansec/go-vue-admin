@@ -3,10 +3,12 @@ package system
 import (
 	"errors"
 	"fmt"
-	"github.com/satori/uuid"
+
 	"github/May-cloud/go-vue-admin/global"
 	"github/May-cloud/go-vue-admin/model/system"
 	"github/May-cloud/go-vue-admin/utils"
+
+	"github.com/satori/uuid"
 	"gorm.io/gorm"
 )
 

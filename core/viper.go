@@ -3,11 +3,13 @@ package core
 import (
 	"flag"
 	"fmt"
-	"github.com/fsnotify/fsnotify"
-	"github.com/spf13/viper"
+	"os"
+
 	"github/May-cloud/go-vue-admin/global"
 	"github/May-cloud/go-vue-admin/utils"
-	"os"
+
+	"github.com/fsnotify/fsnotify"
+	"github.com/spf13/viper"
 )
 
 func Viper(path ...string) *viper.Viper {

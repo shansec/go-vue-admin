@@ -2,6 +2,7 @@ package initialize
 
 import (
 	"github/May-cloud/go-vue-admin/global"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )

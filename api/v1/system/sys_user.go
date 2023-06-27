@@ -1,13 +1,14 @@
 package system
 
 import (
-	"github.com/gin-gonic/gin"
 	"github/May-cloud/go-vue-admin/global"
 	"github/May-cloud/go-vue-admin/model/common/response"
 	"github/May-cloud/go-vue-admin/model/system"
 	systemReq "github/May-cloud/go-vue-admin/model/system/request"
 	systemRes "github/May-cloud/go-vue-admin/model/system/response"
 	"github/May-cloud/go-vue-admin/utils"
+
+	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
 

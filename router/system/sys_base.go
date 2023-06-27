@@ -1,8 +1,9 @@
 package system
 
 import (
-	"github.com/gin-gonic/gin"
 	v1 "github/May-cloud/go-vue-admin/api/v1"
+
+	"github.com/gin-gonic/gin"
 )
 
 type BaseRouter struct{}

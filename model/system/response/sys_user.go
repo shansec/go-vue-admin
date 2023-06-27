@@ -1,6 +1,8 @@
 package response
 
-import "github/May-cloud/go-vue-admin/model/system"
+import (
+	"github/May-cloud/go-vue-admin/model/system"
+)
 
 type SysUserResponse struct {
 	User system.SysUser `json:"user"`

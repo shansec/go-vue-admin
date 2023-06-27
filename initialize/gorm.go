@@ -1,11 +1,13 @@
 package initialize
 
 import (
+	"os"
+
 	"github/May-cloud/go-vue-admin/global"
 	"github/May-cloud/go-vue-admin/model/system"
+
 	"go.uber.org/zap"
 	"gorm.io/gorm"
-	"os"
 )
 
 func Gorm() *gorm.DB {

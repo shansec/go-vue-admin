@@ -1,9 +1,10 @@
 package utils
 
 import (
-	"github.com/gin-gonic/gin"
 	"github/May-cloud/go-vue-admin/global"
 	systemReq "github/May-cloud/go-vue-admin/model/system/request"
+
+	"github.com/gin-gonic/gin"
 )
 
 func GetClaims(c *gin.Context) (*systemReq.CustomClaims, error) {

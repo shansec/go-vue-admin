@@ -1,9 +1,10 @@
 package middleware
 
 import (
-	"github.com/gin-gonic/gin"
 	"github/May-cloud/go-vue-admin/model/common/response"
 	"github/May-cloud/go-vue-admin/utils"
+
+	"github.com/gin-gonic/gin"
 )
 
 func JwtAuth() gin.HandlerFunc {

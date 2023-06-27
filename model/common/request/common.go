@@ -1,10 +1,8 @@
 package request
 
 type PageInfo struct {
-	// 页码
-	Page int `json:"page" form:"page"`
-	// 每页大小
-	PagSize int `json:"pagSize" form:"pageSize"`
+	Page    int `json:"page" form:"page"`        // 页码
+	PagSize int `json:"pagSize" form:"pageSize"` // 每页大小
 }
 
 type GetById struct {

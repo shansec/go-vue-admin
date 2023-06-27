@@ -1,16 +1,14 @@
 package global
 
 import (
-	"gorm.io/gorm"
 	"time"
+
+	"gorm.io/gorm"
 )
 
 type MAY_MODEL struct {
-	// 主键 ID
-	ID uint `gorm:"primarykey"`
-	// 创建时间
-	CreatedAt time.Time
-	// 更新时间
+	ID        uint      `gorm:"primarykey"` // 主键 ID
+	CreatedAt time.Time // 创建时间
 	UpdatedAt time.Time
-	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"`
+	DeletedAt gorm.DeletedAt `gorm:"index" json:"-"` // 更新时间
 }

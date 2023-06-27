@@ -2,10 +2,12 @@ package utils
 
 import (
 	"errors"
-	"github.com/golang-jwt/jwt/v4"
+	"time"
+
 	"github/May-cloud/go-vue-admin/global"
 	"github/May-cloud/go-vue-admin/model/system/request"
-	"time"
+
+	"github.com/golang-jwt/jwt/v4"
 )
 
 type JWT struct {

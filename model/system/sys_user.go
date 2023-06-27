@@ -1,8 +1,9 @@
 package system
 
 import (
-	"github.com/satori/uuid"
 	"github/May-cloud/go-vue-admin/global"
+
+	"github.com/satori/uuid"
 )
 
 type SysUser struct {

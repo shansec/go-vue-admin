@@ -1,10 +1,12 @@
 package utils
 
 import (
-	"github.com/natefinch/lumberjack"
-	"github/May-cloud/go-vue-admin/global"
-	"go.uber.org/zap/zapcore"
 	"os"
+
+	"github/May-cloud/go-vue-admin/global"
+
+	"github.com/natefinch/lumberjack"
+	"go.uber.org/zap/zapcore"
 )
 
 func GetWriteSyncer(file string) zapcore.WriteSyncer {
