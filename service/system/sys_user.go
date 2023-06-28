@@ -4,9 +4,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github/May-cloud/go-vue-admin/global"
-	"github/May-cloud/go-vue-admin/model/system"
-	"github/May-cloud/go-vue-admin/utils"
+	"github/shansec/go-vue-admin/global"
+	"github/shansec/go-vue-admin/model/system"
+	"github/shansec/go-vue-admin/utils"
 
 	"github.com/satori/uuid"
 	"gorm.io/gorm"

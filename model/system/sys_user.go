@@ -1,7 +1,7 @@
 package system
 
 import (
-	"github/May-cloud/go-vue-admin/global"
+	"github/shansec/go-vue-admin/global"
 
 	"github.com/satori/uuid"
 )

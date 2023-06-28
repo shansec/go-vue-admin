@@ -1,7 +1,7 @@
 package router
 
 import (
-	"github/May-cloud/go-vue-admin/router/system"
+	"github/shansec/go-vue-admin/router/system"
 )
 
 type RouterGroup struct {

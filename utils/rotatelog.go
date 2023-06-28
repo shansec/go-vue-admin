@@ -3,7 +3,7 @@ package utils
 import (
 	"os"
 
-	"github/May-cloud/go-vue-admin/global"
+	"github/shansec/go-vue-admin/global"
 
 	"github.com/natefinch/lumberjack"
 	"go.uber.org/zap/zapcore"

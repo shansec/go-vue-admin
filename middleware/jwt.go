@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"github/May-cloud/go-vue-admin/model/common/response"
-	"github/May-cloud/go-vue-admin/utils"
+	"github/shansec/go-vue-admin/model/common/response"
+	"github/shansec/go-vue-admin/utils"
 
 	"github.com/gin-gonic/gin"
 )

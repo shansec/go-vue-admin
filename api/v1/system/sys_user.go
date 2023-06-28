@@ -1,12 +1,12 @@
 package system
 
 import (
-	"github/May-cloud/go-vue-admin/global"
-	"github/May-cloud/go-vue-admin/model/common/response"
-	"github/May-cloud/go-vue-admin/model/system"
-	systemReq "github/May-cloud/go-vue-admin/model/system/request"
-	systemRes "github/May-cloud/go-vue-admin/model/system/response"
-	"github/May-cloud/go-vue-admin/utils"
+	"github/shansec/go-vue-admin/global"
+	"github/shansec/go-vue-admin/model/common/response"
+	"github/shansec/go-vue-admin/model/system"
+	systemReq "github/shansec/go-vue-admin/model/system/request"
+	systemRes "github/shansec/go-vue-admin/model/system/response"
+	"github/shansec/go-vue-admin/utils"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"

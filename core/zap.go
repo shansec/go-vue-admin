@@ -5,8 +5,8 @@ import (
 	"os"
 	"time"
 
-	"github/May-cloud/go-vue-admin/global"
-	"github/May-cloud/go-vue-admin/utils"
+	"github/shansec/go-vue-admin/global"
+	"github/shansec/go-vue-admin/utils"
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"

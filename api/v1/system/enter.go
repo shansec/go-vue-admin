@@ -1,7 +1,7 @@
 package system
 
 import (
-	"github/May-cloud/go-vue-admin/service"
+	"github/shansec/go-vue-admin/service"
 )
 
 type ApiGroup struct {

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github/May-cloud/go-vue-admin/global"
-	"github/May-cloud/go-vue-admin/initialize"
+	"github/shansec/go-vue-admin/global"
+	"github/shansec/go-vue-admin/initialize"
 
 	"go.uber.org/zap"
 )

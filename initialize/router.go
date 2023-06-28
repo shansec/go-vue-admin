@@ -1,9 +1,9 @@
 package initialize
 
 import (
-	"github/May-cloud/go-vue-admin/global"
-	"github/May-cloud/go-vue-admin/middleware"
-	"github/May-cloud/go-vue-admin/router"
+	"github/shansec/go-vue-admin/global"
+	"github/shansec/go-vue-admin/middleware"
+	"github/shansec/go-vue-admin/router"
 
 	"github.com/gin-gonic/gin"
 )

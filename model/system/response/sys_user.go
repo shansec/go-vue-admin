@@ -1,7 +1,7 @@
 package response
 
 import (
-	"github/May-cloud/go-vue-admin/model/system"
+	"github/shansec/go-vue-admin/model/system"
 )
 
 type SysUserResponse struct {

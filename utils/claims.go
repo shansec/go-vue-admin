@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"github/May-cloud/go-vue-admin/global"
-	systemReq "github/May-cloud/go-vue-admin/model/system/request"
+	"github/shansec/go-vue-admin/global"
+	systemReq "github/shansec/go-vue-admin/model/system/request"
 
 	"github.com/gin-gonic/gin"
 )

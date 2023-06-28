@@ -4,8 +4,8 @@ import (
 	"errors"
 	"time"
 
-	"github/May-cloud/go-vue-admin/global"
-	"github/May-cloud/go-vue-admin/model/system/request"
+	"github/shansec/go-vue-admin/global"
+	"github/shansec/go-vue-admin/model/system/request"
 
 	"github.com/golang-jwt/jwt/v4"
 )
