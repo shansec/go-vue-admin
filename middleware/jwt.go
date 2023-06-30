@@ -10,14 +10,15 @@ import (
 func JwtAuth() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		// 获取 token
-		token := ctx.Request.Header.Get("Authorization")
-		if token == "" {
+		aToken := ctx.Request.Header.Get("Authorization-aToken")
+		rToken := ctx.Request.Header.Get("Authorization-rToken")
+		if aToken == "" || rToken == "" {
 			response.FailWithDetailed(gin.H{"reload": true}, "未登录或非法访问", ctx)
 			ctx.Abort()
 			return
 		}
 		jwt := utils.NewJWT()
-		claims, err := jwt.ParseToken(token)
+		claims, err := jwt.ParseToken(aToken)
 		if err != nil {
 			if err == utils.TokenExpired {
 				response.FailWithDetailed(gin.H{"reload": true}, "授权已过期", ctx)

@@ -29,6 +29,7 @@ zap:
   log-in-console: true
 jwt:
   signing-key: 'Shansec'
-  expires-time: 604800
+  a-expires-time: 300000
+  r-expires-time: 604800
   buffer-time: 604800
   issuer: 'Shansec'
