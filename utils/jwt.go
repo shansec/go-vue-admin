@@ -33,59 +33,29 @@ func (j *JWT) CreateClaims(baseClaims request.BaseClaims) request.CustomClaims {
 		BufferTime: global.MAY_CONFIG.JWT.BufferTime,
 		StandardClaims: jwt.StandardClaims{
 			NotBefore: time.Now().Unix() - 1000,
-			ExpiresAt: time.Now().Unix() + global.MAY_CONFIG.JWT.AExpiresTime,
+			ExpiresAt: time.Now().Unix() + global.MAY_CONFIG.JWT.ExpiresTime,
 			Issuer:    global.MAY_CONFIG.JWT.Issuer,
 		},
 	}
 	return claims
 }
 
-func (j *JWT) CreateToken(claims request.CustomClaims) (string, error, string, error) {
+// CreateToken 创建一个 token
+func (j *JWT) CreateToken(claims request.CustomClaims) (string, error) {
 	// 生成 access_token
-	aToken, aError := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString(j.SigningKey)
-	// 生成 refresh_token
-	rToken, rError := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
-		ExpiresAt: time.Now().Unix() + global.MAY_CONFIG.JWT.RExpiresTime,
-		Issuer:    global.MAY_CONFIG.JWT.Issuer,
-	}).SignedString(j.SigningKey)
-	return aToken, aError, rToken, rError
+	token, err := jwt.NewWithClaims(jwt.SigningMethodHS256, claims).SignedString(j.SigningKey)
+	return token, err
 }
 
-func (j *JWT) RefreshToken(aTokenString, rTokenString string) (string, string, error) {
-	// 判断 refresh_token 是否过期
-	_, err := jwt.Parse(rTokenString, func(token *jwt.Token) (i interface{}, e error) {
-		return j.SigningKey, nil
+// CreateTokenByOldToken 根据旧 token 生成新的 token
+func (j *JWT) CreateTokenByOldToken(oldToken string, claims request.CustomClaims) (string, error) {
+	newToken, err, _ := global.MAY_CONTROL.Do("JWT:"+oldToken, func() (interface{}, error) {
+		return j.CreateToken(claims)
 	})
-	if err != nil {
-		return "", "", err
-	}
-	// 从旧的 access_token 中解析数据
-	_, err = jwt.ParseWithClaims(aTokenString, &request.CustomClaims{}, func(token *jwt.Token) (i interface{}, e error) {
-		return j.SigningKey, nil
-	})
-	if err != nil {
-		if v, ok := err.(*jwt.ValidationError); ok {
-			if v.Errors&jwt.ValidationErrorMalformed != 0 {
-				return "", "", TokenMalformed
-			} else if v.Errors*jwt.ValidationErrorClaimsInvalid != 0 {
-				claims := j.CreateClaims(request.BaseClaims{
-					ID:       request.CustomClaims{}.ID,
-					UUID:     request.CustomClaims{}.UUID,
-					NickName: request.CustomClaims{}.NickName,
-					Username: request.CustomClaims{}.Username,
-				})
-				aToken, _, rToken, _ := j.CreateToken(claims)
-				return aToken, rToken, nil
-			} else if v.Errors&jwt.ValidationErrorNotValidYet != 0 {
-				return "", "", TokenNotValidYet
-			} else {
-				return "", "", TokenInvalid
-			}
-		}
-	}
-	return "", "", err
+	return newToken.(string), err
 }
 
+// ParseToken 解析 token
 func (j *JWT) ParseToken(tokenString string) (*request.CustomClaims, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &request.CustomClaims{}, func(token *jwt.Token) (i interface{}, e error) {
 		return j.SigningKey, nil

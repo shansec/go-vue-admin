@@ -10,7 +10,6 @@ type SysUserResponse struct {
 
 type Login struct {
 	User      system.SysUser `json:"user"`
-	AToken    string         `json:"AToken"`
-	RToken    string         `json:"RToken"`
+	Token     string         `json:"token"`
 	ExpiresAt int64          `json:"expiresAt"`
 }

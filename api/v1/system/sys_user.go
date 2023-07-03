@@ -77,21 +77,15 @@ func (b *BaseApi) TokenNext(c *gin.Context, user system.SysUser) {
 		NickName: user.NickName,
 		Username: user.Username,
 	})
-	aToken, aError, rToken, rError := jwt.CreateToken(claims)
-	if aError != nil {
-		global.MAY_LOGGER.Error("获取 access_token 失败", zap.Error(aError))
-		response.FailWithMessage("获取 access_token 失败", c)
-		return
-	}
-	if rError != nil {
-		global.MAY_LOGGER.Error("获取 refresh_token 失败", zap.Error(rError))
-		response.FailWithMessage("获取 refresh_token 失败", c)
+	token, err := jwt.CreateToken(claims)
+	if err != nil {
+		global.MAY_LOGGER.Error("获取 token 失败", zap.Error(err))
+		response.FailWithMessage("获取 token 失败", c)
 		return
 	}
 	response.OkWithDetailed(systemRes.Login{
 		User:      user,
-		AToken:    aToken,
-		RToken:    rToken,
+		Token:     token,
 		ExpiresAt: claims.StandardClaims.ExpiresAt * 1000,
 	}, "登录成功", c)
 }
@@ -117,6 +111,6 @@ func (b *BaseApi) ModifyPassword(c *gin.Context) {
 		global.MAY_LOGGER.Error("修改失败", zap.Error(err))
 		response.FailWithMessage("修改失败，原密码不正确", c)
 	} else {
-		response.OkWithMessage("修改成功", c)
+		response.OkWithMessage("修改成功，请重新登录", c)
 	}
 }

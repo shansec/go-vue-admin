@@ -1,6 +1,10 @@
 package middleware
 
 import (
+	"github/shansec/go-vue-admin/global"
+	"strconv"
+	"time"
+
 	"github/shansec/go-vue-admin/model/common/response"
 	"github/shansec/go-vue-admin/utils"
 
@@ -10,15 +14,14 @@ import (
 func JwtAuth() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		// 获取 token
-		aToken := ctx.Request.Header.Get("Authorization-aToken")
-		rToken := ctx.Request.Header.Get("Authorization-rToken")
-		if aToken == "" || rToken == "" {
+		token := ctx.Request.Header.Get("x-token")
+		if token == "" {
 			response.FailWithDetailed(gin.H{"reload": true}, "未登录或非法访问", ctx)
 			ctx.Abort()
 			return
 		}
 		jwt := utils.NewJWT()
-		claims, err := jwt.ParseToken(aToken)
+		claims, err := jwt.ParseToken(token)
 		if err != nil {
 			if err == utils.TokenExpired {
 				response.FailWithDetailed(gin.H{"reload": true}, "授权已过期", ctx)
@@ -28,6 +31,14 @@ func JwtAuth() gin.HandlerFunc {
 			response.FailWithDetailed(gin.H{"reload": true}, err.Error(), ctx)
 			ctx.Abort()
 			return
+		}
+
+		if claims.ExpiresAt-time.Now().Unix() < claims.BufferTime {
+			claims.ExpiresAt = time.Now().Unix() + global.MAY_CONFIG.JWT.ExpiresTime
+			newToken, _ := jwt.CreateTokenByOldToken(token, *claims)
+			newClaims, _ := jwt.ParseToken(newToken)
+			ctx.Header("new-token", newToken)
+			ctx.Header("new-expires-at", strconv.FormatInt(newClaims.ExpiresAt, 10))
 		}
 		ctx.Set("claims", claims)
 		ctx.Next()
