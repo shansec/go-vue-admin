@@ -31,3 +31,5 @@ Shansec30303-30-67 - 60:67:00.249	[31merror[0m	E:/Go/src/go-vue-admin/api/v1/s
 Shansec30304-30-67 - 60:67:00.692	[31merror[0m	E:/Go/src/go-vue-admin/api/v1/system/sys_user.go:64	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
 Shansec3036-03-77 - 70:77:00.002	[31merror[0m	E:/Go/src/go-vue-admin/api/v1/system/sys_user.go:111	修改失败	{"error": "原密码有误"}
 Shansec3036-03-77 - 70:77:00.449	[31merror[0m	E:/Go/src/go-vue-admin/api/v1/system/sys_user.go:64	登陆失败，用户名不存在或者密码错误	{"error": "密码错误"}
+Shansec26262-26-77 - 70:77:00.688	[31merror[0m	E:/Go/src/go-vue-admin/api/v1/system/sys_user.go:64	登陆失败，用户名不存在或者密码错误	{"error": "密码错误"}
+Shansec26262-26-77 - 70:77:00.674	[31merror[0m	E:/Go/src/go-vue-admin/api/v1/system/sys_user.go:64	登陆失败，用户名不存在或者密码错误	{"error": "密码错误"}
