@@ -33,3 +33,11 @@ Shansec3036-03-77 - 70:77:00.002	[31merror[0m	E:/Go/src/go-vue-admin/api/v1/sy
 Shansec3036-03-77 - 70:77:00.449	[31merror[0m	E:/Go/src/go-vue-admin/api/v1/system/sys_user.go:64	登陆失败，用户名不存在或者密码错误	{"error": "密码错误"}
 Shansec26262-26-77 - 70:77:00.688	[31merror[0m	E:/Go/src/go-vue-admin/api/v1/system/sys_user.go:64	登陆失败，用户名不存在或者密码错误	{"error": "密码错误"}
 Shansec26262-26-77 - 70:77:00.674	[31merror[0m	E:/Go/src/go-vue-admin/api/v1/system/sys_user.go:64	登陆失败，用户名不存在或者密码错误	{"error": "密码错误"}
+Shansec18187-18-107 - 100:107:00.341	[31merror[0m	/workspaces/go-vue-admin/initialize/gorm.go:27	初始化数据库表失败	{"error": "Error 1067 (42000): Invalid default value for 'nick_name'"}
+Shansec18188-18-107 - 100:107:00.722	[31merror[0m	/workspaces/go-vue-admin/initialize/gorm.go:27	初始化数据库表失败	{"error": "Error 1067 (42000): Invalid default value for 'nick_name'"}
+Shansec18188-18-107 - 100:107:00.587	[31merror[0m	/workspaces/go-vue-admin/api/v1/system/sys_user.go:64	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec18188-18-107 - 100:107:00.615	[31merror[0m	/workspaces/go-vue-admin/api/v1/system/sys_user.go:64	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec18188-18-107 - 100:107:00.658	[31merror[0m	/workspaces/go-vue-admin/api/v1/system/sys_user.go:64	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec18188-18-107 - 100:107:00.036	[31merror[0m	/workspaces/go-vue-admin/api/v1/system/sys_user.go:64	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec18188-18-107 - 100:107:00.956	[31merror[0m	/workspaces/go-vue-admin/api/v1/system/sys_user.go:64	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}
+Shansec18188-18-107 - 100:107:00.842	[31merror[0m	/workspaces/go-vue-admin/api/v1/system/sys_user.go:64	登陆失败，用户名不存在或者密码错误	{"error": "record not found"}

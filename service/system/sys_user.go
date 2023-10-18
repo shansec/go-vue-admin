@@ -72,3 +72,18 @@ func (userService *UserService) ChangePassword(u *system.SysUser, newPassword st
 	}
 	return nil, errors.New("非法访问")
 }
+
+// @author: [Shansec](https://github.com/shansec)
+// @function: GetUserInformation
+// @description: 获取用户信息
+// @param: uuid uuid.UUID
+// @return: userInfo *system.SysUser, err error
+
+func (userService *UserService) GetUserInformation(uuid uuid.UUID) (userInfo *system.SysUser, err error) {
+	var user system.SysUser
+	err = global.MAY_DB.Where("uuid = ?", uuid).First(&user).Error
+	if err == nil {
+		return &user, nil
+	}
+	return nil, errors.New("获取用户信息失败")
+}

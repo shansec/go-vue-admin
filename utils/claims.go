@@ -5,6 +5,7 @@ import (
 	systemReq "github/shansec/go-vue-admin/model/system/request"
 
 	"github.com/gin-gonic/gin"
+	"github.com/satori/uuid"
 )
 
 func GetClaims(c *gin.Context) (*systemReq.CustomClaims, error) {
@@ -17,8 +18,8 @@ func GetClaims(c *gin.Context) (*systemReq.CustomClaims, error) {
 	return claims, nil
 }
 
-// GetUID 获取用户的ID
-func GetUID(c *gin.Context) uint {
+// GetUID 根据 jwt 签证获取用户的ID
+func GetUseID(c *gin.Context) uint {
 	if claims, existence := c.Get("claims"); !existence {
 		if claim, err := GetClaims(c); err != nil {
 			return 0
@@ -28,5 +29,18 @@ func GetUID(c *gin.Context) uint {
 	} else {
 		nextUser := claims.(*systemReq.CustomClaims)
 		return nextUser.ID
+	}
+}
+// GetUseUuid 根据 jwt 签证获取用户的uuid
+func GetUseUuid(c *gin.Context) uuid.UUID {
+	if claims, existence := c.Get("claims"); !existence {
+		if claim, err := GetClaims(c); err != nil {
+			return claim.UUID
+		} else {
+			return claim.UUID
+		}
+	} else {
+		nextUser := claims.(*systemReq.CustomClaims)
+		return nextUser.UUID
 	}
 }

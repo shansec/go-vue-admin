@@ -133,3 +133,32 @@ Shansec17174-17-107 - 100:107:00.634	[34minfo[0m	E:/minor/Go/src/go-vue-admin/
 Shansec181810-18-107 - 100:107:00.650	[34minfo[0m	E:/minor/Go/src/go-vue-admin/initialize/gorm.go:30	初始化数据库表成功
 Shansec181810-18-107 - 100:107:00.674	[34minfo[0m	E:/minor/Go/src/go-vue-admin/initialize/router.go:32	router register sucess
 Shansec181810-18-107 - 100:107:00.683	[34minfo[0m	E:/minor/Go/src/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
+Shansec18184-18-107 - 100:107:00.180	[34minfo[0m	/workspaces/go-vue-admin/initialize/router.go:32	router register sucess
+Shansec18184-18-107 - 100:107:00.180	[34minfo[0m	/workspaces/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
+Shansec18188-18-107 - 100:107:00.192	[34minfo[0m	/workspaces/go-vue-admin/initialize/router.go:32	router register sucess
+Shansec18188-18-107 - 100:107:00.193	[34minfo[0m	/workspaces/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
+Shansec18188-18-107 - 100:107:00.577	[34minfo[0m	/workspaces/go-vue-admin/initialize/router.go:32	router register sucess
+Shansec18188-18-107 - 100:107:00.579	[34minfo[0m	/workspaces/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
+Shansec18188-18-107 - 100:107:00.563	[34minfo[0m	/workspaces/go-vue-admin/initialize/router.go:32	router register sucess
+Shansec18188-18-107 - 100:107:00.563	[34minfo[0m	/workspaces/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
+Shansec18188-18-107 - 100:107:00.034	[34minfo[0m	/workspaces/go-vue-admin/initialize/gorm.go:30	初始化数据库表成功
+Shansec18188-18-107 - 100:107:00.034	[34minfo[0m	/workspaces/go-vue-admin/initialize/router.go:32	router register sucess
+Shansec18188-18-107 - 100:107:00.034	[34minfo[0m	/workspaces/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
+Shansec18189-18-107 - 100:107:00.997	[34minfo[0m	/workspaces/go-vue-admin/initialize/gorm.go:30	初始化数据库表成功
+Shansec18189-18-107 - 100:107:00.997	[34minfo[0m	/workspaces/go-vue-admin/initialize/router.go:32	router register sucess
+Shansec18189-18-107 - 100:107:00.997	[34minfo[0m	/workspaces/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
+Shansec18189-18-107 - 100:107:00.276	[34minfo[0m	/workspaces/go-vue-admin/initialize/gorm.go:30	初始化数据库表成功
+Shansec18189-18-107 - 100:107:00.276	[34minfo[0m	/workspaces/go-vue-admin/initialize/router.go:32	router register sucess
+Shansec18189-18-107 - 100:107:00.276	[34minfo[0m	/workspaces/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
+Shansec18189-18-107 - 100:107:00.513	[34minfo[0m	/workspaces/go-vue-admin/initialize/gorm.go:30	初始化数据库表成功
+Shansec18189-18-107 - 100:107:00.514	[34minfo[0m	/workspaces/go-vue-admin/initialize/router.go:32	router register sucess
+Shansec18189-18-107 - 100:107:00.514	[34minfo[0m	/workspaces/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
+Shansec18189-18-107 - 100:107:00.443	[34minfo[0m	/workspaces/go-vue-admin/initialize/gorm.go:30	初始化数据库表成功
+Shansec18189-18-107 - 100:107:00.444	[34minfo[0m	/workspaces/go-vue-admin/initialize/router.go:32	router register sucess
+Shansec18189-18-107 - 100:107:00.444	[34minfo[0m	/workspaces/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
+Shansec181810-18-107 - 100:107:00.752	[34minfo[0m	/workspaces/go-vue-admin/initialize/gorm.go:30	初始化数据库表成功
+Shansec181810-18-107 - 100:107:00.752	[34minfo[0m	/workspaces/go-vue-admin/initialize/router.go:32	router register sucess
+Shansec181810-18-107 - 100:107:00.753	[34minfo[0m	/workspaces/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
+Shansec181810-18-107 - 100:107:00.841	[34minfo[0m	/workspaces/go-vue-admin/initialize/gorm.go:30	初始化数据库表成功
+Shansec181810-18-107 - 100:107:00.842	[34minfo[0m	/workspaces/go-vue-admin/initialize/router.go:32	router register sucess
+Shansec181810-18-107 - 100:107:00.842	[34minfo[0m	/workspaces/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}

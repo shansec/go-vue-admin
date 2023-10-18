@@ -105,12 +105,31 @@ func (b *BaseApi) ModifyPassword(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	uid := utils.GetUID(c)
+	uid := utils.GetUseID(c)
 	changePassword := &system.SysUser{MAY_MODEL: global.MAY_MODEL{ID: uid}, Password: modifyPassword.Password}
 	if _, err := userService.ChangePassword(changePassword, modifyPassword.NewPassword); err != nil {
 		global.MAY_LOGGER.Error("修改失败", zap.Error(err))
 		response.FailWithMessage("修改失败，原密码不正确", c)
 	} else {
 		response.OkWithMessage("修改成功，请重新登录", c)
+	}
+}
+
+// @Tags SysUser
+// @Summary 获取用户信息
+// @Produce json
+// @Param data body systemRes.SysUserResponse { uuid }
+// @Success 200
+// @Router /user/getUserInfo GET
+
+func (b *BaseApi) GetUserInfo(c *gin.Context) {
+	uuid := utils.GetUseUuid(c)
+	if user, err := userService.GetUserInformation(uuid); err != nil {
+		global.MAY_LOGGER.Error("获取用户信息失败", zap.Error(err))
+		response.FailWithMessage("获取用户信息失败，用户信息不存在", c)
+	} else {
+		response.OkWithDetailed(systemRes.SysUserResponse{
+			User: *user,
+		}, "获取用户信息成功", c)
 	}
 }
