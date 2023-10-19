@@ -22,6 +22,7 @@ func Gorm() *gorm.DB {
 func RegisterTable(db *gorm.DB) {
 	err := db.AutoMigrate(
 		system.SysUser{},
+		system.SysRole{},
 	)
 	if err != nil {
 		global.MAY_LOGGER.Error("初始化数据库表失败", zap.Error(err))

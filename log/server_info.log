@@ -162,3 +162,12 @@ Shansec181810-18-107 - 100:107:00.753	[34minfo[0m	/workspaces/go-vue-admin/cor
 Shansec181810-18-107 - 100:107:00.841	[34minfo[0m	/workspaces/go-vue-admin/initialize/gorm.go:30	初始化数据库表成功
 Shansec181810-18-107 - 100:107:00.842	[34minfo[0m	/workspaces/go-vue-admin/initialize/router.go:32	router register sucess
 Shansec181810-18-107 - 100:107:00.842	[34minfo[0m	/workspaces/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
+Shansec19193-19-107 - 100:107:00.895	[34minfo[0m	/workspaces/go-vue-admin/initialize/gorm.go:30	初始化数据库表成功
+Shansec19193-19-107 - 100:107:00.898	[34minfo[0m	/workspaces/go-vue-admin/initialize/router.go:32	router register sucess
+Shansec19193-19-107 - 100:107:00.898	[34minfo[0m	/workspaces/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
+Shansec19197-19-107 - 100:107:00.597	[34minfo[0m	/workspaces/go-vue-admin/initialize/gorm.go:30	初始化数据库表成功
+Shansec19197-19-107 - 100:107:00.598	[34minfo[0m	/workspaces/go-vue-admin/initialize/router.go:32	router register sucess
+Shansec19197-19-107 - 100:107:00.598	[34minfo[0m	/workspaces/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
+Shansec19198-19-107 - 100:107:00.314	[34minfo[0m	/workspaces/go-vue-admin/initialize/gorm.go:31	初始化数据库表成功
+Shansec19198-19-107 - 100:107:00.316	[34minfo[0m	/workspaces/go-vue-admin/initialize/router.go:32	router register sucess
+Shansec19198-19-107 - 100:107:00.316	[34minfo[0m	/workspaces/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}

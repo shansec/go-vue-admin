@@ -15,4 +15,6 @@ type SysUser struct {
 	HeaderImg string    `json:"headerImg" gorm:"default:https://qmplusimg.henrongyi.top/gva_header.jpg;comment:用户头像"` // 用户头像 	// 用户角色ID
 	Phone     string    `json:"phone"  gorm:"comment:用户手机号"`                                                          // 用户手机号
 	Email     string    `json:"email"  gorm:"comment:用户邮箱"`                                                           // 用户邮箱
+	RoleId    uint      `json:"roleId" gorm:"default:888;comment:用户角色ID"`                                             // 用户角色ID
+	Role      SysRole   `json:"role" gorm:"foreignKey:RoleId;references:RoleId;comment:用户角色"`
 }
