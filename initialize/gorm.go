@@ -1,11 +1,10 @@
 package initialize
 
 import (
+	"github/shansec/go-vue-admin/model/system"
 	"os"
 
 	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/system"
-
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 )
