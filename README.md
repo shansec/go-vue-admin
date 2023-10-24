@@ -1,37 +1,64 @@
-# go-vue-admin
+# go-admin
 
-#### 介绍
-go 代码，为 go-vue 提供后端支持
+## 📦 本地开发
 
-#### 软件架构
-软件架构说明
+### 环境要求
 
+go 1.18
 
-#### 安装教程
+node版本:  v16.15.0
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+pnpm版本: 8.7.1
 
-#### 使用说明
+### 开发目录创建
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+```bash
+# 创建开发目录
+mkdir go-vue-admin
+cd go-vue-admin
+```
 
-#### 参与贡献
+### 获取代码
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+> 推荐两个项目必须放在同一文件夹下；
 
+```bash
+# 获取后端代码
+git clone https://github.com/shansec/go-vue-admin.git
 
-#### 特技
+# 获取前端代码
+git clone https://github.com/shansec/go-vue.git
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+```
+
+### 后端启动说明
+
+#### 服务端启动说明
+
+```bash
+# 进入 go-vue-admin 后端项目
+cd ./go-vue-admin
+
+# 更新整理依赖
+go mod tidy
+
+# 编译项目
+go build
+
+# 修改配置 
+# 文件路径  go-vue-admin/config.yml
+vi ./config.yml
+
+# 1. 配置文件中修改数据库信息 
+# 注意: config.mysql 下对应的配置数据
+```
+
+### 前端启动说明
+
+```bash
+# 安装依赖
+pnpm install
+
+# 启动服务
+pnpm dev
+```
