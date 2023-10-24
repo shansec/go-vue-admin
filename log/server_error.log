@@ -88,3 +88,5 @@ Shansec212110-21-107 - 100:107:00.840	[31merror[0m	E:/minor/Go/src/go-vue-admi
 Shansec212110-21-107 - 100:107:00.527	[31merror[0m	E:/minor/Go/src/go-vue-admin/api/v1/system/sys_user.go:167	获取用户信息失败	{"error": "获取用户信息失败"}
 Shansec212110-21-107 - 100:107:00.235	[31merror[0m	E:/minor/Go/src/go-vue-admin/api/v1/system/sys_user.go:167	获取用户信息失败	{"error": "获取用户信息失败"}
 Shansec212110-21-107 - 100:107:00.669	[31merror[0m	E:/minor/Go/src/go-vue-admin/api/v1/system/sys_user.go:167	获取用户信息失败	{"error": "获取用户信息失败"}
+Shansec24243-24-107 - 100:107:00.288	[31merror[0m	E:/minor/Go/src/go-vue-admin/api/v1/system/sys_user.go:34	登陆失败，用户名不存在或者密码错误	{"error": "密码错误"}
+Shansec24244-24-107 - 100:107:00.175	[31merror[0m	E:/minor/Go/src/go-vue-admin/api/v1/system/sys_user.go:34	登陆失败，用户名不存在或者密码错误	{"error": "密码错误"}

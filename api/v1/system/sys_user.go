@@ -143,7 +143,7 @@ func (b *BaseApi) DelUserInfo(c *gin.Context) {
 func (b *BaseApi) UpdateUserInfo(c *gin.Context) {
 	var user system.SysUser
 	_ = c.ShouldBindJSON(&user)
-	if err := utils.Verify(user, utils.LoginVerify); err != nil {
+	if err := utils.Verify(user, utils.UpdateUserVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
