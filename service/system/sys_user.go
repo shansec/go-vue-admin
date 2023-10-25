@@ -3,33 +3,17 @@ package system
 import (
 	"errors"
 	"fmt"
+	"gorm.io/gorm"
+	"time"
 
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/model/system"
 	"github/shansec/go-vue-admin/utils"
 
 	"github.com/satori/uuid"
-	"gorm.io/gorm"
 )
 
 type UserService struct{}
-
-// @author: [Shansec](https://github.com/shansec)
-// @function: Register
-// @description: 用户注册
-// @param: u system.SysUser
-// @return: userInfo system.SysUser, err error
-
-func (userService *UserService) Register(u system.SysUser) (userInfo system.SysUser, err error) {
-	var user system.SysUser
-	if !errors.Is(global.MAY_DB.Where("username = ?", u.Username).First(&user).Error, gorm.ErrRecordNotFound) {
-		return userInfo, errors.New("用户名已注册")
-	}
-	u.Password = utils.BcryptHash(u.Password)
-	u.UUID = uuid.NewV4()
-	err = global.MAY_DB.Create(&u).Error
-	return u, err
-}
 
 // @author: [Shansec](https://github.com/shansec)
 // @function: Login
@@ -43,7 +27,7 @@ func (userService *UserService) Login(u *system.SysUser) (userInfo *system.SysUs
 	}
 
 	var user system.SysUser
-	err = global.MAY_DB.Where("username = ?", u.Username).First(&user).Error
+	err = global.MAY_DB.Where("username = ?", u.Username).Preload("SysRole").First(&user).Error
 	if err == nil {
 		if ok := utils.BcryptCheck(u.Password, user.Password); !ok {
 			return nil, errors.New("密码错误")
@@ -74,6 +58,63 @@ func (userService *UserService) ChangePassword(u *system.SysUser, newPassword st
 }
 
 // @author: [Shansec](https://github.com/shansec)
+// @function: Register
+// @description: 用户注册
+// @param: u system.SysUser
+// @return: userInfo system.SysUser, err error
+
+func (userService *UserService) Register(u system.SysUser) (userInfo system.SysUser, err error) {
+	var user system.SysUser
+	if !errors.Is(global.MAY_DB.Where("username = ?", u.Username).First(&user).Error, gorm.ErrRecordNotFound) {
+		return userInfo, errors.New("用户名已注册")
+	}
+	u.Password = utils.BcryptHash(u.Password)
+	u.UUID = uuid.NewV4()
+	err = global.MAY_DB.Create(&u).Error
+	return u, err
+}
+
+// @author: [Shansec](https://github.com/shansec)
+// @function: DelUserInformation
+// @description: 删除用户信息
+// @param: uuid uuid.UUID
+// @return: err error
+
+func (userService *UserService) DelUserInformation(uuid uuid.UUID) error {
+	var user system.SysUser
+	err := global.MAY_DB.Where("uuid = ?", uuid).Delete(&user).Error
+	if err != nil {
+		return errors.New("删除用户信息失败")
+	}
+	return nil
+}
+
+// @author: [Shansec](https://github.com/shansec)
+// @function: UpdateUserInformation
+// @description: 更改用户信息
+// @param: userInfo *system.SysUser
+// @return: err error
+
+func (userService *UserService) UpdateUserInformation(userInfo *system.SysUser) error {
+	var user system.SysUser
+	err := global.MAY_DB.Model(&user).
+		Select("updated_at", "nick_name", "header_img", "phone", "email").
+		Where("uuid = ?", userInfo.UUID).
+		Updates(map[string]interface{}{
+			"updated_at": time.Now(),
+			"nick_name":  userInfo.NickName,
+			"header_img": userInfo.HeaderImg,
+			"phone":      userInfo.Phone,
+			"email":      userInfo.Email,
+		}).Error
+	if err != nil {
+		return errors.New("更新用户信息失败")
+	} else {
+		return nil
+	}
+}
+
+// @author: [Shansec](https://github.com/shansec)
 // @function: GetUserInformation
 // @description: 获取用户信息
 // @param: uuid uuid.UUID
@@ -81,7 +122,7 @@ func (userService *UserService) ChangePassword(u *system.SysUser, newPassword st
 
 func (userService *UserService) GetUserInformation(uuid uuid.UUID) (userInfo *system.SysUser, err error) {
 	var user system.SysUser
-	err = global.MAY_DB.Where("uuid = ?", uuid).First(&user).Error
+	err = global.MAY_DB.Preload("SysRole").Where("uuid = ?", uuid).First(&user).Error
 	if err == nil {
 		return &user, nil
 	}

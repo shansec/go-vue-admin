@@ -14,6 +14,8 @@ func (s *UserRouter) InitUserRouter(Router *gin.RouterGroup) {
 	baseApi := v1.ApiGroupAlias.SystemApiGroup.BaseApi
 	{
 		useRouter.POST("modifyPassword", baseApi.ModifyPassword) // 修改密码
-		useRouter.GET("getUserInfo", baseApi.GetUserInfo) // 获取用户信息
+		useRouter.GET("getUserInfo", baseApi.GetUserInfo)        // 获取用户信息
+		useRouter.DELETE("delUserInfo", baseApi.DelUserInfo)     // 删除用户信息
+		useRouter.POST("updateUserInfo", baseApi.UpdateUserInfo) // 更改用户信息
 	}
 }

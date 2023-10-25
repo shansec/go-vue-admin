@@ -15,36 +15,6 @@ import (
 type BaseApi struct{}
 
 // @Tags SysUser
-// @Summary 用户注册账号
-// @Produce json
-// @Param data body systemReq.Register { 用户名、密码、昵称、手机号 }
-// @Success 200
-// @Router /base/register POST
-
-func (b *BaseApi) Register(c *gin.Context) {
-	var register systemReq.Register
-	_ = c.ShouldBindJSON(&register)
-	if err := utils.Verify(register, utils.RegisterVerify); err != nil {
-		response.FailWithMessage(err.Error(), c)
-		return
-	}
-	user := &system.SysUser{
-		Username:  register.Username,
-		NickName:  register.NickName,
-		Password:  register.Password,
-		HeaderImg: register.HeaderImg,
-		Phone:     register.Phone,
-	}
-	userResgisterRes, err := userService.Register(*user)
-	if err != nil {
-		global.MAY_LOGGER.Error("注册失败", zap.Error(err))
-		response.FailWithDetailed(systemRes.SysUserResponse{User: userResgisterRes}, "注册失败", c)
-	} else {
-		response.OkWithDetailed(systemRes.SysUserResponse{User: userResgisterRes}, "注册成功", c)
-	}
-}
-
-// @Tags SysUser
 // @Summary 用户登录
 // @Produce json
 // @Param data body systemReq.Login { 用户名、密码 }
@@ -116,9 +86,78 @@ func (b *BaseApi) ModifyPassword(c *gin.Context) {
 }
 
 // @Tags SysUser
+// @Summary 用户注册账号
+// @Produce json
+// @Param data body systemReq.Register { 用户名、密码、昵称、手机号 }
+// @Success 200
+// @Router /base/register POST
+
+func (b *BaseApi) Register(c *gin.Context) {
+	var register systemReq.Register
+	_ = c.ShouldBindJSON(&register)
+	if err := utils.Verify(register, utils.RegisterVerify); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	user := &system.SysUser{
+		Username:  register.Username,
+		NickName:  register.NickName,
+		Password:  register.Password,
+		HeaderImg: register.HeaderImg,
+		Phone:     register.Phone,
+		Email:     register.Email,
+		RolesId:   register.RolesId,
+		SysRole:   register.SysRole,
+	}
+	userResgisterRes, err := userService.Register(*user)
+	if err != nil {
+		global.MAY_LOGGER.Error("注册失败", zap.Error(err))
+		response.FailWithDetailed(systemRes.SysUserResponse{User: userResgisterRes}, "注册失败", c)
+	} else {
+		response.OkWithDetailed(systemRes.SysUserResponse{User: userResgisterRes}, "注册成功", c)
+	}
+}
+
+// @Tags SysUser
+// @Summary 删除用户信息
+// @Produce json
+// @Success 200
+// @Router /user/delUserInfo Delete
+
+func (b *BaseApi) DelUserInfo(c *gin.Context) {
+	uuid := utils.GetUseUuid(c)
+	if err := userService.DelUserInformation(uuid); err != nil {
+		global.MAY_LOGGER.Error("删除用户信息失败", zap.Error(err))
+		response.FailWithMessage("删除用户信息失败", c)
+	} else {
+		response.OkWithMessage("删除用户信息成功", c)
+	}
+}
+
+// @Tags SysUser
+// @Summary 更新用户信息
+// @Produce json
+// @Success 200
+// @Router /user/updateUserInfo Delete
+
+func (b *BaseApi) UpdateUserInfo(c *gin.Context) {
+	var user system.SysUser
+	_ = c.ShouldBindJSON(&user)
+	if err := utils.Verify(user, utils.UpdateUserVerify); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if err := userService.UpdateUserInformation(&user); err != nil {
+		global.MAY_LOGGER.Error("更改用户信息失败", zap.Error(err))
+		response.FailWithMessage("更改用户信息失败", c)
+	} else {
+		response.OkWithMessage("更改用户信息成功", c)
+	}
+}
+
+// @Tags SysUser
 // @Summary 获取用户信息
 // @Produce json
-// @Param data body systemRes.SysUserResponse { uuid }
 // @Success 200
 // @Router /user/getUserInfo GET
 

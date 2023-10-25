@@ -1,11 +1,10 @@
 package initialize
 
 import (
+	"github/shansec/go-vue-admin/model/system"
 	"os"
 
 	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/system"
-
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 )
@@ -22,6 +21,7 @@ func Gorm() *gorm.DB {
 func RegisterTable(db *gorm.DB) {
 	err := db.AutoMigrate(
 		system.SysUser{},
+		system.SysRole{},
 	)
 	if err != nil {
 		global.MAY_LOGGER.Error("初始化数据库表失败", zap.Error(err))

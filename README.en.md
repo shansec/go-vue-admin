@@ -1,36 +1,64 @@
-# go-vue-admin
+# go-admin
 
-#### Description
-go 代码，为 go-vue 提供后端支持
+## 📦 本地开发
 
-#### Software Architecture
-Software architecture description
+### 环境要求
 
-#### Installation
+go 1.18
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+node版本:  v16.15.0
 
-#### Instructions
+pnpm版本: 8.7.1
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+### 开发目录创建
 
-#### Contribution
+```bash
+# 创建开发目录
+mkdir go-vue-admin
+cd go-vue-admin
+```
 
-1.  Fork the repository
-2.  Create Feat_xxx branch
-3.  Commit your code
-4.  Create Pull Request
+### 获取代码
 
+> 推荐两个项目必须放在同一文件夹下；
 
-#### Gitee Feature
+```bash
+# 获取后端代码
+git clone https://github.com/shansec/go-vue-admin.git
 
-1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4.  The most valuable open source project [GVP](https://gitee.com/gvp)
-5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+# 获取前端代码
+git clone https://github.com/shansec/go-vue.git
+
+```
+
+### 后端启动说明
+
+#### 服务端启动说明
+
+```bash
+# 进入 go-vue-admin 后端项目
+cd ./go-vue-admin
+
+# 更新整理依赖
+go mod tidy
+
+# 编译项目
+go build
+
+# 修改配置 
+# 文件路径  go-vue-admin/config.yml
+vi ./config.yml
+
+# 1. 配置文件中修改数据库信息 
+# 注意: config.mysql 下对应的配置数据
+```
+
+### 前端启动说明
+
+```bash
+# 安装依赖
+pnpm install
+
+# 启动服务
+pnpm dev
+```
