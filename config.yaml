@@ -32,3 +32,7 @@ jwt:
   expires-time: 604800
   buffer-time: 86400
   issuer: 'Shansec'
+captcha:
+  key-long: 6
+  img-width: 240
+  img-height: 80

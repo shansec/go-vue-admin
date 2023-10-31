@@ -28,13 +28,16 @@ func (b *BaseApi) Login(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-
-	u := &system.SysUser{Username: login.Username, Password: login.Password}
-	if user, err := userService.Login(u); err != nil {
-		global.MAY_LOGGER.Error("登陆失败，用户名不存在或者密码错误", zap.Error(err))
-		response.FailWithMessage("用户名不存在或者密码错误", c)
+	if store.Verify(login.CaptchaId, login.Captcha, true) {
+		u := &system.SysUser{Username: login.Username, Password: login.Password}
+		if user, err := userService.Login(u); err != nil {
+			global.MAY_LOGGER.Error("登陆失败，用户名不存在或者密码错误", zap.Error(err))
+			response.FailWithMessage("用户名不存在或者密码错误", c)
+		} else {
+			b.TokenNext(c, *user)
+		}
 	} else {
-		b.TokenNext(c, *user)
+		response.FailWithMessage("验证码错误", c)
 	}
 }
 
