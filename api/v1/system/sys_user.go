@@ -175,3 +175,20 @@ func (b *BaseApi) GetUserInfo(c *gin.Context) {
 		}, "获取用户信息成功", c)
 	}
 }
+
+// @Tags SysUser
+// @Summary 获取用户列表
+// @Produce json
+// @Success 200
+// @Router /user/getUsersInfo GET
+
+func (b *BaseApi) GetUsersInfo(c *gin.Context) {
+	if users, err := userService.GetUsersInformation(); err != nil {
+		global.MAY_LOGGER.Error("获取用户列表失败", zap.Error(err))
+		response.FailWithMessage("获取用户列表失败", c)
+	} else {
+		response.OkWithDetailed(systemRes.SysUsersResponse{
+			Users: users,
+		}, "获取用户列表成功", c)
+	}
+}

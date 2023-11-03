@@ -128,3 +128,18 @@ func (userService *UserService) GetUserInformation(uuid uuid.UUID) (userInfo *sy
 	}
 	return nil, errors.New("获取用户信息失败")
 }
+
+// @author: [Shansec](https://github.com/shansec)
+// @function: GetUsersInformation
+// @description: 获取用户列表
+// @param: nil
+// @return: usersInfo []system.SysUser, err error
+
+func (userService *UserService) GetUsersInformation() (usersInfo []system.SysUser, err error) {
+	var users []system.SysUser
+	err = global.MAY_DB.Preload("SysRole").Find(&users).Error
+	if err != nil {
+		return nil, errors.New("获取用户列表失败")
+	}
+	return users, nil
+}
