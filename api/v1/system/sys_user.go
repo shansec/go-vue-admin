@@ -2,6 +2,7 @@ package system
 
 import (
 	"github/shansec/go-vue-admin/global"
+	"github/shansec/go-vue-admin/model/common/request"
 	"github/shansec/go-vue-admin/model/common/response"
 	"github/shansec/go-vue-admin/model/system"
 	systemReq "github/shansec/go-vue-admin/model/system/request"
@@ -128,12 +129,13 @@ func (b *BaseApi) Register(c *gin.Context) {
 // @Router /user/delUserInfo Delete
 
 func (b *BaseApi) DelUserInfo(c *gin.Context) {
-	uuid := utils.GetUseUuid(c)
-	if err := userService.DelUserInformation(uuid); err != nil {
-		global.MAY_LOGGER.Error("删除用户信息失败", zap.Error(err))
-		response.FailWithMessage("删除用户信息失败", c)
+	var uuid systemReq.UUID
+	_ = c.ShouldBindJSON(&uuid)
+	if err := userService.DelUserInformation(uuid.Uuid); err != nil {
+		global.MAY_LOGGER.Error("删除用户失败", zap.Error(err))
+		response.FailWithMessage("删除用户失败", c)
 	} else {
-		response.OkWithMessage("删除用户信息成功", c)
+		response.OkWithMessage("删除用户成功", c)
 	}
 }
 
@@ -183,12 +185,38 @@ func (b *BaseApi) GetUserInfo(c *gin.Context) {
 // @Router /user/getUsersInfo GET
 
 func (b *BaseApi) GetUsersInfo(c *gin.Context) {
-	if users, err := userService.GetUsersInformation(); err != nil {
+	var pageInfo request.PageInfo
+	err := c.ShouldBindJSON(&pageInfo)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if users, total, err := userService.GetUsersInformation(pageInfo); err != nil {
 		global.MAY_LOGGER.Error("获取用户列表失败", zap.Error(err))
 		response.FailWithMessage("获取用户列表失败", c)
 	} else {
-		response.OkWithDetailed(systemRes.SysUsersResponse{
-			Users: users,
+		response.OkWithDetailed(response.PageResult{
+			List:     users,
+			Total:    total,
+			Page:     pageInfo.Page,
+			PageSize: pageInfo.PagSize,
 		}, "获取用户列表成功", c)
+	}
+}
+
+// @Tags SysUser
+// @Summary 更改用户状态
+// @Produce json
+// @Success 200
+// @Router /user/updateUserStatus GET
+
+func (b *BaseApi) UpdateUserStatus(c *gin.Context) {
+	var uuid systemReq.UUID
+	_ = c.ShouldBindJSON(&uuid)
+	if err := userService.UpdateStatus(uuid.Uuid); err != nil {
+		global.MAY_LOGGER.Error("更改用户状态失败", zap.Error(err))
+		response.FailWithMessage("更改用户状态失败", c)
+	} else {
+		response.OkWithMessage("更改成功", c)
 	}
 }

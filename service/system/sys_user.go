@@ -3,6 +3,7 @@ package system
 import (
 	"errors"
 	"fmt"
+	"github/shansec/go-vue-admin/model/common/request"
 	"gorm.io/gorm"
 	"time"
 
@@ -14,6 +15,8 @@ import (
 )
 
 type UserService struct{}
+
+const USER_STATUS = "2"
 
 // @author: [Shansec](https://github.com/shansec)
 // @function: Login
@@ -135,11 +138,38 @@ func (userService *UserService) GetUserInformation(uuid uuid.UUID) (userInfo *sy
 // @param: nil
 // @return: usersInfo []system.SysUser, err error
 
-func (userService *UserService) GetUsersInformation() (usersInfo []system.SysUser, err error) {
+func (userService *UserService) GetUsersInformation(info request.PageInfo) (usersInfo []system.SysUser, total int64, err error) {
 	var users []system.SysUser
-	err = global.MAY_DB.Preload("SysRole").Find(&users).Error
+	limit := info.PagSize
+	offset := info.PagSize * (info.Page - 1)
+	db := global.MAY_DB.Model(&system.SysUser{})
+	err = db.Count(&total).Error
 	if err != nil {
-		return nil, errors.New("获取用户列表失败")
+		return nil, 0, errors.New("获取用户列表失败")
 	}
-	return users, nil
+	err = db.Limit(limit).Offset(offset).Preload("SysRole").Find(&users).Error
+	if err != nil {
+		return nil, total, errors.New("获取用户列表失败")
+	}
+	return users, total, nil
+}
+
+// @author: [Shansec](https://github.com/shansec)
+// @function: UpdateStatus
+// @description: 更改用户状态
+// @param: uuid uuid.UUID
+// @return: err error
+
+func (userService *UserService) UpdateStatus(uuid uuid.UUID) (err error) {
+	var user system.SysUser
+	if err = global.MAY_DB.Where("uuid = ?", uuid).First(&user).Error; err == nil {
+		if user.Status == USER_STATUS {
+			global.MAY_DB.Model(&user).Where("uuid = ?", uuid).Update("status", "1")
+		} else {
+			global.MAY_DB.Model(&user).Where("uuid = ?", uuid).Update("status", "2")
+		}
+		return nil
+	} else {
+		return err
+	}
 }

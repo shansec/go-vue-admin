@@ -1,6 +1,9 @@
 package request
 
-import "github/shansec/go-vue-admin/model/system"
+import (
+	"github.com/satori/uuid"
+	"github/shansec/go-vue-admin/model/system"
+)
 
 // Register structure
 type Register struct {
@@ -27,4 +30,8 @@ type ChangePassword struct {
 	ID          uint   `json:"uid"`         // user.id
 	Password    string `json:"password"`    // 旧密码
 	NewPassword string `json:"newPassword"` // 新密码
+}
+
+type UUID struct {
+	Uuid uuid.UUID `json:"uuid"`
 }
