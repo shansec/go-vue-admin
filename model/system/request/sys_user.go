@@ -35,3 +35,12 @@ type ChangePassword struct {
 type UUID struct {
 	Uuid uuid.UUID `json:"uuid"`
 }
+
+// GetUserList structure
+type GetUserList struct {
+	Page     int    `json:"page" form:"page"`         // 页码
+	PagSize  int    `json:"pageSize" form:"pageSize"` // 每页大小
+	NickName string `json:"nickName"`                 // 用户昵称
+	Phone    string `json:"phone"`                    // 用户手机号
+	Status   string `json:"status"`                   // 用户状态
+}

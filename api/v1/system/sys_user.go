@@ -2,7 +2,6 @@ package system
 
 import (
 	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/common/request"
 	"github/shansec/go-vue-admin/model/common/response"
 	"github/shansec/go-vue-admin/model/system"
 	systemReq "github/shansec/go-vue-admin/model/system/request"
@@ -185,7 +184,7 @@ func (b *BaseApi) GetUserInfo(c *gin.Context) {
 // @Router /user/getUsersInfo GET
 
 func (b *BaseApi) GetUsersInfo(c *gin.Context) {
-	var pageInfo request.PageInfo
+	var pageInfo systemReq.GetUserList
 	err := c.ShouldBindJSON(&pageInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)

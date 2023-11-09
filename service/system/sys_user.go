@@ -3,7 +3,7 @@ package system
 import (
 	"errors"
 	"fmt"
-	"github/shansec/go-vue-admin/model/common/request"
+	systemReq "github/shansec/go-vue-admin/model/system/request"
 	"gorm.io/gorm"
 	"time"
 
@@ -138,16 +138,25 @@ func (userService *UserService) GetUserInformation(uuid uuid.UUID) (userInfo *sy
 // @param: nil
 // @return: usersInfo []system.SysUser, err error
 
-func (userService *UserService) GetUsersInformation(info request.PageInfo) (usersInfo []system.SysUser, total int64, err error) {
+func (userService *UserService) GetUsersInformation(info systemReq.GetUserList) (usersInfo []system.SysUser, total int64, err error) {
 	var users []system.SysUser
 	limit := info.PagSize
 	offset := info.PagSize * (info.Page - 1)
 	db := global.MAY_DB.Model(&system.SysUser{})
-	err = db.Count(&total).Error
+	if info.NickName != "" {
+		db = db.Where("nick_name LIKE ?", "%"+info.NickName+"%")
+	}
+	if info.Phone != "" {
+		db = db.Where("phone LIKE ?", "%"+info.Phone+"%")
+	}
+	if info.Status != "" {
+		db = db.Where("status = ?", info.Status)
+	}
+	err = db.Limit(limit).Offset(offset).Preload("SysRole").Find(&users).Error
 	if err != nil {
 		return nil, 0, errors.New("获取用户列表失败")
 	}
-	err = db.Limit(limit).Offset(offset).Preload("SysRole").Find(&users).Error
+	err = db.Count(&total).Error
 	if err != nil {
 		return nil, total, errors.New("获取用户列表失败")
 	}
