@@ -8,4 +8,4 @@ type ServiceGroup struct {
 	SystemServiceGroup system.ServiceGroup
 }
 
-var ServiceGroupAlias = new(ServiceGroup)
+var ServiceGroupApp = new(ServiceGroup)

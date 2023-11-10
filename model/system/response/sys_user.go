@@ -9,6 +9,10 @@ type SysUserResponse struct {
 	User system.SysUser `json:"user"`
 }
 
+type SysUsersResponse struct {
+	Users []system.SysUser `json:"user"`
+}
+
 type Login struct {
 	User      system.SysUser `json:"user"`
 	Token     string         `json:"token"`
