@@ -27,6 +27,7 @@ func Routers() *gin.Engine {
 	PrivateGroup.Use(middleware.JwtAuth())
 	{
 		systemRouter.InitUserRouter(PrivateGroup)
+		systemRouter.InitDeptRouter(PrivateGroup)
 	}
 
 	global.MAY_LOGGER.Info("router register sucess")

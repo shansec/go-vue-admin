@@ -6,8 +6,10 @@ import (
 
 type ApiGroup struct {
 	BaseApi
+	DeptApi
 }
 
 var (
-	userService = service.ServiceGroupAlias.SystemServiceGroup.UserService
+	userService = service.ServiceGroupApp.SystemServiceGroup.UserService
+	deptService = service.ServiceGroupApp.SystemServiceGroup.DeptService
 )

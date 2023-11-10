@@ -7,6 +7,7 @@ import (
 	systemReq "github/shansec/go-vue-admin/model/system/request"
 	systemRes "github/shansec/go-vue-admin/model/system/response"
 	"github/shansec/go-vue-admin/utils"
+	SystemVerify "github/shansec/go-vue-admin/verify/system"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -14,17 +15,17 @@ import (
 
 type BaseApi struct{}
 
+// Login
 // @Tags SysUser
 // @Summary 用户登录
 // @Produce json
 // @Param data body systemReq.Login { 用户名、密码 }
 // @Success 200
 // @Router /base/login POST
-
 func (b *BaseApi) Login(c *gin.Context) {
 	var login systemReq.Login
 	_ = c.ShouldBindJSON(&login)
-	if err := utils.Verify(login, utils.LoginVerify); err != nil {
+	if err := utils.Verify(login, SystemVerify.LoginVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
@@ -63,18 +64,18 @@ func (b *BaseApi) TokenNext(c *gin.Context, user system.SysUser) {
 	}, "登录成功", c)
 }
 
+// ModifyPassword
 // @Tags SysUser
 // @Summary 修改密码
 // @Produce json
 // @Param data body systemReq.ChangePassword { 原密码，新密码 }
 // @Success 200
 // @Router /base/login POST
-
 func (b *BaseApi) ModifyPassword(c *gin.Context) {
 	var modifyPassword systemReq.ChangePassword
 	_ = c.ShouldBindJSON(&modifyPassword)
 
-	if err := utils.Verify(modifyPassword, utils.ChangePasswordVerify); err != nil {
+	if err := utils.Verify(modifyPassword, SystemVerify.ChangePasswordVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
@@ -88,17 +89,17 @@ func (b *BaseApi) ModifyPassword(c *gin.Context) {
 	}
 }
 
+// Register
 // @Tags SysUser
 // @Summary 用户注册账号
 // @Produce json
 // @Param data body systemReq.Register { 用户名、密码、昵称、手机号 }
 // @Success 200
 // @Router /base/register POST
-
 func (b *BaseApi) Register(c *gin.Context) {
 	var register systemReq.Register
 	_ = c.ShouldBindJSON(&register)
-	if err := utils.Verify(register, utils.RegisterVerify); err != nil {
+	if err := utils.Verify(register, SystemVerify.RegisterVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
@@ -121,12 +122,12 @@ func (b *BaseApi) Register(c *gin.Context) {
 	}
 }
 
+// DelUserInfo
 // @Tags SysUser
 // @Summary 删除用户信息
 // @Produce json
 // @Success 200
 // @Router /user/delUserInfo Delete
-
 func (b *BaseApi) DelUserInfo(c *gin.Context) {
 	var uuid systemReq.UUID
 	_ = c.ShouldBindJSON(&uuid)
@@ -138,16 +139,16 @@ func (b *BaseApi) DelUserInfo(c *gin.Context) {
 	}
 }
 
+// UpdateUserInfo
 // @Tags SysUser
 // @Summary 更新用户信息
 // @Produce json
 // @Success 200
 // @Router /user/updateUserInfo Delete
-
 func (b *BaseApi) UpdateUserInfo(c *gin.Context) {
 	var user system.SysUser
 	_ = c.ShouldBindJSON(&user)
-	if err := utils.Verify(user, utils.UpdateUserVerify); err != nil {
+	if err := utils.Verify(user, SystemVerify.UpdateUserVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
@@ -159,12 +160,12 @@ func (b *BaseApi) UpdateUserInfo(c *gin.Context) {
 	}
 }
 
+// GetUserInfo
 // @Tags SysUser
 // @Summary 获取用户信息
 // @Produce json
 // @Success 200
 // @Router /user/getUserInfo GET
-
 func (b *BaseApi) GetUserInfo(c *gin.Context) {
 	uuid := utils.GetUseUuid(c)
 	if user, err := userService.GetUserInformation(uuid); err != nil {
@@ -177,12 +178,12 @@ func (b *BaseApi) GetUserInfo(c *gin.Context) {
 	}
 }
 
+// GetUsersInfo
 // @Tags SysUser
 // @Summary 获取用户列表
 // @Produce json
 // @Success 200
 // @Router /user/getUsersInfo GET
-
 func (b *BaseApi) GetUsersInfo(c *gin.Context) {
 	var pageInfo systemReq.GetUserList
 	err := c.ShouldBindJSON(&pageInfo)
@@ -203,12 +204,12 @@ func (b *BaseApi) GetUsersInfo(c *gin.Context) {
 	}
 }
 
+// UpdateUserStatus
 // @Tags SysUser
 // @Summary 更改用户状态
 // @Produce json
 // @Success 200
 // @Router /user/updateUserStatus GET
-
 func (b *BaseApi) UpdateUserStatus(c *gin.Context) {
 	var uuid systemReq.UUID
 	_ = c.ShouldBindJSON(&uuid)

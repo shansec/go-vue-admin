@@ -18,12 +18,12 @@ type UserService struct{}
 
 const USER_STATUS = "2"
 
+// Login
 // @author: [Shansec](https://github.com/shansec)
 // @function: Login
 // @description: 用户登录
 // @param: u *system.SysUser
 // @return: userInfo *system.SysUser, err error
-
 func (userService *UserService) Login(u *system.SysUser) (userInfo *system.SysUser, err error) {
 	if nil == global.MAY_DB {
 		return nil, fmt.Errorf("db not init")
@@ -40,12 +40,12 @@ func (userService *UserService) Login(u *system.SysUser) (userInfo *system.SysUs
 	return &user, err
 }
 
+// ChangePassword
 // @author: [Shansec](https://github.com/shansec)
 // @function: ChangePassword
 // @description: 修改密码
 // @param: u *system.SysUser, newPassword string
 // @return: userInfo *system.SysUser, err error
-
 func (userService *UserService) ChangePassword(u *system.SysUser, newPassword string) (userInfo *system.SysUser, err error) {
 	var user system.SysUser
 	err = global.MAY_DB.Where("id = ?", u.ID).First(&user).Error
@@ -60,12 +60,12 @@ func (userService *UserService) ChangePassword(u *system.SysUser, newPassword st
 	return nil, errors.New("非法访问")
 }
 
+// Register
 // @author: [Shansec](https://github.com/shansec)
 // @function: Register
 // @description: 用户注册
 // @param: u system.SysUser
 // @return: userInfo system.SysUser, err error
-
 func (userService *UserService) Register(u system.SysUser) (userInfo system.SysUser, err error) {
 	var user system.SysUser
 	if !errors.Is(global.MAY_DB.Where("username = ?", u.Username).First(&user).Error, gorm.ErrRecordNotFound) {
@@ -77,12 +77,12 @@ func (userService *UserService) Register(u system.SysUser) (userInfo system.SysU
 	return u, err
 }
 
+// DelUserInformation
 // @author: [Shansec](https://github.com/shansec)
 // @function: DelUserInformation
 // @description: 删除用户信息
 // @param: uuid uuid.UUID
 // @return: err error
-
 func (userService *UserService) DelUserInformation(uuid uuid.UUID) error {
 	var user system.SysUser
 	err := global.MAY_DB.Where("uuid = ?", uuid).Delete(&user).Error
@@ -92,12 +92,12 @@ func (userService *UserService) DelUserInformation(uuid uuid.UUID) error {
 	return nil
 }
 
+// UpdateUserInformation
 // @author: [Shansec](https://github.com/shansec)
 // @function: UpdateUserInformation
 // @description: 更改用户信息
 // @param: userInfo *system.SysUser
 // @return: err error
-
 func (userService *UserService) UpdateUserInformation(userInfo *system.SysUser) error {
 	var user system.SysUser
 	err := global.MAY_DB.Model(&user).
@@ -117,12 +117,12 @@ func (userService *UserService) UpdateUserInformation(userInfo *system.SysUser) 
 	}
 }
 
+// GetUserInformation
 // @author: [Shansec](https://github.com/shansec)
 // @function: GetUserInformation
 // @description: 获取用户信息
 // @param: uuid uuid.UUID
 // @return: userInfo *system.SysUser, err error
-
 func (userService *UserService) GetUserInformation(uuid uuid.UUID) (userInfo *system.SysUser, err error) {
 	var user system.SysUser
 	err = global.MAY_DB.Preload("SysRole").Where("uuid = ?", uuid).First(&user).Error
@@ -132,12 +132,12 @@ func (userService *UserService) GetUserInformation(uuid uuid.UUID) (userInfo *sy
 	return nil, errors.New("获取用户信息失败")
 }
 
+// GetUsersInformation
 // @author: [Shansec](https://github.com/shansec)
 // @function: GetUsersInformation
 // @description: 获取用户列表
 // @param: nil
 // @return: usersInfo []system.SysUser, err error
-
 func (userService *UserService) GetUsersInformation(info systemReq.GetUserList) (usersInfo []system.SysUser, total int64, err error) {
 	var users []system.SysUser
 	limit := info.PagSize
@@ -163,12 +163,12 @@ func (userService *UserService) GetUsersInformation(info systemReq.GetUserList) 
 	return users, total, nil
 }
 
+// UpdateStatus
 // @author: [Shansec](https://github.com/shansec)
 // @function: UpdateStatus
 // @description: 更改用户状态
 // @param: uuid uuid.UUID
 // @return: err error
-
 func (userService *UserService) UpdateStatus(uuid uuid.UUID) (err error) {
 	var user system.SysUser
 	if err = global.MAY_DB.Where("uuid = ?", uuid).First(&user).Error; err == nil {

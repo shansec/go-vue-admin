@@ -8,4 +8,4 @@ type ApiGroup struct {
 	SystemApiGroup system.ApiGroup
 }
 
-var ApiGroupAlias = new(ApiGroup)
+var ApiGroupApp = new(ApiGroup)
