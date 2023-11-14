@@ -48,6 +48,13 @@ func (d *DeptApi) CreateDept(c *gin.Context) {
 	}
 }
 
+// GetDeptList
+// @Tags SysDept
+// @Summary 获取部门列表
+// @Produce json
+// @Param data body systemReq.GetDeptList
+// @Success 200
+// @Router /dept/getDeptList POST
 func (d *DeptApi) GetDeptList(c *gin.Context) {
 	var deptPageInfo systemReq.GetDeptList
 	err := c.ShouldBindJSON(&deptPageInfo)

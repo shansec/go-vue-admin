@@ -10,6 +10,8 @@ import (
 
 type DeptService struct{}
 
+const DEPT_STATUS = "2"
+
 // EstablishDept
 // @author: [Shansec](https://github.com/shansec)
 // @function: EstablishDept
@@ -46,14 +48,18 @@ func (deptService *DeptService) GetDept(info systemReq.GetDeptList) (deptList []
 	if err != nil {
 		return nil, 0, errors.New("获取用户列表失败")
 	}
-	for _, dept := range depts {
-		if dept.ParentId != 0 {
-			continue
+	if info.DeptName == "" && info.Status == "" {
+		for _, dept := range depts {
+			if dept.ParentId != 0 {
+				continue
+			}
+			deptResult := deptService.GetDeptCall(depts, dept)
+			deptList = append(deptList, deptResult)
 		}
-		deptResult := deptService.GetDeptCall(depts, dept)
-		deptList = append(deptList, deptResult)
+		return deptList, int64(len(deptList)), nil
+	} else {
+		return depts, int64(len(depts)), nil
 	}
-	return deptList, int64(len(deptList)), nil
 }
 
 // GetDeptCall 循环处理部门数据
