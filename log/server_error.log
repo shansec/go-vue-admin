@@ -90,3 +90,6 @@ Shansec212110-21-107 - 100:107:00.235	[31merror[0m	E:/minor/Go/src/go-vue-admi
 Shansec212110-21-107 - 100:107:00.669	[31merror[0m	E:/minor/Go/src/go-vue-admin/api/v1/system/sys_user.go:167	获取用户信息失败	{"error": "获取用户信息失败"}
 Shansec24243-24-107 - 100:107:00.288	[31merror[0m	E:/minor/Go/src/go-vue-admin/api/v1/system/sys_user.go:34	登陆失败，用户名不存在或者密码错误	{"error": "密码错误"}
 Shansec24244-24-107 - 100:107:00.175	[31merror[0m	E:/minor/Go/src/go-vue-admin/api/v1/system/sys_user.go:34	登陆失败，用户名不存在或者密码错误	{"error": "密码错误"}
+Shansec15155-15-117 - 110:117:00.796	[31merror[0m	E:/minor/Go/src/go-vue-admin/api/v1/system/sys_dept.go:88	删除部门信息失败	{"error": "包含下级不能，请先删除下级部门"}
+Shansec15155-15-117 - 110:117:00.501	[31merror[0m	E:/minor/Go/src/go-vue-admin/api/v1/system/sys_dept.go:88	删除部门信息失败	{"error": "包含下级不能，请先删除下级部门"}
+Shansec15155-15-117 - 110:117:00.552	[31merror[0m	E:/minor/Go/src/go-vue-admin/api/v1/system/sys_dept.go:88	删除部门信息失败,请检查是否包含下级部门	{"error": "包含下级不能，请先删除下级部门"}

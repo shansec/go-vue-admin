@@ -74,3 +74,20 @@ func (d *DeptApi) GetDeptList(c *gin.Context) {
 		}, "获取部门列表成功", c)
 	}
 }
+
+func (d *DeptApi) DelDeptInfo(c *gin.Context) {
+	var deptInfo system.SysDept
+	_ = c.ShouldBindJSON(&deptInfo)
+
+	if err := utils.Verify(deptInfo, SystemVerify.DeleteVerify); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if err := deptService.DelDeptInformation(deptInfo); err != nil {
+		global.MAY_LOGGER.Error("删除部门信息失败,请检查是否包含下级部门", zap.Error(err))
+		response.FailWithMessage("删除部门信息失败,请检查是否包含下级部门", c)
+	} else {
+		response.OkWithMessage("删除部门信息成功", c)
+	}
+}

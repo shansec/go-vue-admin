@@ -87,3 +87,16 @@ func (deptService *DeptService) GetDeptCall(deptList []system.SysDept, dept syst
 	dept.Children = deptCalls
 	return dept
 }
+
+func (deptService *DeptService) DelDeptInformation(dept system.SysDept) (err error) {
+	var depts []system.SysDept
+	var depart system.SysDept
+	global.MAY_DB.Where("parent_id = ?", dept.DeptId).Find(&depts)
+	if len(depts) != 0 {
+		return errors.New("包含下级不能，请先删除下级部门")
+	}
+	if err = global.MAY_DB.Where("dept_id = ?", dept.DeptId).Delete(&depart).Error; err != nil {
+		return errors.New("删除部门信息失败")
+	}
+	return nil
+}
