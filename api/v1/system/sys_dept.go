@@ -75,6 +75,13 @@ func (d *DeptApi) GetDeptList(c *gin.Context) {
 	}
 }
 
+// DelDeptInfo
+// @Tags SysDept
+// @Summary 删除部门信息
+// @Produce json
+// @Param data body system.SysDept
+// @Success 200
+// @Router /dept/delDeptInfo DELETE
 func (d *DeptApi) DelDeptInfo(c *gin.Context) {
 	var deptInfo system.SysDept
 	_ = c.ShouldBindJSON(&deptInfo)
@@ -89,5 +96,26 @@ func (d *DeptApi) DelDeptInfo(c *gin.Context) {
 		response.FailWithMessage("删除部门信息失败,请检查是否包含下级部门", c)
 	} else {
 		response.OkWithMessage("删除部门信息成功", c)
+	}
+}
+
+// UpdateDeptInfo
+// @Tags SysDept
+// @Summary 更新部门信息
+// @Produce json
+// @Success 200
+// @Router /dept/updateDeptInfo PUT
+func (d *DeptApi) UpdateDeptInfo(c *gin.Context) {
+	var dept system.SysDept
+	_ = c.ShouldBindJSON(&dept)
+	if err := utils.Verify(dept, SystemVerify.UpdateVerify); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	if err := deptService.UpdateDeptInformation(&dept); err != nil {
+		global.MAY_LOGGER.Error("更改部门信息失败", zap.Error(err))
+		response.FailWithMessage("更改部门信息失败", c)
+	} else {
+		response.OkWithMessage("更改部门信息成功", c)
 	}
 }

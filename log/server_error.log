@@ -93,3 +93,7 @@ Shansec24244-24-107 - 100:107:00.175	[31merror[0m	E:/minor/Go/src/go-vue-admin
 Shansec15155-15-117 - 110:117:00.796	[31merror[0m	E:/minor/Go/src/go-vue-admin/api/v1/system/sys_dept.go:88	删除部门信息失败	{"error": "包含下级不能，请先删除下级部门"}
 Shansec15155-15-117 - 110:117:00.501	[31merror[0m	E:/minor/Go/src/go-vue-admin/api/v1/system/sys_dept.go:88	删除部门信息失败	{"error": "包含下级不能，请先删除下级部门"}
 Shansec15155-15-117 - 110:117:00.552	[31merror[0m	E:/minor/Go/src/go-vue-admin/api/v1/system/sys_dept.go:88	删除部门信息失败,请检查是否包含下级部门	{"error": "包含下级不能，请先删除下级部门"}
+Shansec16164-16-117 - 110:117:00.641	[31merror[0m	E:/minor/Go/src/go-vue-admin/api/v1/system/sys_dept.go:95	删除部门信息失败,请检查是否包含下级部门	{"error": "包含下级不能，请先删除下级部门"}
+Shansec16164-16-117 - 110:117:00.196	[31merror[0m	E:/minor/Go/src/go-vue-admin/api/v1/system/sys_dept.go:43	添加部门失败	{"error": "WHERE conditions required"}
+Shansec16164-16-117 - 110:117:00.536	[31merror[0m	E:/minor/Go/src/go-vue-admin/api/v1/system/sys_dept.go:43	添加部门失败	{"error": "部门名称已被占用"}
+Shansec16165-16-117 - 110:117:00.551	[31merror[0m	E:/minor/Go/src/go-vue-admin/api/v1/system/sys_dept.go:43	添加部门失败	{"error": "Error 1054 (42S22): Unknown column 'dept_path = ?' in 'field list'"}

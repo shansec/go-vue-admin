@@ -6,6 +6,8 @@ import (
 	"github/shansec/go-vue-admin/model/system"
 	systemReq "github/shansec/go-vue-admin/model/system/request"
 	"gorm.io/gorm"
+	"strconv"
+	"time"
 )
 
 type DeptService struct{}
@@ -24,7 +26,21 @@ func (deptService *DeptService) EstablishDept(d system.SysDept) (err error) {
 		return errors.New("部门名称已被占用")
 	}
 	err = global.MAY_DB.Create(&d).Error
-	return err
+	if err != nil {
+		return err
+	}
+	deptPath := strconv.Itoa(d.DeptId) + "/"
+	if d.ParentId != 0 {
+		var deptParent system.SysDept
+		global.MAY_DB.First(&deptParent, d.ParentId)
+		deptPath = deptParent.DeptPath + deptPath
+	} else {
+		deptPath = "/0/" + deptPath
+	}
+	if err = global.MAY_DB.Model(&dept).Where("dept_id = ?", d.DeptId).Update("dept_path", deptPath).Error; err != nil {
+		return err
+	}
+	return nil
 }
 
 // GetDept
@@ -88,6 +104,12 @@ func (deptService *DeptService) GetDeptCall(deptList []system.SysDept, dept syst
 	return dept
 }
 
+// DelDeptInformation
+// @author: [Shansec](https://github.com/shansec)
+// @function: DelDeptInformation
+// @description: 删除部门信息
+// @param: dept system.SysDept
+// @return: err error
 func (deptService *DeptService) DelDeptInformation(dept system.SysDept) (err error) {
 	var depts []system.SysDept
 	var depart system.SysDept
@@ -99,4 +121,31 @@ func (deptService *DeptService) DelDeptInformation(dept system.SysDept) (err err
 		return errors.New("删除部门信息失败")
 	}
 	return nil
+}
+
+// UpdateDeptInformation
+// @author: [Shansec](https://github.com/shansec)
+// @function: UpdateDeptInformation
+// @description: 更改部门信息
+// @param: deptInfo *system.SysDept
+// @return: err error
+func (deptService *DeptService) UpdateDeptInformation(deptInfo *system.SysDept) error {
+	var dept system.SysDept
+	err := global.MAY_DB.Model(&dept).
+		Select("updated_at", "dept_name", "sort", "leader", "phone", "email", "status").
+		Where("dept_id = ?", deptInfo.DeptId).
+		Updates(map[string]interface{}{
+			"updated_at": time.Now(),
+			"dept_name":  deptInfo.DeptName,
+			"sort":       deptInfo.Sort,
+			"leader":     deptInfo.Leader,
+			"phone":      deptInfo.Phone,
+			"email":      deptInfo.Email,
+			"status":     deptInfo.Status,
+		}).Error
+	if err != nil {
+		return errors.New("更新部门信息失败")
+	} else {
+		return nil
+	}
 }
