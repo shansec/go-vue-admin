@@ -144,7 +144,7 @@ func (b *BaseApi) DelUserInfo(c *gin.Context) {
 // @Summary 更新用户信息
 // @Produce json
 // @Success 200
-// @Router /user/updateUserInfo Delete
+// @Router /user/updateUserInfo PUT
 func (b *BaseApi) UpdateUserInfo(c *gin.Context) {
 	var user system.SysUser
 	_ = c.ShouldBindJSON(&user)
