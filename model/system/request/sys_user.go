@@ -8,11 +8,14 @@ import (
 // Register structure
 type Register struct {
 	Username  string         `json:"username"`  // 用户登录名
+	Sex       int            `json:"sex"`       // 用户性别
 	Password  string         `json:"password"`  // 用户登录密码
 	NickName  string         `json:"nickName"`  // 用户昵称
 	HeaderImg string         `json:"headerImg"` // 用户头像
 	Phone     string         `json:"phone"`     // 用户手机号
 	Email     string         `json:"email"`
+	DeptsId   int            `json:"deptsId"` // 部门ID
+	SysDept   system.SysDept `json:"sysDept"`
 	RolesId   int            `json:"rolesId"` // 用户角色ID
 	SysRole   system.SysRole `json:"sysRole"`
 }
