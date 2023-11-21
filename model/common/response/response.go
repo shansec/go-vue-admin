@@ -13,7 +13,8 @@ type Response struct {
 }
 
 const (
-	ERROR   = 101
+	RESET   = 101
+	ERROR   = 201
 	SUCCESS = 200
 )
 
@@ -51,4 +52,16 @@ func FailWithMessage(message string, c *gin.Context) {
 
 func FailWithDetailed(data interface{}, message string, c *gin.Context) {
 	Result(ERROR, data, message, c)
+}
+
+func Reset(c *gin.Context) {
+	Result(RESET, map[string]interface{}{}, "操作失败", c)
+}
+
+func ResetWithMessage(message string, c *gin.Context) {
+	Result(RESET, map[string]interface{}{}, message, c)
+}
+
+func ResetWithDetailed(data interface{}, message string, c *gin.Context) {
+	Result(RESET, data, message, c)
 }

@@ -16,7 +16,7 @@ func JwtAuth() gin.HandlerFunc {
 		// 获取 token
 		token := ctx.Request.Header.Get("x-token")
 		if token == "" {
-			response.FailWithDetailed(gin.H{"reload": true}, "未登录或非法访问", ctx)
+			response.ResetWithDetailed(gin.H{"reload": true}, "未登录或非法访问", ctx)
 			ctx.Abort()
 			return
 		}
@@ -24,11 +24,11 @@ func JwtAuth() gin.HandlerFunc {
 		claims, err := jwt.ParseToken(token)
 		if err != nil {
 			if err == utils.TokenExpired {
-				response.FailWithDetailed(gin.H{"reload": true}, "授权已过期", ctx)
+				response.ResetWithDetailed(gin.H{"reload": true}, "授权已过期", ctx)
 				ctx.Abort()
 				return
 			}
-			response.FailWithDetailed(gin.H{"reload": true}, err.Error(), ctx)
+			response.ResetWithDetailed(gin.H{"reload": true}, err.Error(), ctx)
 			ctx.Abort()
 			return
 		}
