@@ -480,3 +480,6 @@ Shansec17174-17-117 - 110:117:00.590	[34minfo[0m	E:/minor/Go/src/go-vue-admin/
 Shansec17176-17-117 - 110:117:00.408	[34minfo[0m	E:/minor/Go/src/go-vue-admin/initialize/gorm.go:31	初始化数据库表成功
 Shansec17176-17-117 - 110:117:00.436	[34minfo[0m	E:/minor/Go/src/go-vue-admin/initialize/router.go:33	router register sucess
 Shansec17176-17-117 - 110:117:00.444	[34minfo[0m	E:/minor/Go/src/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
+Shansec21215-21-117 - 110:117:00.514	[34minfo[0m	E:/minor/Go/src/go-vue-admin/initialize/gorm.go:31	初始化数据库表成功
+Shansec21215-21-117 - 110:117:00.539	[34minfo[0m	E:/minor/Go/src/go-vue-admin/initialize/router.go:33	router register sucess
+Shansec21215-21-117 - 110:117:00.542	[34minfo[0m	E:/minor/Go/src/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
