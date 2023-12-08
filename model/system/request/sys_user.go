@@ -13,8 +13,9 @@ type Register struct {
 	NickName  string         `json:"nickName"`  // 用户昵称
 	HeaderImg string         `json:"headerImg"` // 用户头像
 	Phone     string         `json:"phone"`     // 用户手机号
-	Email     string         `json:"email"`
-	DeptsId   int            `json:"deptsId"` // 部门ID
+	Email     string         `json:"email"`     // 用户邮箱
+	Status    int            `json:"status"`    // 用户状态
+	DeptsId   int            `json:"deptsId"`   // 部门ID
 	SysDept   system.SysDept `json:"sysDept"`
 	RolesId   int            `json:"rolesId"` // 用户角色ID
 	SysRole   system.SysRole `json:"sysRole"`

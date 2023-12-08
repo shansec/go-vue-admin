@@ -15,7 +15,7 @@ type SysUser struct {
 	HeaderImg string    `json:"headerImg" gorm:"default:https://qmplusimg.henrongyi.top/gva_header.jpg;comment:用户头像"` // 用户头像
 	Phone     string    `json:"phone"  gorm:"comment:用户手机号"`                                                          // 用户手机号
 	Email     string    `json:"email"  gorm:"comment:用户邮箱"`                                                           // 用户邮箱
-	Status    string    `json:"status" gorm:"default:1;comment:用户状态 1为开启，2为禁用"`                                       // 用户状态 1为开启，2为禁用
+	Status    int       `json:"status" gorm:"default:1;comment:用户状态 1为开启，2为禁用"`                                       // 用户状态 1为开启，2为禁用
 	RolesId   int       `json:"rolesId" gorm:"comment:用户角色ID"`                                                        // 用户角色ID
 	SysRole   SysRole   `json:"sysRole" gorm:"foreignKey:RolesId;references:RoleId"`
 	DeptsId   int       `json:"deptsId" gorm:"用户部门ID"`

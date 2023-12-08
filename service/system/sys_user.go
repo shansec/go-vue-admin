@@ -16,7 +16,7 @@ import (
 
 type UserService struct{}
 
-const USER_STATUS = "2"
+const USER_STATUS = 2
 
 // Login
 // @author: [Shansec](https://github.com/shansec)
@@ -73,7 +73,7 @@ func (userService *UserService) Register(u system.SysUser) (userInfo system.SysU
 	}
 	u.Password = utils.BcryptHash(u.Password)
 	u.UUID = uuid.NewV4()
-	err = global.MAY_DB.Create(&u).Error
+	err = global.MAY_DB.Omit("SysRole", "SysDept").Create(&u).Error
 	return u, err
 }
 
@@ -152,7 +152,7 @@ func (userService *UserService) GetUsersInformation(info systemReq.GetUserList) 
 	if info.Status != "" {
 		db = db.Where("status = ?", info.Status)
 	}
-	err = db.Limit(limit).Offset(offset).Preload("SysDept").Find(&users).Error
+	err = db.Limit(limit).Offset(offset).Preload("SysRole").Preload("SysDept").Find(&users).Error
 	if err != nil {
 		return nil, 0, errors.New("获取用户列表失败")
 	}
