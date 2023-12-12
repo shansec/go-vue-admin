@@ -105,13 +105,15 @@ func (b *BaseApi) Register(c *gin.Context) {
 	}
 	user := &system.SysUser{
 		Username:  register.Username,
+		Sex:       register.Sex,
 		NickName:  register.NickName,
 		Password:  register.Password,
 		HeaderImg: register.HeaderImg,
 		Phone:     register.Phone,
 		Email:     register.Email,
-		RolesId:   register.RolesId,
-		SysRole:   register.SysRole,
+		DeptsId:   register.DeptsId,
+		RolesId:   1,
+		//SysDept:   register.SysDept,
 	}
 	userResgisterRes, err := userService.Register(*user)
 	if err != nil {

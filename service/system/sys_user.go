@@ -16,7 +16,7 @@ import (
 
 type UserService struct{}
 
-const USER_STATUS = "2"
+const USER_STATUS = 2
 
 // Login
 // @author: [Shansec](https://github.com/shansec)
@@ -30,7 +30,7 @@ func (userService *UserService) Login(u *system.SysUser) (userInfo *system.SysUs
 	}
 
 	var user system.SysUser
-	err = global.MAY_DB.Where("username = ?", u.Username).Preload("SysRole").First(&user).Error
+	err = global.MAY_DB.Where("username = ?", u.Username).Preload("SysDept").First(&user).Error
 	if err == nil {
 		if ok := utils.BcryptCheck(u.Password, user.Password); !ok {
 			return nil, errors.New("密码错误")
@@ -73,7 +73,7 @@ func (userService *UserService) Register(u system.SysUser) (userInfo system.SysU
 	}
 	u.Password = utils.BcryptHash(u.Password)
 	u.UUID = uuid.NewV4()
-	err = global.MAY_DB.Create(&u).Error
+	err = global.MAY_DB.Omit("SysRole", "SysDept").Create(&u).Error
 	return u, err
 }
 
@@ -125,7 +125,7 @@ func (userService *UserService) UpdateUserInformation(userInfo *system.SysUser) 
 // @return: userInfo *system.SysUser, err error
 func (userService *UserService) GetUserInformation(uuid uuid.UUID) (userInfo *system.SysUser, err error) {
 	var user system.SysUser
-	err = global.MAY_DB.Preload("SysRole").Where("uuid = ?", uuid).First(&user).Error
+	err = global.MAY_DB.Preload("SysDept").Where("uuid = ?", uuid).First(&user).Error
 	if err == nil {
 		return &user, nil
 	}
@@ -152,7 +152,7 @@ func (userService *UserService) GetUsersInformation(info systemReq.GetUserList) 
 	if info.Status != "" {
 		db = db.Where("status = ?", info.Status)
 	}
-	err = db.Limit(limit).Offset(offset).Preload("SysRole").Find(&users).Error
+	err = db.Limit(limit).Offset(offset).Preload("SysRole").Preload("SysDept").Find(&users).Error
 	if err != nil {
 		return nil, 0, errors.New("获取用户列表失败")
 	}

@@ -11,6 +11,7 @@ func (s *UserRouter) InitUserRouter(Router *gin.RouterGroup) {
 	useRouter := Router.Group("user")
 	baseApi := v1.ApiGroupApp.SystemApiGroup.BaseApi
 	{
+		useRouter.POST("register", baseApi.Register)                // 注册用户
 		useRouter.POST("modifyPassword", baseApi.ModifyPassword)    // 修改密码
 		useRouter.GET("getUserInfo", baseApi.GetUserInfo)           // 获取用户信息
 		useRouter.POST("getUsersInfo", baseApi.GetUsersInfo)        // 获取用户列表
