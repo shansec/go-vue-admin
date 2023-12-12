@@ -540,3 +540,24 @@ Shansec8086-08-127 - 120:127:00.774	[34minfo[0m	E:/minor/Go/src/go-vue-admin/c
 Shansec8086-08-127 - 120:127:00.488	[34minfo[0m	E:/minor/Go/src/go-vue-admin/initialize/gorm.go:31	初始化数据库表成功
 Shansec8086-08-127 - 120:127:00.513	[34minfo[0m	E:/minor/Go/src/go-vue-admin/initialize/router.go:33	router register sucess
 Shansec8086-08-127 - 120:127:00.528	[34minfo[0m	E:/minor/Go/src/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
+Shansec12124-12-127 - 120:127:00.740	[34minfo[0m	E:/minor/Go/src/go-vue-admin/initialize/gorm.go:31	初始化数据库表成功
+Shansec12124-12-127 - 120:127:00.772	[34minfo[0m	E:/minor/Go/src/go-vue-admin/initialize/router.go:33	router register sucess
+Shansec12124-12-127 - 120:127:00.783	[34minfo[0m	E:/minor/Go/src/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
+Shansec12124-12-127 - 120:127:00.562	[34minfo[0m	E:/minor/Go/src/go-vue-admin/initialize/gorm.go:31	初始化数据库表成功
+Shansec12124-12-127 - 120:127:00.587	[34minfo[0m	E:/minor/Go/src/go-vue-admin/initialize/router.go:33	router register sucess
+Shansec12124-12-127 - 120:127:00.602	[34minfo[0m	E:/minor/Go/src/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
+Shansec12124-12-127 - 120:127:00.659	[34minfo[0m	E:/minor/Go/src/go-vue-admin/initialize/gorm.go:31	初始化数据库表成功
+Shansec12124-12-127 - 120:127:00.693	[34minfo[0m	E:/minor/Go/src/go-vue-admin/initialize/router.go:33	router register sucess
+Shansec12124-12-127 - 120:127:00.708	[34minfo[0m	E:/minor/Go/src/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
+Shansec12124-12-127 - 120:127:00.221	[34minfo[0m	E:/minor/Go/src/go-vue-admin/initialize/gorm.go:31	初始化数据库表成功
+Shansec12124-12-127 - 120:127:00.247	[34minfo[0m	E:/minor/Go/src/go-vue-admin/initialize/router.go:33	router register sucess
+Shansec12124-12-127 - 120:127:00.260	[34minfo[0m	E:/minor/Go/src/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
+Shansec12124-12-127 - 120:127:00.554	[34minfo[0m	E:/minor/Go/src/go-vue-admin/initialize/gorm.go:31	初始化数据库表成功
+Shansec12124-12-127 - 120:127:00.581	[34minfo[0m	E:/minor/Go/src/go-vue-admin/initialize/router.go:33	router register sucess
+Shansec12124-12-127 - 120:127:00.596	[34minfo[0m	E:/minor/Go/src/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
+Shansec12125-12-127 - 120:127:00.357	[34minfo[0m	E:/minor/Go/src/go-vue-admin/initialize/gorm.go:31	初始化数据库表成功
+Shansec12125-12-127 - 120:127:00.384	[34minfo[0m	E:/minor/Go/src/go-vue-admin/initialize/router.go:33	router register sucess
+Shansec12125-12-127 - 120:127:00.391	[34minfo[0m	E:/minor/Go/src/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
+Shansec12125-12-127 - 120:127:00.526	[34minfo[0m	E:/minor/Go/src/go-vue-admin/initialize/gorm.go:31	初始化数据库表成功
+Shansec12125-12-127 - 120:127:00.554	[34minfo[0m	E:/minor/Go/src/go-vue-admin/initialize/router.go:33	router register sucess
+Shansec12125-12-127 - 120:127:00.556	[34minfo[0m	E:/minor/Go/src/go-vue-admin/core/server.go:27	server run success on	{"address": ":8080"}
