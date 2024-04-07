@@ -1,0 +1,28 @@
+name: Sync
+
+on:
+  push:
+    branches: [dev]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync
+        uses: Yikun/hub-mirror-action@master
+        with:
+          src: 'github/shansec'
+          dst: 'gitee/shansec'
+          dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+          dst_token:  ${{ secrets.GITEE_TOKEN }}
+          # static_list 仓库名称 单一仓库同步
+          static_list: "go-vue-admin"
+          # 如果是组织，指定组织即可，默认为用户user
+          # account_type: org
+          # force_update 表示启用 git push -f 强制同步
+          force_update: true
+          # debug 为 true 表示启用 debug 开关，会显示所有执行命令
+          debug: true
+
