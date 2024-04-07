@@ -101,14 +101,17 @@ func (userService *UserService) DelUserInformation(uuid uuid.UUID) error {
 func (userService *UserService) UpdateUserInformation(userInfo *system.SysUser) error {
 	var user system.SysUser
 	err := global.MAY_DB.Model(&user).
-		Select("updated_at", "nick_name", "header_img", "phone", "email").
+		Select("updated_at", "username", "nick_name", "depts_id", "phone", "email", "status", "sex").
 		Where("uuid = ?", userInfo.UUID).
 		Updates(map[string]interface{}{
 			"updated_at": time.Now(),
+			"username":   userInfo.Username,
 			"nick_name":  userInfo.NickName,
-			"header_img": userInfo.HeaderImg,
+			"depts_id":   userInfo.DeptsId,
 			"phone":      userInfo.Phone,
 			"email":      userInfo.Email,
+			"status":     userInfo.Status,
+			"sex":        userInfo.Sex,
 		}).Error
 	if err != nil {
 		return errors.New("更新用户信息失败")

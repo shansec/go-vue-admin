@@ -79,9 +79,9 @@ func getEncoderConfig() (config zapcore.EncoderConfig) {
 	return config
 }
 
-// 自定义日志输出时间格式
+// CustomTimeEncoder 自定义日志输出时间格式
 func CustomTimeEncoder(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
-	enc.AppendString(t.Format(global.MAY_CONFIG.Zap.Prefix + "2023-02-17 - 10:17:00.000"))
+	enc.AppendString(t.Format(global.MAY_CONFIG.Zap.Prefix + "2023-02-17-10:17:00.000"))
 }
 
 // 获取 zapcore.Encoder
@@ -92,7 +92,7 @@ func getEncoder() zapcore.Encoder {
 	return zapcore.NewConsoleEncoder(getEncoderConfig())
 }
 
-// 获取Encoder的zapcore.Core
+// 获取Encoder的 zapcore.Core
 func getEncoderCore(fileName string, level zapcore.LevelEnabler) (core zapcore.Core) {
 	writer := utils.GetWriteSyncer(fileName)
 	return zapcore.NewCore(getEncoder(), writer, level)
