@@ -17,9 +17,9 @@ type DeptApi struct{}
 // @Tags SysDept
 // @Summary 添加部门
 // @Produce json
-// @Param data body systemReq.Create
-// @Success 200
-// @Router /dept/createDept POST
+// @Param   data body systemReq.Create true "添加部门"
+// @Success 200 {object} response.Response{msg=string}	"添加部门,返回添加结果"
+// @Router /dept/createDept [POST]
 func (d *DeptApi) CreateDept(c *gin.Context) {
 	var deptInfo systemReq.Create
 	_ = c.ShouldBindJSON(&deptInfo)
@@ -52,9 +52,9 @@ func (d *DeptApi) CreateDept(c *gin.Context) {
 // @Tags SysDept
 // @Summary 获取部门列表
 // @Produce json
-// @Param data body systemReq.GetDeptList
-// @Success 200
-// @Router /dept/getDeptList POST
+// @Param   data body systemReq.GetDeptList true "空"
+// @Success 200 {object} response.Response{data=response.PageResult, msg=string}	"获取部门列表,返回部门列表"
+// @Router /dept/getDeptList [POST]
 func (d *DeptApi) GetDeptList(c *gin.Context) {
 	var deptPageInfo systemReq.GetDeptList
 	err := c.ShouldBindJSON(&deptPageInfo)
@@ -79,9 +79,9 @@ func (d *DeptApi) GetDeptList(c *gin.Context) {
 // @Tags SysDept
 // @Summary 删除部门信息
 // @Produce json
-// @Param data body system.SysDept
-// @Success 200
-// @Router /dept/delDeptInfo DELETE
+// @Param   data body system.SysDept true "删除部门信息"
+// @Success 200 {object} response.Response{msg=string} "删除部门信息，返回操作结果"
+// @Router /dept/delDeptInfo [DELETE]
 func (d *DeptApi) DelDeptInfo(c *gin.Context) {
 	var deptInfo system.SysDept
 	_ = c.ShouldBindJSON(&deptInfo)
@@ -103,8 +103,9 @@ func (d *DeptApi) DelDeptInfo(c *gin.Context) {
 // @Tags SysDept
 // @Summary 更新部门信息
 // @Produce json
-// @Success 200
-// @Router /dept/updateDeptInfo PUT
+// @Param   data body system.SysDept true "更新部门信息"
+// @Success 200 {object} response.Response{msg=string} "更新部门信息,返回更新结果"
+// @Router /dept/updateDeptInfo [PUT]
 func (d *DeptApi) UpdateDeptInfo(c *gin.Context) {
 	var dept system.SysDept
 	_ = c.ShouldBindJSON(&dept)

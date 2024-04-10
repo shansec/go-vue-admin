@@ -1,0 +1,529 @@
+definitions:
+  request.ChangePassword:
+    properties:
+      newPassword:
+        description: 新密码
+        type: string
+      password:
+        description: 旧密码
+        type: string
+      uid:
+        description: user.id
+        type: integer
+    type: object
+  request.Create:
+    properties:
+      deptName:
+        type: string
+      deptPath:
+        type: string
+      email:
+        type: string
+      leader:
+        type: string
+      parentId:
+        type: integer
+      phone:
+        type: string
+      sort:
+        type: integer
+      status:
+        type: string
+    type: object
+  request.GetDeptList:
+    properties:
+      deptName:
+        description: "用户昵称 \t// 用户手机号"
+        type: string
+      page:
+        description: 页码
+        type: integer
+      pageSize:
+        description: 每页大小
+        type: integer
+      status:
+        description: 用户状态
+        type: string
+    type: object
+  request.GetUserList:
+    properties:
+      nickName:
+        description: 用户昵称
+        type: string
+      page:
+        description: 页码
+        type: integer
+      pageSize:
+        description: 每页大小
+        type: integer
+      phone:
+        description: 用户手机号
+        type: string
+      status:
+        description: 用户状态
+        type: string
+    type: object
+  request.Login:
+    properties:
+      captcha:
+        description: 验证码
+        type: string
+      captchaId:
+        description: 验证码ID
+        type: string
+      password:
+        description: 密码
+        type: string
+      username:
+        description: 用户名
+        type: string
+    type: object
+  request.Register:
+    properties:
+      deptsId:
+        description: 部门ID
+        type: integer
+      email:
+        description: 用户邮箱
+        type: string
+      headerImg:
+        description: 用户头像
+        type: string
+      nickName:
+        description: 用户昵称
+        type: string
+      password:
+        description: 用户登录密码
+        type: string
+      phone:
+        description: 用户手机号
+        type: string
+      rolesId:
+        description: 用户角色ID
+        type: integer
+      sex:
+        description: 用户性别
+        type: integer
+      status:
+        description: 用户状态
+        type: integer
+      sysDept:
+        $ref: '#/definitions/system.SysDept'
+      sysRole:
+        $ref: '#/definitions/system.SysRole'
+      username:
+        description: 用户登录名
+        type: string
+    type: object
+  response.Login:
+    properties:
+      expiresAt:
+        type: integer
+      token:
+        type: string
+      user:
+        $ref: '#/definitions/system.SysUser'
+    type: object
+  response.PageResult:
+    properties:
+      list: {}
+      page:
+        type: integer
+      pageSize:
+        type: integer
+      total:
+        type: integer
+    type: object
+  response.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      msg:
+        type: string
+    type: object
+  response.SysUserResponse:
+    properties:
+      user:
+        $ref: '#/definitions/system.SysUser'
+    type: object
+  system.SysDept:
+    properties:
+      children:
+        items:
+          $ref: '#/definitions/system.SysDept'
+        type: array
+      createdAt:
+        type: string
+      deletedAt:
+        type: string
+      deptId:
+        type: integer
+      deptName:
+        type: string
+      deptPath:
+        type: string
+      email:
+        type: string
+      leader:
+        type: string
+      parentId:
+        type: integer
+      phone:
+        type: string
+      sort:
+        type: integer
+      status:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  system.SysRole:
+    properties:
+      admin:
+        type: boolean
+      createdAt:
+        description: 创建时间
+        type: string
+      dataScope:
+        type: string
+      deletedAt:
+        description: 删除时间
+        type: string
+      flag:
+        description: 角色标记
+        type: string
+      remark:
+        description: 备注
+        type: string
+      roleId:
+        description: 角色编码
+        type: integer
+      roleKey:
+        description: 角色代码
+        type: string
+      roleName:
+        description: 角色名称
+        type: string
+      roleSort:
+        description: 角色排序
+        type: integer
+      status:
+        description: 状态 1禁用 2正常
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  system.SysUser:
+    properties:
+      createdAt:
+        description: 创建时间
+        type: string
+      deptsId:
+        type: integer
+      email:
+        description: 用户邮箱
+        type: string
+      headerImg:
+        description: 用户头像
+        type: string
+      id:
+        description: 主键 ID
+        type: integer
+      nickName:
+        description: 用户昵称
+        type: string
+      phone:
+        description: 用户手机号
+        type: string
+      rolesId:
+        description: 用户角色ID
+        type: integer
+      sex:
+        description: 用户性别 1为男，2为女
+        type: integer
+      status:
+        description: 用户状态 1为开启，2为禁用
+        type: integer
+      sysDept:
+        $ref: '#/definitions/system.SysDept'
+      sysRole:
+        $ref: '#/definitions/system.SysRole'
+      updatedAt:
+        type: string
+      userName:
+        description: 用户登录名
+        type: string
+      uuid:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /base/login:
+    post:
+      parameters:
+      - description: 修改密码
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ChangePassword'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 修改密码,返回修改结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      summary: 修改密码
+      tags:
+      - SysUser
+  /base/register:
+    post:
+      parameters:
+      - description: 用户注册
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.Register'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 用户注册
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                ' msg':
+                  type: string
+                data:
+                  $ref: '#/definitions/response.SysUserResponse'
+              type: object
+      summary: 用户注册账号
+      tags:
+      - SysUser
+  /dept/createDept:
+    post:
+      parameters:
+      - description: 添加部门
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.Create'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 添加部门,返回添加结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      summary: 添加部门
+      tags:
+      - SysDept
+  /dept/delDeptInfo:
+    delete:
+      parameters:
+      - description: 删除部门信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysDept'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除部门信息，返回操作结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      summary: 删除部门信息
+      tags:
+      - SysDept
+  /dept/getDeptList:
+    post:
+      parameters:
+      - description: 空
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.GetDeptList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取部门列表,返回部门列表
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                ' msg':
+                  type: string
+                data:
+                  $ref: '#/definitions/response.PageResult'
+              type: object
+      summary: 获取部门列表
+      tags:
+      - SysDept
+  /dept/updateDeptInfo:
+    put:
+      parameters:
+      - description: 更新部门信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysDept'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新部门信息,返回更新结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      summary: 更新部门信息
+      tags:
+      - SysDept
+  /user/delUserInfo:
+    delete:
+      parameters:
+      - description: 删除用户信息
+        in: body
+        name: data
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除用户信息，返回操作结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      summary: 删除用户信息
+      tags:
+      - SysUser
+  /user/getUserInfo:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取用户信息
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                ' msg':
+                  type: string
+                data:
+                  $ref: '#/definitions/response.SysUserResponse'
+              type: object
+      summary: 获取用户信息
+      tags:
+      - SysUser
+  /user/getUsersInfo:
+    get:
+      parameters:
+      - description: 获取用户列表
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.GetUserList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取用户列表
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                ' msg':
+                  type: string
+                data:
+                  $ref: '#/definitions/response.PageResult'
+              type: object
+      summary: 获取用户列表
+      tags:
+      - SysUser
+  /user/updateUserInfo:
+    put:
+      parameters:
+      - description: 更新用户信息
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新用户信息，返回操作结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      summary: 更新用户信息
+      tags:
+      - SysUser
+  /user/updateUserStatus:
+    get:
+      parameters:
+      - description: 更改用户状态
+        in: body
+        name: data
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更改用户状态，返回操作结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      summary: 更改用户状态
+      tags:
+      - SysUser
+swagger: "2.0"
