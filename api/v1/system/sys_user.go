@@ -19,9 +19,9 @@ type BaseApi struct{}
 // @Tags SysUser
 // @Summary 用户登录
 // @Produce json
-// @Param data body systemReq.Login { 用户名、密码 }
-// @Success 200
-// @Router /base/login POST
+// @Param   data body systemReq.Login true "用户登录"
+// @Success 200 {object} response.Response{data=systemRes.Login, msg=string}	"用户登录"
+// @Router /base/login [POST]
 func (b *BaseApi) Login(c *gin.Context) {
 	var login systemReq.Login
 	_ = c.ShouldBindJSON(&login)
@@ -68,9 +68,9 @@ func (b *BaseApi) TokenNext(c *gin.Context, user system.SysUser) {
 // @Tags SysUser
 // @Summary 修改密码
 // @Produce json
-// @Param data body systemReq.ChangePassword { 原密码，新密码 }
-// @Success 200
-// @Router /base/login POST
+// @Param   data body systemReq.ChangePassword true "修改密码"
+// @Success 200 {object} response.Response{msg=string}	"修改密码,返回修改结果"
+// @Router /base/login [POST]
 func (b *BaseApi) ModifyPassword(c *gin.Context) {
 	var modifyPassword systemReq.ChangePassword
 	_ = c.ShouldBindJSON(&modifyPassword)
@@ -93,9 +93,9 @@ func (b *BaseApi) ModifyPassword(c *gin.Context) {
 // @Tags SysUser
 // @Summary 用户注册账号
 // @Produce json
-// @Param data body systemReq.Register { 用户名、密码、昵称、手机号 }
-// @Success 200
-// @Router /base/register POST
+// @Param   data body systemReq.Register true "用户注册"
+// @Success 200 {object} response.Response{data=systemRes.SysUserResponse, msg=string}	"用户注册"
+// @Router /base/register [POST]
 func (b *BaseApi) Register(c *gin.Context) {
 	var register systemReq.Register
 	_ = c.ShouldBindJSON(&register)
@@ -128,8 +128,9 @@ func (b *BaseApi) Register(c *gin.Context) {
 // @Tags SysUser
 // @Summary 删除用户信息
 // @Produce json
-// @Success 200
-// @Router /user/delUserInfo Delete
+// @Param   data body systemReq.UUID true "删除用户信息"
+// @Success 200 {object} response.Response{msg=string} "删除用户信息，返回操作结果"
+// @Router /user/delUserInfo [Delete]
 func (b *BaseApi) DelUserInfo(c *gin.Context) {
 	var uuid systemReq.UUID
 	_ = c.ShouldBindJSON(&uuid)
@@ -145,8 +146,9 @@ func (b *BaseApi) DelUserInfo(c *gin.Context) {
 // @Tags SysUser
 // @Summary 更新用户信息
 // @Produce json
-// @Success 200
-// @Router /user/updateUserInfo PUT
+// @Param   data body system.SysUser true "更新用户信息"
+// @Success 200 {object} response.Response{msg=string} "更新用户信息，返回操作结果"
+// @Router /user/updateUserInfo [PUT]
 func (b *BaseApi) UpdateUserInfo(c *gin.Context) {
 	var user system.SysUser
 	_ = c.ShouldBindJSON(&user)
@@ -166,8 +168,8 @@ func (b *BaseApi) UpdateUserInfo(c *gin.Context) {
 // @Tags SysUser
 // @Summary 获取用户信息
 // @Produce json
-// @Success 200
-// @Router /user/getUserInfo GET
+// @Success 200 {object} response.Response{data=systemRes.SysUserResponse, msg=string} "获取用户信息"
+// @Router /user/getUserInfo [GET]
 func (b *BaseApi) GetUserInfo(c *gin.Context) {
 	uuid := utils.GetUseUuid(c)
 	if user, err := userService.GetUserInformation(uuid); err != nil {
@@ -184,8 +186,9 @@ func (b *BaseApi) GetUserInfo(c *gin.Context) {
 // @Tags SysUser
 // @Summary 获取用户列表
 // @Produce json
-// @Success 200
-// @Router /user/getUsersInfo GET
+// @Param   data body systemReq.GetUserList true "获取用户列表"
+// @Success 200 {object} response.Response{data=response.PageResult, msg=string} "获取用户列表"
+// @Router /user/getUsersInfo [GET]
 func (b *BaseApi) GetUsersInfo(c *gin.Context) {
 	var pageInfo systemReq.GetUserList
 	err := c.ShouldBindJSON(&pageInfo)
@@ -210,8 +213,9 @@ func (b *BaseApi) GetUsersInfo(c *gin.Context) {
 // @Tags SysUser
 // @Summary 更改用户状态
 // @Produce json
-// @Success 200
-// @Router /user/updateUserStatus GET
+// @Param   data body systemReq.UUID true "更改用户状态"
+// @Success 200 {object} response.Response{msg=string} "更改用户状态，返回操作结果"
+// @Router /user/updateUserStatus [GET]
 func (b *BaseApi) UpdateUserStatus(c *gin.Context) {
 	var uuid systemReq.UUID
 	_ = c.ShouldBindJSON(&uuid)

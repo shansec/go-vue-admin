@@ -13,6 +13,7 @@ system:
   env: public
   addr: 8080
   db-type: mysql
+  router-prefix: '/v1'
   oss-type: local
   use-multipoint: false
   use-redis: false
