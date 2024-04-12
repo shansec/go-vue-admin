@@ -18,7 +18,7 @@ func Routers() *gin.Engine {
 	docs.SwaggerInfo.BasePath = global.MAY_CONFIG.System.RouterPrefix
 	Router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
-	publicGroup := Router.Group("global.MAY_CONFIG.System.RouterPrefix")
+	publicGroup := Router.Group(global.MAY_CONFIG.System.RouterPrefix)
 	{
 		// 健康检测
 		publicGroup.GET("/health", func(c *gin.Context) {
@@ -29,7 +29,7 @@ func Routers() *gin.Engine {
 		systemRouter.InitBaseRouter(publicGroup)
 	}
 
-	PrivateGroup := Router.Group("global.MAY_CONFIG.System.RouterPrefix")
+	PrivateGroup := Router.Group(global.MAY_CONFIG.System.RouterPrefix)
 	PrivateGroup.Use(middleware.JwtAuth())
 	{
 		systemRouter.InitUserRouter(PrivateGroup)
