@@ -14,4 +14,5 @@ var (
 	userService         = service.ServiceGroupApp.SystemServiceGroup.UserService
 	deptService         = service.ServiceGroupApp.SystemServiceGroup.DeptService
 	systemConfigService = service.ServiceGroupApp.SystemServiceGroup.SystemConfigService
+	autoCodeService     = service.ServiceGroupApp.SystemServiceGroup.AutoCodeService
 )

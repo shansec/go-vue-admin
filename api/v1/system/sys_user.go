@@ -136,7 +136,7 @@ func (b *BaseApi) DelUserInfo(c *gin.Context) {
 	_ = c.ShouldBindJSON(&uuid)
 	if err := userService.DelUserInformation(uuid.Uuid); err != nil {
 		global.MAY_LOGGER.Error("删除用户失败", zap.Error(err))
-		response.FailWithMessage("删除用户失败", c)
+		response.FailWithMessage(" ", c)
 	} else {
 		response.OkWithMessage("删除用户成功", c)
 	}
