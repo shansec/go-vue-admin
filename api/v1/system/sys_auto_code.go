@@ -11,9 +11,9 @@ import (
 	"strings"
 )
 
-type autoCodeApi struct{}
+type AutoCodeApi struct{}
 
-func (a *autoCodeApi) CreatePackage(c *gin.Context) {
+func (a *AutoCodeApi) CreatePackage(c *gin.Context) {
 	var autoCode system.SysAutoCode
 	_ = c.ShouldBindJSON(&autoCode)
 	if err := utils.Verify(autoCode, SystemVerify.AutoPackageVerify); err != nil {

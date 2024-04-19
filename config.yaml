@@ -25,7 +25,7 @@ system:
 zap:
   level: info
   format: console
-  prefix: "[github.com/shansec/go-vue-admin/server]"
+  prefix: "[github.com/shansec/go-vue-admin]"
   director: log
   show-line: true
   encode-level: LowercaseColorLevelEncoder
@@ -42,3 +42,20 @@ captcha:
   key-long: 6
   img-width: 240
   img-height: 80
+# autocode
+autocode:
+  s-model: /model/%s
+  s-router: /router/%s
+  s-server: /server
+  s-api: /api/v1/%s
+  s-plug: /plugin/%s
+  s-initialize: /initialize
+  root:
+  w-root:
+  w-table: /view
+  w-web: /src
+  s-service: /service/%s
+  s-request: /model/%s/request/
+  w-api: /api
+  w-form: /view
+  transfer-restart: true

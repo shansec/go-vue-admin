@@ -8,6 +8,7 @@ type ApiGroup struct {
 	BaseApi
 	DeptApi
 	SystemConfigApi
+	AutoCodeApi
 }
 
 var (

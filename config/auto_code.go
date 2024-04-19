@@ -8,6 +8,7 @@ type AutoCode struct {
 	SPlug           string `mapstructure:"s-plug" json:"s-plug" yaml:"s-plug"`
 	SInitialize     string `mapstructure:"s-initialize" json:"s-initialize" yaml:"s-initialize"`
 	Root            string `mapstructure:"root" json:"root" yaml:"root"`
+	WRoot           string `mapstructure:"w-root" json:"w-root" yaml:"w-root"`
 	WTable          string `mapstructure:"w-table" json:"w-table" yaml:"w-table"`
 	WWeb            string `mapstructure:"w-web" json:"w-web" yaml:"w-web"`
 	SService        string `mapstructure:"s-service" json:"s-service" yaml:"s-service"`
