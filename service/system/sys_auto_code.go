@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/model/system"
+	"github/shansec/go-vue-admin/template/auto_template"
 	"github/shansec/go-vue-admin/utils"
 	"github/shansec/go-vue-admin/utils/ast"
 	"gorm.io/gorm"
@@ -96,6 +97,12 @@ func Init(packageName string) {
 	}
 }
 
+// CreateAutoCode
+// @author: [Shansec](https://github.com/shansec)
+// @function: CreateAutoCode
+// @description: 创建代码包
+// @param: s *system.SysAutoCode
+// @return: error
 func (autoCodeService *AutoCodeService) CreateAutoCode(s *system.SysAutoCode) error {
 	if s.PackageName == "system" || s.PackageName == "" {
 		return errors.New("不能使用保留的包名")
@@ -115,17 +122,17 @@ func (autoCodeService *AutoCodeService) CreatePackageCache(packageName string) e
 	pendingCache := []autoPackage{
 		{
 			path:  packageService,
-			cache: string(utils.Service),
+			cache: string(auto_template.Service),
 			name:  packageServiceName,
 		},
 		{
 			path:  packageRouter,
-			cache: string(utils.Router),
+			cache: string(auto_template.Router),
 			name:  packageRouterName,
 		},
 		{
 			path:  packageAPI,
-			cache: string(utils.Api),
+			cache: string(auto_template.Api),
 			name:  packageAPIName,
 		},
 	}

@@ -13,15 +13,27 @@ import (
 
 type AutoCodeApi struct{}
 
+// CreatePackage
+// @Summary 自动创建代码包
+// @Tags SysAutoCode
+// @Accept json
+// @Produce json
+// @Param autoCode body system.SysAutoCode true "自动创建代码包"
+// @Success 200 {object} response.Response{msg=string} "创建成功"
+// @Failure 400 {object} response.Response "请求参数验证失败"
+// @Failure 500 {object} response.Response "服务器内部错误"
+// @Router /autocode/createPackage [POST]
 func (a *AutoCodeApi) CreatePackage(c *gin.Context) {
 	var autoCode system.SysAutoCode
 	_ = c.ShouldBindJSON(&autoCode)
+
+	// 验证输入数据
 	if err := utils.Verify(autoCode, SystemVerify.AutoPackageVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
 
-	// 防止路径穿越
+	// 检查包名合法性，防止路径穿越
 	if strings.Contains(autoCode.PackageName, "\\") || strings.Contains(autoCode.PackageName, "/") {
 		response.FailWithMessage("包名不合法", c)
 		return

@@ -147,6 +147,23 @@ definitions:
       user:
         $ref: '#/definitions/system.SysUser'
     type: object
+  system.SysAutoCode:
+    properties:
+      createdAt:
+        description: 创建时间
+        type: string
+      desc:
+        type: string
+      id:
+        description: 主键 ID
+        type: integer
+      label:
+        type: string
+      package_name:
+        type: string
+      updatedAt:
+        type: string
+    type: object
   system.SysDept:
     properties:
       children:
@@ -261,6 +278,40 @@ definitions:
 info:
   contact: {}
 paths:
+  /autocode/createPackage:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 自动创建代码包
+        in: body
+        name: autoCode
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysAutoCode'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 创建成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 自动创建代码包
+      tags:
+      - SysAutoCode
   /base/login:
     post:
       parameters:
@@ -409,6 +460,23 @@ paths:
       summary: 更新部门信息
       tags:
       - SysDept
+  /system/status:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取服务器信息
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      summary: 获取服务器信息
+      tags:
+      - System
   /user/delUserInfo:
     delete:
       parameters:

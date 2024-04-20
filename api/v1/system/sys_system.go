@@ -10,10 +10,12 @@ import (
 type SystemConfigApi struct{}
 
 // GetServerInfo
-// @Tags System
 // @Summary 获取服务器信息
+// @Description 查询并返回系统的服务器相关信息
+// @Tags System
 // @Produce json
 // @Success 200 {object} response.Response{msg=string}	"获取服务器信息"
+// @Failure 500 {object} response.Response "获取失败"
 // @Router /system/status [GET]
 func (s *SystemConfigApi) GetServerInfo(c *gin.Context) {
 	server, err := systemConfigService.GetServerInfo()

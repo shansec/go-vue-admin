@@ -16,8 +16,8 @@ import (
 type BaseApi struct{}
 
 // Login
-// @Tags SysUser
 // @Summary 用户登录
+// @Tags SysUser
 // @Produce json
 // @Param   data body systemReq.Login true "用户登录"
 // @Success 200 {object} response.Response{data=systemRes.Login, msg=string}	"用户登录"
@@ -65,8 +65,8 @@ func (b *BaseApi) TokenNext(c *gin.Context, user system.SysUser) {
 }
 
 // ModifyPassword
-// @Tags SysUser
 // @Summary 修改密码
+// @Tags SysUser
 // @Produce json
 // @Param   data body systemReq.ChangePassword true "修改密码"
 // @Success 200 {object} response.Response{msg=string}	"修改密码,返回修改结果"
@@ -90,8 +90,8 @@ func (b *BaseApi) ModifyPassword(c *gin.Context) {
 }
 
 // Register
-// @Tags SysUser
 // @Summary 用户注册账号
+// @Tags SysUser
 // @Produce json
 // @Param   data body systemReq.Register true "用户注册"
 // @Success 200 {object} response.Response{data=systemRes.SysUserResponse, msg=string}	"用户注册"
@@ -125,8 +125,8 @@ func (b *BaseApi) Register(c *gin.Context) {
 }
 
 // DelUserInfo
-// @Tags SysUser
 // @Summary 删除用户信息
+// @Tags SysUser
 // @Produce json
 // @Param   data body systemReq.UUID true "删除用户信息"
 // @Success 200 {object} response.Response{msg=string} "删除用户信息，返回操作结果"
@@ -143,8 +143,8 @@ func (b *BaseApi) DelUserInfo(c *gin.Context) {
 }
 
 // UpdateUserInfo
-// @Tags SysUser
 // @Summary 更新用户信息
+// @Tags SysUser
 // @Produce json
 // @Param   data body system.SysUser true "更新用户信息"
 // @Success 200 {object} response.Response{msg=string} "更新用户信息，返回操作结果"
@@ -165,8 +165,8 @@ func (b *BaseApi) UpdateUserInfo(c *gin.Context) {
 }
 
 // GetUserInfo
-// @Tags SysUser
 // @Summary 获取用户信息
+// @Tags SysUser
 // @Produce json
 // @Success 200 {object} response.Response{data=systemRes.SysUserResponse, msg=string} "获取用户信息"
 // @Router /user/getUserInfo [GET]
@@ -183,8 +183,8 @@ func (b *BaseApi) GetUserInfo(c *gin.Context) {
 }
 
 // GetUsersInfo
-// @Tags SysUser
 // @Summary 获取用户列表
+// @Tags SysUser
 // @Produce json
 // @Param   data body systemReq.GetUserList true "获取用户列表"
 // @Success 200 {object} response.Response{data=response.PageResult, msg=string} "获取用户列表"
@@ -210,8 +210,8 @@ func (b *BaseApi) GetUsersInfo(c *gin.Context) {
 }
 
 // UpdateUserStatus
-// @Tags SysUser
 // @Summary 更改用户状态
+// @Tags SysUser
 // @Produce json
 // @Param   data body systemReq.UUID true "更改用户状态"
 // @Success 200 {object} response.Response{msg=string} "更改用户状态，返回操作结果"
