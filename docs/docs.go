@@ -15,6 +15,226 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/autocode/createPackage": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysAutoCode"
+                ],
+                "summary": "自动创建代码包",
+                "parameters": [
+                    {
+                        "description": "自动创建代码包",
+                        "name": "autoCode",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.SysAutoCode"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "创建成功",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/autocode/delPackageInfo": {
+            "delete": {
+                "description": "删除指定的创建的包信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysAutoCode"
+                ],
+                "summary": "删除创建的包信息",
+                "parameters": [
+                    {
+                        "description": "待删除的创建的包信息",
+                        "name": "autoCode",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.SysAutoCode"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "删除创建的包，返回操作结果",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "删除创建的包失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/autocode/getPackageList": {
+            "post": {
+                "description": "分页查询创建的包列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysAutoCode"
+                ],
+                "summary": "获取创建的包列表",
+                "parameters": [
+                    {
+                        "description": "创建的包列表查询参数",
+                        "name": "packageInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.GetPackageList"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "获取创建的包列表成功",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        " msg": {
+                                            "type": "string"
+                                        },
+                                        "list": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/system.SysAutoCode"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "获取创建的包列表失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/base/captcha": {
+            "get": {
+                "description": "生成并返回一个新的默认数字验证码",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysUser"
+                ],
+                "summary": "获取验证码",
+                "responses": {
+                    "200": {
+                        "description": "获取验证码",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        " msg": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/definitions/response.SysCaptchaResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "验证码获取失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/base/login": {
             "post": {
                 "produces": [
@@ -104,6 +324,7 @@ const docTemplate = `{
         },
         "/dept/createDept": {
             "post": {
+                "description": "添加部门，返回添加结果",
                 "produces": [
                     "application/json"
                 ],
@@ -114,7 +335,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "description": "添加部门",
-                        "name": "data",
+                        "name": "deptInfo",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -140,12 +361,22 @@ const docTemplate = `{
                                 }
                             ]
                         }
+                    },
+                    "500": {
+                        "description": "添加部门失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
                     }
                 }
             }
         },
         "/dept/delDeptInfo": {
             "delete": {
+                "description": "删除指定的部门及其所有下级部门信息",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -155,8 +386,8 @@ const docTemplate = `{
                 "summary": "删除部门信息",
                 "parameters": [
                     {
-                        "description": "删除部门信息",
-                        "name": "data",
+                        "description": "待删除的部门信息",
+                        "name": "deptInfo",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -182,12 +413,28 @@ const docTemplate = `{
                                 }
                             ]
                         }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "删除部门信息失败,请检查是否包含下级部门",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
                     }
                 }
             }
         },
         "/dept/getDeptList": {
             "post": {
+                "description": "分页查询部门信息列表",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -197,8 +444,8 @@ const docTemplate = `{
                 "summary": "获取部门列表",
                 "parameters": [
                     {
-                        "description": "空",
-                        "name": "data",
+                        "description": "部门列表查询参数",
+                        "name": "deptPageInfo",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -208,11 +455,11 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "获取部门列表,返回部门列表",
+                        "description": "获取部门列表成功",
                         "schema": {
                             "allOf": [
                                 {
-                                    "$ref": "#/definitions/response.Response"
+                                    "$ref": "#/definitions/response.PageResult"
                                 },
                                 {
                                     "type": "object",
@@ -220,12 +467,27 @@ const docTemplate = `{
                                         " msg": {
                                             "type": "string"
                                         },
-                                        "data": {
-                                            "$ref": "#/definitions/response.PageResult"
+                                        "list": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/system.SysDept"
+                                            }
                                         }
                                     }
                                 }
                             ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "获取部门列表失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
                         }
                     }
                 }
@@ -233,6 +495,10 @@ const docTemplate = `{
         },
         "/dept/updateDeptInfo": {
             "put": {
+                "description": "更新指定部门的详细信息",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -242,8 +508,8 @@ const docTemplate = `{
                 "summary": "更新部门信息",
                 "parameters": [
                     {
-                        "description": "更新部门信息",
-                        "name": "data",
+                        "description": "待更新的部门信息",
+                        "name": "dept",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -268,6 +534,56 @@ const docTemplate = `{
                                     }
                                 }
                             ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "更改部门信息失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/system/status": {
+            "get": {
+                "description": "查询并返回系统的服务器相关信息",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "System"
+                ],
+                "summary": "获取服务器信息",
+                "responses": {
+                    "200": {
+                        "description": "获取服务器信息",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "500": {
+                        "description": "获取失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
                         }
                     }
                 }
@@ -547,6 +863,23 @@ const docTemplate = `{
                 }
             }
         },
+        "request.GetPackageList": {
+            "type": "object",
+            "properties": {
+                "package_name": {
+                    "description": "包名",
+                    "type": "string"
+                },
+                "page": {
+                    "description": "页码",
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "description": "每页大小",
+                    "type": "integer"
+                }
+            }
+        },
         "request.GetUserList": {
             "type": "object",
             "properties": {
@@ -685,11 +1018,50 @@ const docTemplate = `{
                 }
             }
         },
+        "response.SysCaptchaResponse": {
+            "type": "object",
+            "properties": {
+                "captchaId": {
+                    "type": "string"
+                },
+                "captchaLength": {
+                    "type": "integer"
+                },
+                "picPath": {
+                    "type": "string"
+                }
+            }
+        },
         "response.SysUserResponse": {
             "type": "object",
             "properties": {
                 "user": {
                     "$ref": "#/definitions/system.SysUser"
+                }
+            }
+        },
+        "system.SysAutoCode": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键 ID",
+                    "type": "integer"
+                },
+                "label": {
+                    "type": "string"
+                },
+                "package_name": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
                 }
             }
         },
@@ -851,17 +1223,24 @@ const docTemplate = `{
                 }
             }
         }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "type": "apiKey",
+            "name": "x-token",
+            "in": "header"
+        }
     }
 }`
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "",
+	Version:          "v1.0.0",
 	Host:             "",
 	BasePath:         "",
 	Schemes:          []string{},
-	Title:            "",
-	Description:      "",
+	Title:            "Go-Vue-Admin Swagger API接口文档",
+	Description:      "使用 gin + vue 进行开发的全栈开发基础平台",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",

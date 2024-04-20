@@ -1,3 +1,4 @@
+# mysql
 mysql:
   path: 127.0.0.1
   port: 3306
@@ -9,6 +10,7 @@ mysql:
   max-open-conns: 100
   log-mode: error
   log-zap: false
+# system
 system:
   env: public
   addr: 8080
@@ -19,21 +21,41 @@ system:
   use-redis: false
   limit-count-ip: 15000
   limit-time-ip: 3600
+# zap
 zap:
   level: info
   format: console
-  prefix: 'Shansec'
+  prefix: "[github.com/shansec/go-vue-admin]"
   director: log
   show-line: true
   encode-level: LowercaseColorLevelEncoder
   stacktrace-key: stacktrace
   log-in-console: true
+# jwt
 jwt:
   signing-key: 'Shansec'
   expires-time: 86400
   buffer-time: 86400
   issuer: 'Shansec'
+# captcha
 captcha:
   key-long: 6
   img-width: 240
   img-height: 80
+# autocode
+autocode:
+  s-model: /model/%s
+  s-router: /router/%s
+  s-server: /server
+  s-api: /api/v1/%s
+  s-plug: /plugin/%s
+  s-initialize: /initialize
+  root:
+  w-root:
+  w-table: /view
+  w-web: /src
+  s-service: /service/%s
+  s-request: /model/%s/request/
+  w-api: /api
+  w-form: /view
+  transfer-restart: true

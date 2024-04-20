@@ -14,21 +14,25 @@ import (
 type DeptApi struct{}
 
 // CreateDept
-// @Tags SysDept
 // @Summary 添加部门
+// @Description 添加部门，返回添加结果
+// @Tags SysDept
 // @Produce json
-// @Param   data body systemReq.Create true "添加部门"
+// @Param   deptInfo body systemReq.Create true "添加部门"
 // @Success 200 {object} response.Response{msg=string}	"添加部门,返回添加结果"
+// @Failure 500 {object} response.Response   "添加部门失败"
 // @Router /dept/createDept [POST]
 func (d *DeptApi) CreateDept(c *gin.Context) {
 	var deptInfo systemReq.Create
 	_ = c.ShouldBindJSON(&deptInfo)
 
+	// 验证输入数据
 	if err := utils.Verify(deptInfo, SystemVerify.CreateVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
 
+	// 构建部门实体
 	dept := &system.SysDept{
 		ParentId: deptInfo.ParentId,
 		DeptPath: deptInfo.DeptPath,
@@ -39,6 +43,8 @@ func (d *DeptApi) CreateDept(c *gin.Context) {
 		Email:    deptInfo.Email,
 		Status:   deptInfo.Status,
 	}
+
+	// 添加部门
 	if err := deptService.EstablishDept(*dept); err != nil {
 		global.MAY_LOGGER.Error("添加部门失败", zap.Error(err))
 		response.FailWithMessage(err.Error(), c)
@@ -49,11 +55,15 @@ func (d *DeptApi) CreateDept(c *gin.Context) {
 }
 
 // GetDeptList
-// @Tags SysDept
 // @Summary 获取部门列表
+// @Description 分页查询部门信息列表
+// @Tags SysDept
+// @Accept json
 // @Produce json
-// @Param   data body systemReq.GetDeptList true "空"
-// @Success 200 {object} response.Response{data=response.PageResult, msg=string}	"获取部门列表,返回部门列表"
+// @Param   deptPageInfo body systemReq.GetDeptList true "部门列表查询参数"
+// @Success 200 {object} response.PageResult{list=[]system.SysDept, msg=string}	"获取部门列表成功"
+// @Failure 400 {object} response.Response "请求参数验证失败"
+// @Failure 500 {object} response.Response "获取部门列表失败"
 // @Router /dept/getDeptList [POST]
 func (d *DeptApi) GetDeptList(c *gin.Context) {
 	var deptPageInfo systemReq.GetDeptList
@@ -62,6 +72,8 @@ func (d *DeptApi) GetDeptList(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+
+	// 查询部门列表
 	if depts, total, err := deptService.GetDept(deptPageInfo); err != nil {
 		global.MAY_LOGGER.Error("获取部门列表失败", zap.Error(err))
 		response.FailWithMessage("获取部门列表失败", c)
@@ -76,21 +88,27 @@ func (d *DeptApi) GetDeptList(c *gin.Context) {
 }
 
 // DelDeptInfo
-// @Tags SysDept
 // @Summary 删除部门信息
+// @Description 删除指定的部门及其所有下级部门信息
+// @Tags SysDept
+// @Accept json
 // @Produce json
-// @Param   data body system.SysDept true "删除部门信息"
+// @Param   deptInfo body system.SysDept true "待删除的部门信息"
 // @Success 200 {object} response.Response{msg=string} "删除部门信息，返回操作结果"
+// @Failure 400 {object} response.Response "请求参数验证失败"
+// @Failure 500 {object} response.Response "删除部门信息失败,请检查是否包含下级部门"
 // @Router /dept/delDeptInfo [DELETE]
 func (d *DeptApi) DelDeptInfo(c *gin.Context) {
 	var deptInfo system.SysDept
 	_ = c.ShouldBindJSON(&deptInfo)
 
+	// 验证输入数据
 	if err := utils.Verify(deptInfo, SystemVerify.DeleteVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
 
+	// 删除部门及其下级信息
 	if err := deptService.DelDeptInformation(deptInfo); err != nil {
 		global.MAY_LOGGER.Error("删除部门信息失败,请检查是否包含下级部门", zap.Error(err))
 		response.FailWithMessage("删除部门信息失败,请检查是否包含下级部门", c)
@@ -100,19 +118,27 @@ func (d *DeptApi) DelDeptInfo(c *gin.Context) {
 }
 
 // UpdateDeptInfo
-// @Tags SysDept
 // @Summary 更新部门信息
+// @Description 更新指定部门的详细信息
+// @Tags SysDept
+// @Accept json
 // @Produce json
-// @Param   data body system.SysDept true "更新部门信息"
+// @Param   dept body system.SysDept true "待更新的部门信息"
 // @Success 200 {object} response.Response{msg=string} "更新部门信息,返回更新结果"
+// @Failure 400 {object} response.Response "请求参数验证失败"
+// @Failure 500 {object} response.Response "更改部门信息失败"
 // @Router /dept/updateDeptInfo [PUT]
 func (d *DeptApi) UpdateDeptInfo(c *gin.Context) {
 	var dept system.SysDept
 	_ = c.ShouldBindJSON(&dept)
+
+	// 验证输入数据
 	if err := utils.Verify(dept, SystemVerify.UpdateVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
+
+	// 更新部门信息
 	if err := deptService.UpdateDeptInformation(&dept); err != nil {
 		global.MAY_LOGGER.Error("更改部门信息失败", zap.Error(err))
 		response.FailWithMessage("更改部门信息失败", c)

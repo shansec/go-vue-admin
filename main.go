@@ -8,6 +8,18 @@ import (
 	"go.uber.org/zap"
 )
 
+//go:generate go env -w GO111MODULE=on
+//go:generate go env -w GOPROXY=https://goproxy.cn,direct
+//go:generate go mod tidy
+//go:generate go mod download
+
+// @title                       Go-Vue-Admin Swagger API接口文档
+// @version                     v1.0.0
+// @description                 使用 gin + vue 进行开发的全栈开发基础平台
+// @securityDefinitions.apikey  ApiKeyAuth
+// @in                          header
+// @name                        x-token
+// @BasePath                    /v1
 func main() {
 	// 初始化 Viper
 	global.MAY_VP = core.Viper()

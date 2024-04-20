@@ -23,6 +23,7 @@ func RegisterTable(db *gorm.DB) {
 		system.SysUser{},
 		system.SysRole{},
 		system.SysDept{},
+		system.SysAutoCode{},
 	)
 	if err != nil {
 		global.MAY_LOGGER.Error("初始化数据库表失败", zap.Error(err))

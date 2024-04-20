@@ -18,7 +18,7 @@ func GetClaims(c *gin.Context) (*systemReq.CustomClaims, error) {
 	return claims, nil
 }
 
-// GetUID 根据 jwt 签证获取用户的ID
+// GetUseID 根据 jwt 签证获取用户的ID
 func GetUseID(c *gin.Context) uint {
 	if claims, existence := c.Get("claims"); !existence {
 		if claim, err := GetClaims(c); err != nil {
@@ -31,6 +31,7 @@ func GetUseID(c *gin.Context) uint {
 		return nextUser.ID
 	}
 }
+
 // GetUseUuid 根据 jwt 签证获取用户的uuid
 func GetUseUuid(c *gin.Context) uuid.UUID {
 	if claims, existence := c.Get("claims"); !existence {

@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/utils"
@@ -51,5 +52,7 @@ func Viper(path ...string) *viper.Viper {
 		fmt.Println(err)
 	}
 
+	global.MAY_CONFIG.AutoCode.Root, _ = filepath.Abs(".")
+	global.MAY_CONFIG.AutoCode.WRoot, _ = filepath.Abs("../go-vue")
 	return v
 }
