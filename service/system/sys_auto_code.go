@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/model/system"
+	systemReq "github/shansec/go-vue-admin/model/system/request"
 	"github/shansec/go-vue-admin/template/auto_template"
 	"github/shansec/go-vue-admin/utils"
 	"github/shansec/go-vue-admin/utils/ast"
@@ -115,6 +116,39 @@ func (autoCodeService *AutoCodeService) CreateAutoCode(s *system.SysAutoCode) er
 		return err
 	}
 	return global.MAY_DB.Create(&s).Error
+}
+
+// GetPackages
+// @author: [Shansec](https://github.com/shansec)
+// @function: GetPackages
+// @description: 获取代码包列表
+// @param: s *system.SysAutoCode
+// @return: error
+func (autoCodeService *AutoCodeService) GetPackages(info systemReq.GetPackageList) (pkgList []system.SysAutoCode, total int64, err error) {
+	var autoCodes []system.SysAutoCode
+	limit := info.PagSize
+	offset := info.PagSize * (info.Page - 1)
+	db := global.MAY_DB.Model(&system.SysAutoCode{})
+
+	if info.PackageName != "" {
+		db = db.Where("package_name LIKE ?", "%"+info.PackageName+"%")
+	}
+	err = db.Limit(limit).Offset(offset).Find(&autoCodes).Error
+	err = global.MAY_DB.Find(&pkgList).Error
+	if err != nil {
+		return nil, 0, errors.New("获取包列表失败")
+	}
+	return autoCodes, int64(len(autoCodes)), nil
+}
+
+// DelPackageInfo
+// @author: [Shansec](https://github.com/shansec)
+// @function: DelPackageInfo
+// @description: 删除代码包
+// @param: s *system.SysAutoCode
+// @return: error
+func (autoCodeService *AutoCodeService) DelPackageInfo(s *system.SysAutoCode) error {
+	return global.MAY_DB.Delete(s).Error
 }
 
 func (autoCodeService *AutoCodeService) CreatePackageCache(packageName string) error {
