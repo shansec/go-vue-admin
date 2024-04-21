@@ -25,7 +25,7 @@ system:
 zap:
   level: info
   format: console
-  prefix: "[github.com/shansec/go-vue-admin]"
+  prefix: '[github.com/shansec/go-vue-admin]'
   director: log
   show-line: true
   encode-level: LowercaseColorLevelEncoder
@@ -52,10 +52,10 @@ autocode:
   s-initialize: /initialize
   root:
   w-root:
-  w-table: /view
+  w-table: /views
   w-web: /src
   s-service: /service/%s
   s-request: /model/%s/request/
   w-api: /api
-  w-form: /view
+  w-form: /views
   transfer-restart: true
