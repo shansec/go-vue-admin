@@ -30,10 +30,14 @@ func (b *BaseApi) Login(c *gin.Context) {
 		return
 	}
 	if store.Verify(login.CaptchaId, login.Captcha, true) {
-		u := &system.SysUser{Username: login.Username, Password: login.Password}
-		if user, err := userService.Login(u); err != nil {
-			global.MAY_LOGGER.Error("登陆失败，用户名不存在或者密码错误", zap.Error(err))
-			response.FailWithMessage("用户名不存在或者密码错误", c)
+		u := &system.SysUser{Username: login.Username, Password: login.Password, Phone: login.Phone}
+		if user, err := userService.Login(u, login.IsPhoneLogin); err != nil {
+			var errStr string = "用户名不存在或者密码错误"
+			if login.IsPhoneLogin {
+				errStr = "手机号不存在或者密码错误"
+			}
+			global.MAY_LOGGER.Error(errStr, zap.Error(err))
+			response.FailWithMessage(errStr, c)
 		} else {
 			b.TokenNext(c, *user)
 		}

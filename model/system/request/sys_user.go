@@ -1,8 +1,9 @@
 package request
 
 import (
-	"github.com/satori/uuid"
 	"github/shansec/go-vue-admin/model/system"
+
+	"github.com/satori/uuid"
 )
 
 // Register structure
@@ -23,10 +24,12 @@ type Register struct {
 
 // Login structure
 type Login struct {
-	Username  string `json:"username"`  // 用户名
-	Password  string `json:"password"`  // 密码
-	Captcha   string `json:"captcha"`   // 验证码
-	CaptchaId string `json:"captchaId"` // 验证码ID
+	Username     string `json:"username"`     // 用户名
+	Password     string `json:"password"`     // 密码
+	Phone        string `json:"phone"`        // 手机号
+	IsPhoneLogin bool   `json:"isPhoneLogin"` // 是否通过手机号登录
+	Captcha      string `json:"captcha"`      // 验证码
+	CaptchaId    string `json:"captchaId"`    // 验证码ID
 }
 
 // ChangePassword structure
