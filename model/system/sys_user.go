@@ -21,3 +21,7 @@ type SysUser struct {
 	DeptsId   int       `json:"deptsId" gorm:"用户部门ID"`
 	SysDept   SysDept   `json:"sysDept" gorm:"foreignKey:DeptsId;references:DeptId"`
 }
+
+func (SysUser) TableName() string {
+	return "sys_users"
+}
