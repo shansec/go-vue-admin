@@ -17,3 +17,7 @@ type SysDept struct {
 	UpdatedAt time.Time
 	DeletedAt *time.Time
 }
+
+func (SysDept) TableName() string {
+	return "sys_depts"
+}

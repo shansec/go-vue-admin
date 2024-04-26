@@ -3,16 +3,17 @@ package system
 import "time"
 
 type SysRole struct {
-	RoleId    int        `json:"roleId" gorm:"primary_key;not null;unique;comment:角色ID;size:90"` // 角色编码
-	RoleName  string     `json:"roleName" gorm:"size:128;comment:角色名称;"`                       // 角色名称
-	Status    string     `json:"status" gorm:"size:4;comment:状态;"`                               // 状态 1禁用 2正常
-	RoleKey   string     `json:"roleKey" gorm:"size:128;comment:角色代码;"`                        // 角色代码
-	RoleSort  int        `json:"roleSort" gorm:"size:16;comment:角色排序;"`                        // 角色排序
-	Flag      string     `json:"flag" gorm:"size:128;comment:角色标记;"`                           // 角色标记
-	Remark    string     `json:"remark" gorm:"size:255;comment:角色备注;"`                         // 备注
-	Admin     bool       `json:"admin" gorm:"size:4;"`
-	DataScope string     `json:"dataScope" gorm:"size:128;"`
 	CreatedAt time.Time  // 创建时间
 	UpdatedAt time.Time  // 更新时间
-	DeletedAt *time.Time // 删除时间
+	DeletedAt *time.Time `sql:"index"`                                                           // 删除时间
+	RoleId    int        `json:"roleId" gorm:"not null;unique;primary_key;comment:角色ID;size:90"` // 角色ID
+	RoleName  string     `json:"roleName" gorm:"comment:角色名"`                                    // 角色名
+	ParentId  *int       `json:"parentId" gorm:"comment:父角色ID"`                                  // 父角色ID
+	Children  []SysRole  `json:"children" gorm:"-"`
+	Users     []SysUser  `json:"-" gorm:"many2many:sys_user_role;"`
+	// DefaultRouter   string          `json:"defaultRouter" gorm:"comment:默认菜单;default:dashboard"` // 默认菜单(默认dashboard)
+}
+
+func (SysRole) TableName() string {
+	return "sys_roles"
 }

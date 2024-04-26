@@ -235,63 +235,21 @@
                 "tags": [
                     "SysUser"
                 ],
-                "summary": "修改密码",
+                "summary": "用户登录",
                 "parameters": [
                     {
-                        "description": "修改密码",
+                        "description": "用户登录",
                         "name": "data",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.ChangePassword"
+                            "$ref": "#/definitions/request.Login"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "修改密码,返回修改结果",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/base/register": {
-            "post": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "SysUser"
-                ],
-                "summary": "用户注册账号",
-                "parameters": [
-                    {
-                        "description": "用户注册",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.Register"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "用户注册",
+                        "description": "用户登录",
                         "schema": {
                             "allOf": [
                                 {
@@ -304,7 +262,7 @@
                                             "type": "string"
                                         },
                                         "data": {
-                                            "$ref": "#/definitions/response.SysUserResponse"
+                                            "$ref": "#/definitions/response.Login"
                                         }
                                     }
                                 }
@@ -543,6 +501,57 @@
                 }
             }
         },
+        "/init/checkDB": {
+            "post": {
+                "description": "检查是否已初始化",
+                "tags": [
+                    "InitDB"
+                ],
+                "summary": "检查是否已初始化",
+                "responses": {}
+            }
+        },
+        "/init/initDB": {
+            "post": {
+                "description": "初始化系统数据",
+                "tags": [
+                    "InitDB"
+                ],
+                "summary": "初始化数据",
+                "responses": {
+                    "200": {
+                        "description": "初始化系统数据",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "初始化失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/system/status": {
             "get": {
                 "description": "查询并返回系统的服务器相关信息",
@@ -702,6 +711,93 @@
                 }
             }
         },
+        "/user/modifyPassword": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysUser"
+                ],
+                "summary": "修改密码",
+                "parameters": [
+                    {
+                        "description": "修改密码",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ChangePassword"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "修改密码,返回修改结果",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/user/register": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysUser"
+                ],
+                "summary": "用户注册账号",
+                "parameters": [
+                    {
+                        "description": "用户注册",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.Register"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "用户注册",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        " msg": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/definitions/response.SysUserResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/user/updateUserInfo": {
             "put": {
                 "produces": [
@@ -745,7 +841,7 @@
             }
         },
         "/user/updateUserStatus": {
-            "get": {
+            "put": {
                 "produces": [
                     "application/json"
                 ],
@@ -908,8 +1004,16 @@
                     "description": "验证码ID",
                     "type": "string"
                 },
+                "isPhoneLogin": {
+                    "description": "是否通过手机号登录",
+                    "type": "boolean"
+                },
                 "password": {
                     "description": "密码",
+                    "type": "string"
+                },
+                "phone": {
+                    "description": "手机号",
                     "type": "string"
                 },
                 "username": {
@@ -1107,46 +1211,30 @@
         "system.SysRole": {
             "type": "object",
             "properties": {
-                "admin": {
-                    "type": "boolean"
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/system.SysRole"
+                    }
                 },
                 "createdAt": {
                     "description": "创建时间",
-                    "type": "string"
-                },
-                "dataScope": {
                     "type": "string"
                 },
                 "deletedAt": {
                     "description": "删除时间",
                     "type": "string"
                 },
-                "flag": {
-                    "description": "角色标记",
-                    "type": "string"
-                },
-                "remark": {
-                    "description": "备注",
-                    "type": "string"
+                "parentId": {
+                    "description": "父角色ID",
+                    "type": "integer"
                 },
                 "roleId": {
-                    "description": "角色编码",
+                    "description": "角色ID",
                     "type": "integer"
-                },
-                "roleKey": {
-                    "description": "角色代码",
-                    "type": "string"
                 },
                 "roleName": {
-                    "description": "角色名称",
-                    "type": "string"
-                },
-                "roleSort": {
-                    "description": "角色排序",
-                    "type": "integer"
-                },
-                "status": {
-                    "description": "状态 1禁用 2正常",
+                    "description": "角色名",
                     "type": "string"
                 },
                 "updatedAt": {
@@ -1202,6 +1290,12 @@
                 },
                 "sysRole": {
                     "$ref": "#/definitions/system.SysRole"
+                },
+                "sysRoles": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/system.SysRole"
+                    }
                 },
                 "updatedAt": {
                     "type": "string"

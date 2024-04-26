@@ -43,7 +43,7 @@ func Viper(path ...string) *viper.Viper {
 	v.WatchConfig()
 
 	v.OnConfigChange(func(e fsnotify.Event) {
-		fmt.Printf("config file changed:", e.Name)
+		fmt.Printf("config file changed: %s\n", e.Name)
 		if err := v.Unmarshal(&global.MAY_CONFIG); err != nil {
 			fmt.Println(err)
 		}

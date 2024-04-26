@@ -27,6 +27,7 @@ func Routers() *gin.Engine {
 	}
 	{
 		systemRouter.InitBaseRouter(publicGroup)
+		systemRouter.InitDBRouter(publicGroup)
 	}
 
 	PrivateGroup := Router.Group(global.MAY_CONFIG.System.RouterPrefix)

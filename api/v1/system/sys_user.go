@@ -74,7 +74,7 @@ func (b *BaseApi) TokenNext(c *gin.Context, user system.SysUser) {
 // @Produce json
 // @Param   data body systemReq.ChangePassword true "修改密码"
 // @Success 200 {object} response.Response{msg=string}	"修改密码,返回修改结果"
-// @Router /base/login [POST]
+// @Router /user/modifyPassword [POST]
 func (b *BaseApi) ModifyPassword(c *gin.Context) {
 	var modifyPassword systemReq.ChangePassword
 	_ = c.ShouldBindJSON(&modifyPassword)
@@ -99,7 +99,7 @@ func (b *BaseApi) ModifyPassword(c *gin.Context) {
 // @Produce json
 // @Param   data body systemReq.Register true "用户注册"
 // @Success 200 {object} response.Response{data=systemRes.SysUserResponse, msg=string}	"用户注册"
-// @Router /base/register [POST]
+// @Router /user/register [POST]
 func (b *BaseApi) Register(c *gin.Context) {
 	var register systemReq.Register
 	_ = c.ShouldBindJSON(&register)
@@ -219,7 +219,7 @@ func (b *BaseApi) GetUsersInfo(c *gin.Context) {
 // @Produce json
 // @Param   data body systemReq.UUID true "更改用户状态"
 // @Success 200 {object} response.Response{msg=string} "更改用户状态，返回操作结果"
-// @Router /user/updateUserStatus [GET]
+// @Router /user/updateUserStatus [PUT]
 func (b *BaseApi) UpdateUserStatus(c *gin.Context) {
 	var uuid systemReq.UUID
 	_ = c.ShouldBindJSON(&uuid)

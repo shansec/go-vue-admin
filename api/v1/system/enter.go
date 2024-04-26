@@ -9,6 +9,7 @@ type ApiGroup struct {
 	DeptApi
 	SystemConfigApi
 	AutoCodeApi
+	DBApi
 }
 
 var (
@@ -16,4 +17,5 @@ var (
 	deptService         = service.ServiceGroupApp.SystemServiceGroup.DeptService
 	systemConfigService = service.ServiceGroupApp.SystemServiceGroup.SystemConfigService
 	autoCodeService     = service.ServiceGroupApp.SystemServiceGroup.AutoCodeService
+	initDbService       = service.ServiceGroupApp.SystemServiceGroup.InitService
 )

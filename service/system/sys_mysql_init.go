@@ -64,7 +64,7 @@ func (m MysqlInit) CreateDB(ctx context.Context, config *request.InitDB) (next c
 	}), &gorm.Config{DisableForeignKeyConstraintWhenMigrating: true}); err != nil {
 		return ctx, err
 	}
-	global.MAY_CONFIG.AutoCode.Root, _ = filepath.Abs("..")
+	global.MAY_CONFIG.AutoCode.Root, _ = filepath.Abs(".")
 	next = context.WithValue(next, "db", db)
 	return next, err
 }
@@ -77,7 +77,7 @@ func (m MysqlInit) DataInit(ctx context.Context, inits inits) error {
 	next, cancel := context.WithCancel(ctx)
 	defer func(c func()) { c() }(cancel)
 	for _, init := range inits {
-		if init.DataInited(next) {
+		if init.DataInserted(next) {
 			color.Info.Printf("\n[%v] --> %v 的初始数据已存在!\n", "mysql", init.InitTableName())
 			continue
 		}

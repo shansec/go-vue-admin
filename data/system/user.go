@@ -2,13 +2,14 @@ package system
 
 import (
 	"context"
-	"errors"
+	"github.com/pkg/errors"
 	model "github/shansec/go-vue-admin/model/system"
 	"github/shansec/go-vue-admin/service/system"
+	"github/shansec/go-vue-admin/utils"
 	"gorm.io/gorm"
 )
 
-const initOrderUser = InitOrder + 1
+const initOrderUser = InitOrder + 3
 
 type initUser struct{}
 
@@ -30,24 +31,28 @@ func (u *initUser) MigrateTable(ctx context.Context) (cont context.Context, err 
 }
 
 func (u *initUser) InitData(ctx context.Context) (cont context.Context, err error) {
-	//db, ok := ctx.Value("db").(*gorm.DB)
-	//if !ok {
-	//	return ctx, errors.New("missing db in context")
-	//}
-	//password := utils.BcryptHash("admin")
-	//data := model.SysUser{
-	//	Username:  "admin",
-	//	Password:  password,
-	//	NickName:  "管理员",
-	//	HeaderImg: "https://qmplusimg.henrongyi.top/gva_header.jpg",
-	//	Sex:       1,
-	//	Email:     "admin@qq.com",
-	//	Phone:     "1234567890",
-	//	RolesId:   1,
-	//	Status:    1,
-	//	DeptsId:   1,
-	//}
-	return ctx, nil
+	db, ok := ctx.Value("db").(*gorm.DB)
+	if !ok {
+		return ctx, errors.New("missing db in context")
+	}
+	password := utils.BcryptHash("admin")
+	data := model.SysUser{
+		Username:  "admin",
+		Password:  password,
+		NickName:  "管理员",
+		HeaderImg: "https://pic.netbian.com/uploads/allimg/240312/012812-17101780921c39.jpg",
+		Sex:       1,
+		Email:     "admin@qq.com",
+		Phone:     "1234567890",
+		RolesId:   888,
+		Status:    1,
+		DeptsId:   1,
+	}
+	if err := db.Create(&data).Error; err != nil {
+		return ctx, errors.Wrap(err, model.SysUser{}.TableName()+"表初始化失败！")
+	}
+	next := context.WithValue(ctx, u.InitTableName(), data)
+	return next, nil
 }
 
 func (u *initUser) TableInited(ctx context.Context) bool {
@@ -59,5 +64,13 @@ func (u *initUser) TableInited(ctx context.Context) bool {
 }
 
 func (u *initUser) DataInserted(ctx context.Context) bool {
-	return false
+	db, ok := ctx.Value("db").(*gorm.DB)
+	if !ok {
+		return false
+	}
+	var user model.SysUser
+	if errors.Is(db.Where("username = ?", "admin").First(&user).Error, gorm.ErrRecordNotFound) { // 判断是否存在数据
+		return false
+	}
+	return true
 }

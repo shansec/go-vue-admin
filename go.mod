@@ -10,6 +10,7 @@ require (
 	github.com/gookit/color v1.5.4
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/natefinch/lumberjack v2.0.0+incompatible
+	github.com/pkg/errors v0.9.1
 	github.com/satori/uuid v1.2.0
 	github.com/shirou/gopsutil/v3 v3.24.3
 	github.com/spf13/viper v1.15.0

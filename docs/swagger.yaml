@@ -83,8 +83,14 @@ definitions:
       captchaId:
         description: 验证码ID
         type: string
+      isPhoneLogin:
+        description: 是否通过手机号登录
+        type: boolean
       password:
         description: 密码
+        type: string
+      phone:
+        description: 手机号
         type: string
       username:
         description: 用户名
@@ -218,36 +224,24 @@ definitions:
     type: object
   system.SysRole:
     properties:
-      admin:
-        type: boolean
+      children:
+        items:
+          $ref: '#/definitions/system.SysRole'
+        type: array
       createdAt:
         description: 创建时间
-        type: string
-      dataScope:
         type: string
       deletedAt:
         description: 删除时间
         type: string
-      flag:
-        description: 角色标记
-        type: string
-      remark:
-        description: 备注
-        type: string
+      parentId:
+        description: 父角色ID
+        type: integer
       roleId:
-        description: 角色编码
+        description: 角色ID
         type: integer
-      roleKey:
-        description: 角色代码
-        type: string
       roleName:
-        description: 角色名称
-        type: string
-      roleSort:
-        description: 角色排序
-        type: integer
-      status:
-        description: 状态 1禁用 2正常
+        description: 角色名
         type: string
       updatedAt:
         description: 更新时间
@@ -288,6 +282,10 @@ definitions:
         $ref: '#/definitions/system.SysDept'
       sysRole:
         $ref: '#/definitions/system.SysRole'
+      sysRoles:
+        items:
+          $ref: '#/definitions/system.SysRole'
+        type: array
       updatedAt:
         type: string
       userName:
@@ -437,41 +435,17 @@ paths:
   /base/login:
     post:
       parameters:
-      - description: 修改密码
+      - description: 用户登录
         in: body
         name: data
         required: true
         schema:
-          $ref: '#/definitions/request.ChangePassword'
+          $ref: '#/definitions/request.Login'
       produces:
       - application/json
       responses:
         "200":
-          description: 修改密码,返回修改结果
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                msg:
-                  type: string
-              type: object
-      summary: 修改密码
-      tags:
-      - SysUser
-  /base/register:
-    post:
-      parameters:
-      - description: 用户注册
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.Register'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 用户注册
+          description: 用户登录
           schema:
             allOf:
             - $ref: '#/definitions/response.Response'
@@ -479,9 +453,9 @@ paths:
                 ' msg':
                   type: string
                 data:
-                  $ref: '#/definitions/response.SysUserResponse'
+                  $ref: '#/definitions/response.Login'
               type: object
-      summary: 用户注册账号
+      summary: 用户登录
       tags:
       - SysUser
   /dept/createDept:
@@ -622,6 +596,37 @@ paths:
       summary: 更新部门信息
       tags:
       - SysDept
+  /init/checkDB:
+    post:
+      description: 检查是否已初始化
+      responses: {}
+      summary: 检查是否已初始化
+      tags:
+      - InitDB
+  /init/initDB:
+    post:
+      description: 初始化系统数据
+      responses:
+        "200":
+          description: 初始化系统数据
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 初始化失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 初始化数据
+      tags:
+      - InitDB
   /system/status:
     get:
       description: 查询并返回系统的服务器相关信息
@@ -713,6 +718,56 @@ paths:
       summary: 获取用户列表
       tags:
       - SysUser
+  /user/modifyPassword:
+    post:
+      parameters:
+      - description: 修改密码
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ChangePassword'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 修改密码,返回修改结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      summary: 修改密码
+      tags:
+      - SysUser
+  /user/register:
+    post:
+      parameters:
+      - description: 用户注册
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.Register'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 用户注册
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                ' msg':
+                  type: string
+                data:
+                  $ref: '#/definitions/response.SysUserResponse'
+              type: object
+      summary: 用户注册账号
+      tags:
+      - SysUser
   /user/updateUserInfo:
     put:
       parameters:
@@ -738,7 +793,7 @@ paths:
       tags:
       - SysUser
   /user/updateUserStatus:
-    get:
+    put:
       parameters:
       - description: 更改用户状态
         in: body
