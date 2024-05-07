@@ -7,4 +7,5 @@ type RouterGroup struct {
 	SystemConfigRouter
 	AutoCodeRouter
 	InitRouter
+	ApiRouter
 }

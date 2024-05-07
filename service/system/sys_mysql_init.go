@@ -21,8 +21,8 @@ func NewMysqlInit() *MysqlInit {
 	return &MysqlInit{}
 }
 
-// WConfig mysql回写配置
-func (m MysqlInit) WConfig(ctx context.Context) error {
+// DBWriteConfig mysql回写配置
+func (m MysqlInit) DBWriteConfig(ctx context.Context) error {
 	c, ok := ctx.Value("config").(config.Mysql)
 	if !ok {
 		return errors.New("mysql config invalid")
@@ -73,7 +73,7 @@ func (m MysqlInit) TablesInit(ctx context.Context, inits inits) error {
 	return createTables(ctx, inits)
 }
 
-func (m MysqlInit) DataInit(ctx context.Context, inits inits) error {
+func (m MysqlInit) TableDataInit(ctx context.Context, inits inits) error {
 	next, cancel := context.WithCancel(ctx)
 	defer func(c func()) { c() }(cancel)
 	for _, init := range inits {

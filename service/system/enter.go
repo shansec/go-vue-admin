@@ -6,4 +6,5 @@ type ServiceGroup struct {
 	SystemConfigService
 	AutoCodeService
 	InitService
+	ApiService
 }

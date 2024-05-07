@@ -12,6 +12,7 @@ import (
 )
 
 /* ———— Init ———— */
+
 type orderInit struct {
 	order uint
 	SubInitializer
@@ -30,12 +31,12 @@ type SubInitializer interface {
 type DBInitHandler interface {
 	// CreateDB 创建数据库
 	CreateDB(ctx context.Context, db *request.InitDB) (context.Context, error)
-	// WConfig 写设置
-	WConfig(ctx context.Context) error
+	// DBWriteConfig 写设置
+	DBWriteConfig(ctx context.Context) error
 	// TablesInit 表初始化
 	TablesInit(ctx context.Context, init inits) error
-	// DataInit 数据初始化
-	DataInit(ctx context.Context, init inits) error
+	// TableDataInit 数据初始化
+	TableDataInit(ctx context.Context, init inits) error
 }
 
 var (
@@ -73,6 +74,7 @@ func (i inits) Swap(k, j int) {
 }
 
 /* ———— Service ———— */
+
 type InitService struct{}
 
 func (initService *InitService) InitDB(config request.InitDB) (err error) {
@@ -94,10 +96,10 @@ func (initService *InitService) InitDB(config request.InitDB) (err error) {
 	if err := dbInitHandler.TablesInit(next, initalizer); err != nil {
 		return err
 	}
-	if err := dbInitHandler.DataInit(next, initalizer); err != nil {
+	if err := dbInitHandler.TableDataInit(next, initalizer); err != nil {
 		return err
 	}
-	if err := dbInitHandler.WConfig(next); err != nil {
+	if err := dbInitHandler.DBWriteConfig(next); err != nil {
 		return err
 	}
 	initalizer = inits{}

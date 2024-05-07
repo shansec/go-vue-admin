@@ -1,4 +1,23 @@
 definitions:
+  github_shansec_go-vue-admin_model_system.SysApi:
+    properties:
+      apiGroup:
+        type: string
+      createdAt:
+        description: 创建时间
+        type: string
+      description:
+        type: string
+      id:
+        description: 主键 ID
+        type: integer
+      method:
+        type: string
+      path:
+        type: string
+      updatedAt:
+        type: string
+    type: object
   request.ChangePassword:
     properties:
       newPassword:
@@ -28,6 +47,23 @@ definitions:
       sort:
         type: integer
       status:
+        type: string
+    type: object
+  request.GetApiList:
+    properties:
+      apiGroup:
+        type: string
+      description:
+        type: string
+      method:
+        type: string
+      page:
+        description: 页码
+        type: integer
+      pageSize:
+        description: 每页大小
+        type: integer
+      path:
         type: string
     type: object
   request.GetDeptList:
@@ -300,6 +336,147 @@ info:
   title: Go-Vue-Admin Swagger API接口文档
   version: v1.0.0
 paths:
+  /api/createApi:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建 api
+        in: body
+        name: createApiInfo
+        required: true
+        schema:
+          $ref: '#/definitions/github_shansec_go-vue-admin_model_system.SysApi'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 创建成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 创建 api
+      tags:
+      - SysApi
+  /api/deleteApi:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除 api
+        in: body
+        name: deleteApiInfo
+        required: true
+        schema:
+          $ref: '#/definitions/github_shansec_go-vue-admin_model_system.SysApi'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 删除 api
+      tags:
+      - SysApi
+  /api/getApiList:
+    get:
+      consumes:
+      - application/json
+      description: 分页查询 api 信息列表
+      parameters:
+      - description: api 列表查询参数
+        in: body
+        name: apiPageInfo
+        required: true
+        schema:
+          $ref: '#/definitions/request.GetApiList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: api 列表获取成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                ' msg':
+                  type: string
+                list:
+                  items:
+                    $ref: '#/definitions/github_shansec_go-vue-admin_model_system.SysApi'
+                  type: array
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 获取部门列表失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取 api 列表
+      tags:
+      - SysApi
+  /api/updateApi:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新 api
+        in: body
+        name: updateApiInfo
+        required: true
+        schema:
+          $ref: '#/definitions/github_shansec_go-vue-admin_model_system.SysApi'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 更新 api
+      tags:
+      - SysApi
   /autocode/createPackage:
     post:
       consumes:
