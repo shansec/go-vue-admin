@@ -1,49 +1,27 @@
-autocode:
-    s-model: /model/%s
-    s-router: /router/%s
-    s-server: /server
-    s-api: /api/v1/%s
-    s-plug: /plugin/%s
-    s-initialize: /initialize
-    root: E:\minor\Go\src\OSS\go-vue-admin
-    w-root: E:\minor\Go\src\OSS\go-vue
-    w-table: /views
-    w-web: /src
-    s-service: /service/%s
-    s-request: /model/%s/request/
-    w-api: /api
-    w-form: /views
-    transfer-restart: true
-captcha:
-    key-long: 6
-    img-width: 240
-    img-height: 80
-jwt:
-    signing-key: f581d039-328e-4b56-a5f6-d6dbee2e9c81
-    expires-time: 86400
-    buffer-time: 86400
-    issuer: Shansec
+# mysql
 mysql:
-    path: 127.0.0.1
-    port: "3306"
-    config: charset=utf8mb4&parseTime=True&loc=Local
-    db-name: may_db
-    username: root
-    password: root
-    max-idle-conns: 100
-    max-open-conns: 10
-    log-mode: error
+    path: ""
+    port: ""
+    config: ""
+    db-name: ""
+    username: ""
+    password: ""
+    max-idle-conns: 10
+    max-open-conns: 100
+    log-mode: ""
     log-zap: false
+# system
 system:
     env: public
     addr: 8080
     db-type: mysql
-    router-prefix: /v1
+    router-prefix: '/v1'
     oss-type: local
     use-multipoint: false
     use-redis: false
     limit-count-ip: 15000
     limit-time-ip: 3600
+# zap
 zap:
     level: info
     format: console
@@ -53,3 +31,31 @@ zap:
     encode-level: LowercaseColorLevelEncoder
     stacktrace-key: stacktrace
     log-in-console: true
+# jwt
+jwt:
+    signing-key: 'Shansec'
+    expires-time: 86400
+    buffer-time: 86400
+    issuer: 'Shansec'
+# captcha
+captcha:
+    key-long: 6
+    img-width: 240
+    img-height: 80
+# autocode
+autocode:
+    s-model: /model/%s
+    s-router: /router/%s
+    s-server: /server
+    s-api: /api/v1/%s
+    s-plug: /plugin/%s
+    s-initialize: /initialize
+    root:
+    w-root:
+    w-table: /views
+    w-web: /src
+    s-service: /service/%s
+    s-request: /model/%s/request/
+    w-api: /api
+    w-form: /views
+    transfer-restart: true
