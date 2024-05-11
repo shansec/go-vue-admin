@@ -20,6 +20,7 @@ func Gorm() *gorm.DB {
 
 func RegisterTable(db *gorm.DB) {
 	err := db.AutoMigrate(
+		system.SysApi{},
 		system.SysUser{},
 		system.SysRole{},
 		system.SysDept{},

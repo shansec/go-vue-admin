@@ -15,6 +15,241 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/api/createApi": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysApi"
+                ],
+                "summary": "创建 api",
+                "parameters": [
+                    {
+                        "description": "创建 api",
+                        "name": "createApiInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_shansec_go-vue-admin_model_system.SysApi"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "创建成功",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/deleteApi": {
+            "delete": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysApi"
+                ],
+                "summary": "删除 api",
+                "parameters": [
+                    {
+                        "description": "删除 api",
+                        "name": "deleteApiInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_shansec_go-vue-admin_model_system.SysApi"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "删除成功",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/getApiList": {
+            "get": {
+                "description": "分页查询 api 信息列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysApi"
+                ],
+                "summary": "获取 api 列表",
+                "parameters": [
+                    {
+                        "description": "api 列表查询参数",
+                        "name": "apiPageInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.GetApiList"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "api 列表获取成功",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.PageResult"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        " msg": {
+                                            "type": "string"
+                                        },
+                                        "list": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/github_shansec_go-vue-admin_model_system.SysApi"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "获取部门列表失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/updateApi": {
+            "put": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysApi"
+                ],
+                "summary": "更新 api",
+                "parameters": [
+                    {
+                        "description": "更新 api",
+                        "name": "updateApiInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_shansec_go-vue-admin_model_system.SysApi"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "更新成功",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/autocode/createPackage": {
             "post": {
                 "consumes": [
@@ -243,63 +478,21 @@ const docTemplate = `{
                 "tags": [
                     "SysUser"
                 ],
-                "summary": "修改密码",
+                "summary": "用户登录",
                 "parameters": [
                     {
-                        "description": "修改密码",
+                        "description": "用户登录",
                         "name": "data",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/request.ChangePassword"
+                            "$ref": "#/definitions/request.Login"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "修改密码,返回修改结果",
-                        "schema": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/definitions/response.Response"
-                                },
-                                {
-                                    "type": "object",
-                                    "properties": {
-                                        "msg": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    }
-                }
-            }
-        },
-        "/base/register": {
-            "post": {
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "SysUser"
-                ],
-                "summary": "用户注册账号",
-                "parameters": [
-                    {
-                        "description": "用户注册",
-                        "name": "data",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/request.Register"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "用户注册",
+                        "description": "用户登录",
                         "schema": {
                             "allOf": [
                                 {
@@ -312,7 +505,7 @@ const docTemplate = `{
                                             "type": "string"
                                         },
                                         "data": {
-                                            "$ref": "#/definitions/response.SysUserResponse"
+                                            "$ref": "#/definitions/response.Login"
                                         }
                                     }
                                 }
@@ -551,6 +744,57 @@ const docTemplate = `{
                 }
             }
         },
+        "/init/checkDB": {
+            "post": {
+                "description": "检查是否已初始化",
+                "tags": [
+                    "InitDB"
+                ],
+                "summary": "检查是否已初始化",
+                "responses": {}
+            }
+        },
+        "/init/initDB": {
+            "post": {
+                "description": "初始化系统数据",
+                "tags": [
+                    "InitDB"
+                ],
+                "summary": "初始化数据",
+                "responses": {
+                    "200": {
+                        "description": "初始化系统数据",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "初始化失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/system/status": {
             "get": {
                 "description": "查询并返回系统的服务器相关信息",
@@ -710,6 +954,93 @@ const docTemplate = `{
                 }
             }
         },
+        "/user/modifyPassword": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysUser"
+                ],
+                "summary": "修改密码",
+                "parameters": [
+                    {
+                        "description": "修改密码",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.ChangePassword"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "修改密码,返回修改结果",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/user/register": {
+            "post": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysUser"
+                ],
+                "summary": "用户注册账号",
+                "parameters": [
+                    {
+                        "description": "用户注册",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.Register"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "用户注册",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        " msg": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/definitions/response.SysUserResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
         "/user/updateUserInfo": {
             "put": {
                 "produces": [
@@ -753,7 +1084,7 @@ const docTemplate = `{
             }
         },
         "/user/updateUserStatus": {
-            "get": {
+            "put": {
                 "produces": [
                     "application/json"
                 ],
@@ -796,6 +1127,34 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "github_shansec_go-vue-admin_model_system.SysApi": {
+            "type": "object",
+            "properties": {
+                "apiGroup": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键 ID",
+                    "type": "integer"
+                },
+                "method": {
+                    "type": "string"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
         "request.ChangePassword": {
             "type": "object",
             "properties": {
@@ -838,6 +1197,31 @@ const docTemplate = `{
                     "type": "integer"
                 },
                 "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "request.GetApiList": {
+            "type": "object",
+            "properties": {
+                "apiGroup": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "method": {
+                    "type": "string"
+                },
+                "page": {
+                    "description": "页码",
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "description": "每页大小",
+                    "type": "integer"
+                },
+                "path": {
                     "type": "string"
                 }
             }
@@ -916,8 +1300,16 @@ const docTemplate = `{
                     "description": "验证码ID",
                     "type": "string"
                 },
+                "isPhoneLogin": {
+                    "description": "是否通过手机号登录",
+                    "type": "boolean"
+                },
                 "password": {
                     "description": "密码",
+                    "type": "string"
+                },
+                "phone": {
+                    "description": "手机号",
                     "type": "string"
                 },
                 "username": {
@@ -1115,46 +1507,30 @@ const docTemplate = `{
         "system.SysRole": {
             "type": "object",
             "properties": {
-                "admin": {
-                    "type": "boolean"
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/system.SysRole"
+                    }
                 },
                 "createdAt": {
                     "description": "创建时间",
-                    "type": "string"
-                },
-                "dataScope": {
                     "type": "string"
                 },
                 "deletedAt": {
                     "description": "删除时间",
                     "type": "string"
                 },
-                "flag": {
-                    "description": "角色标记",
-                    "type": "string"
-                },
-                "remark": {
-                    "description": "备注",
-                    "type": "string"
+                "parentId": {
+                    "description": "父角色ID",
+                    "type": "integer"
                 },
                 "roleId": {
-                    "description": "角色编码",
+                    "description": "角色ID",
                     "type": "integer"
-                },
-                "roleKey": {
-                    "description": "角色代码",
-                    "type": "string"
                 },
                 "roleName": {
-                    "description": "角色名称",
-                    "type": "string"
-                },
-                "roleSort": {
-                    "description": "角色排序",
-                    "type": "integer"
-                },
-                "status": {
-                    "description": "状态 1禁用 2正常",
+                    "description": "角色名",
                     "type": "string"
                 },
                 "updatedAt": {
@@ -1210,6 +1586,12 @@ const docTemplate = `{
                 },
                 "sysRole": {
                     "$ref": "#/definitions/system.SysRole"
+                },
+                "sysRoles": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/system.SysRole"
+                    }
                 },
                 "updatedAt": {
                     "type": "string"

@@ -4,8 +4,9 @@ import (
 	"errors"
 	"fmt"
 	systemReq "github/shansec/go-vue-admin/model/system/request"
-	"gorm.io/gorm"
 	"time"
+
+	"gorm.io/gorm"
 
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/model/system"
@@ -24,13 +25,19 @@ const USER_STATUS = 2
 // @description: 用户登录
 // @param: u *system.SysUser
 // @return: userInfo *system.SysUser, err error
-func (userService *UserService) Login(u *system.SysUser) (userInfo *system.SysUser, err error) {
+func (userService *UserService) Login(u *system.SysUser, loginMethod bool) (userInfo *system.SysUser, err error) {
 	if nil == global.MAY_DB {
 		return nil, fmt.Errorf("db not init")
 	}
 
 	var user system.SysUser
-	err = global.MAY_DB.Where("username = ?", u.Username).Preload("SysDept").First(&user).Error
+	var db *gorm.DB
+	if loginMethod {
+		db = global.MAY_DB.Where("phone = ?", u.Phone)
+	} else {
+		db = global.MAY_DB.Where("username = ?", u.Username)
+	}
+	err = db.Preload("SysDept").First(&user).Error
 	if err == nil {
 		if ok := utils.BcryptCheck(u.Password, user.Password); !ok {
 			return nil, errors.New("密码错误")

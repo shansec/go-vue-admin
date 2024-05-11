@@ -6,4 +6,6 @@ type RouterGroup struct {
 	DeptRouter
 	SystemConfigRouter
 	AutoCodeRouter
+	InitRouter
+	ApiRouter
 }

@@ -1,4 +1,23 @@
 definitions:
+  github_shansec_go-vue-admin_model_system.SysApi:
+    properties:
+      apiGroup:
+        type: string
+      createdAt:
+        description: 创建时间
+        type: string
+      description:
+        type: string
+      id:
+        description: 主键 ID
+        type: integer
+      method:
+        type: string
+      path:
+        type: string
+      updatedAt:
+        type: string
+    type: object
   request.ChangePassword:
     properties:
       newPassword:
@@ -28,6 +47,23 @@ definitions:
       sort:
         type: integer
       status:
+        type: string
+    type: object
+  request.GetApiList:
+    properties:
+      apiGroup:
+        type: string
+      description:
+        type: string
+      method:
+        type: string
+      page:
+        description: 页码
+        type: integer
+      pageSize:
+        description: 每页大小
+        type: integer
+      path:
         type: string
     type: object
   request.GetDeptList:
@@ -83,8 +119,14 @@ definitions:
       captchaId:
         description: 验证码ID
         type: string
+      isPhoneLogin:
+        description: 是否通过手机号登录
+        type: boolean
       password:
         description: 密码
+        type: string
+      phone:
+        description: 手机号
         type: string
       username:
         description: 用户名
@@ -218,36 +260,24 @@ definitions:
     type: object
   system.SysRole:
     properties:
-      admin:
-        type: boolean
+      children:
+        items:
+          $ref: '#/definitions/system.SysRole'
+        type: array
       createdAt:
         description: 创建时间
-        type: string
-      dataScope:
         type: string
       deletedAt:
         description: 删除时间
         type: string
-      flag:
-        description: 角色标记
-        type: string
-      remark:
-        description: 备注
-        type: string
+      parentId:
+        description: 父角色ID
+        type: integer
       roleId:
-        description: 角色编码
+        description: 角色ID
         type: integer
-      roleKey:
-        description: 角色代码
-        type: string
       roleName:
-        description: 角色名称
-        type: string
-      roleSort:
-        description: 角色排序
-        type: integer
-      status:
-        description: 状态 1禁用 2正常
+        description: 角色名
         type: string
       updatedAt:
         description: 更新时间
@@ -288,6 +318,10 @@ definitions:
         $ref: '#/definitions/system.SysDept'
       sysRole:
         $ref: '#/definitions/system.SysRole'
+      sysRoles:
+        items:
+          $ref: '#/definitions/system.SysRole'
+        type: array
       updatedAt:
         type: string
       userName:
@@ -302,6 +336,147 @@ info:
   title: Go-Vue-Admin Swagger API接口文档
   version: v1.0.0
 paths:
+  /api/createApi:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建 api
+        in: body
+        name: createApiInfo
+        required: true
+        schema:
+          $ref: '#/definitions/github_shansec_go-vue-admin_model_system.SysApi'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 创建成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 创建 api
+      tags:
+      - SysApi
+  /api/deleteApi:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: 删除 api
+        in: body
+        name: deleteApiInfo
+        required: true
+        schema:
+          $ref: '#/definitions/github_shansec_go-vue-admin_model_system.SysApi'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 删除 api
+      tags:
+      - SysApi
+  /api/getApiList:
+    get:
+      consumes:
+      - application/json
+      description: 分页查询 api 信息列表
+      parameters:
+      - description: api 列表查询参数
+        in: body
+        name: apiPageInfo
+        required: true
+        schema:
+          $ref: '#/definitions/request.GetApiList'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: api 列表获取成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.PageResult'
+            - properties:
+                ' msg':
+                  type: string
+                list:
+                  items:
+                    $ref: '#/definitions/github_shansec_go-vue-admin_model_system.SysApi'
+                  type: array
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 获取部门列表失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取 api 列表
+      tags:
+      - SysApi
+  /api/updateApi:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: 更新 api
+        in: body
+        name: updateApiInfo
+        required: true
+        schema:
+          $ref: '#/definitions/github_shansec_go-vue-admin_model_system.SysApi'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 更新 api
+      tags:
+      - SysApi
   /autocode/createPackage:
     post:
       consumes:
@@ -437,41 +612,17 @@ paths:
   /base/login:
     post:
       parameters:
-      - description: 修改密码
+      - description: 用户登录
         in: body
         name: data
         required: true
         schema:
-          $ref: '#/definitions/request.ChangePassword'
+          $ref: '#/definitions/request.Login'
       produces:
       - application/json
       responses:
         "200":
-          description: 修改密码,返回修改结果
-          schema:
-            allOf:
-            - $ref: '#/definitions/response.Response'
-            - properties:
-                msg:
-                  type: string
-              type: object
-      summary: 修改密码
-      tags:
-      - SysUser
-  /base/register:
-    post:
-      parameters:
-      - description: 用户注册
-        in: body
-        name: data
-        required: true
-        schema:
-          $ref: '#/definitions/request.Register'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: 用户注册
+          description: 用户登录
           schema:
             allOf:
             - $ref: '#/definitions/response.Response'
@@ -479,9 +630,9 @@ paths:
                 ' msg':
                   type: string
                 data:
-                  $ref: '#/definitions/response.SysUserResponse'
+                  $ref: '#/definitions/response.Login'
               type: object
-      summary: 用户注册账号
+      summary: 用户登录
       tags:
       - SysUser
   /dept/createDept:
@@ -622,6 +773,37 @@ paths:
       summary: 更新部门信息
       tags:
       - SysDept
+  /init/checkDB:
+    post:
+      description: 检查是否已初始化
+      responses: {}
+      summary: 检查是否已初始化
+      tags:
+      - InitDB
+  /init/initDB:
+    post:
+      description: 初始化系统数据
+      responses:
+        "200":
+          description: 初始化系统数据
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 初始化失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 初始化数据
+      tags:
+      - InitDB
   /system/status:
     get:
       description: 查询并返回系统的服务器相关信息
@@ -713,6 +895,56 @@ paths:
       summary: 获取用户列表
       tags:
       - SysUser
+  /user/modifyPassword:
+    post:
+      parameters:
+      - description: 修改密码
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.ChangePassword'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 修改密码,返回修改结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+      summary: 修改密码
+      tags:
+      - SysUser
+  /user/register:
+    post:
+      parameters:
+      - description: 用户注册
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.Register'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 用户注册
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                ' msg':
+                  type: string
+                data:
+                  $ref: '#/definitions/response.SysUserResponse'
+              type: object
+      summary: 用户注册账号
+      tags:
+      - SysUser
   /user/updateUserInfo:
     put:
       parameters:
@@ -738,7 +970,7 @@ paths:
       tags:
       - SysUser
   /user/updateUserStatus:
-    get:
+    put:
       parameters:
       - description: 更改用户状态
         in: body

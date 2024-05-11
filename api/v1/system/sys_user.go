@@ -30,10 +30,14 @@ func (b *BaseApi) Login(c *gin.Context) {
 		return
 	}
 	if store.Verify(login.CaptchaId, login.Captcha, true) {
-		u := &system.SysUser{Username: login.Username, Password: login.Password}
-		if user, err := userService.Login(u); err != nil {
-			global.MAY_LOGGER.Error("登陆失败，用户名不存在或者密码错误", zap.Error(err))
-			response.FailWithMessage("用户名不存在或者密码错误", c)
+		u := &system.SysUser{Username: login.Username, Password: login.Password, Phone: login.Phone}
+		if user, err := userService.Login(u, login.IsPhoneLogin); err != nil {
+			var errStr string = "用户名不存在或者密码错误"
+			if login.IsPhoneLogin {
+				errStr = "手机号不存在或者密码错误"
+			}
+			global.MAY_LOGGER.Error(errStr, zap.Error(err))
+			response.FailWithMessage(errStr, c)
 		} else {
 			b.TokenNext(c, *user)
 		}
@@ -70,7 +74,7 @@ func (b *BaseApi) TokenNext(c *gin.Context, user system.SysUser) {
 // @Produce json
 // @Param   data body systemReq.ChangePassword true "修改密码"
 // @Success 200 {object} response.Response{msg=string}	"修改密码,返回修改结果"
-// @Router /base/login [POST]
+// @Router /user/modifyPassword [POST]
 func (b *BaseApi) ModifyPassword(c *gin.Context) {
 	var modifyPassword systemReq.ChangePassword
 	_ = c.ShouldBindJSON(&modifyPassword)
@@ -95,7 +99,7 @@ func (b *BaseApi) ModifyPassword(c *gin.Context) {
 // @Produce json
 // @Param   data body systemReq.Register true "用户注册"
 // @Success 200 {object} response.Response{data=systemRes.SysUserResponse, msg=string}	"用户注册"
-// @Router /base/register [POST]
+// @Router /user/register [POST]
 func (b *BaseApi) Register(c *gin.Context) {
 	var register systemReq.Register
 	_ = c.ShouldBindJSON(&register)
@@ -215,7 +219,7 @@ func (b *BaseApi) GetUsersInfo(c *gin.Context) {
 // @Produce json
 // @Param   data body systemReq.UUID true "更改用户状态"
 // @Success 200 {object} response.Response{msg=string} "更改用户状态，返回操作结果"
-// @Router /user/updateUserStatus [GET]
+// @Router /user/updateUserStatus [PUT]
 func (b *BaseApi) UpdateUserStatus(c *gin.Context) {
 	var uuid systemReq.UUID
 	_ = c.ShouldBindJSON(&uuid)

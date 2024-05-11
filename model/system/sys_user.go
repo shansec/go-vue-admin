@@ -18,6 +18,11 @@ type SysUser struct {
 	Status    int       `json:"status" gorm:"default:1;comment:用户状态 1为开启，2为禁用"`                                       // 用户状态 1为开启，2为禁用
 	RolesId   int       `json:"rolesId" gorm:"comment:用户角色ID"`                                                        // 用户角色ID
 	SysRole   SysRole   `json:"sysRole" gorm:"foreignKey:RolesId;references:RoleId"`
+	SysRoles  []SysRole `json:"sysRoles" gorm:"many2many:sys_user_role;"`
 	DeptsId   int       `json:"deptsId" gorm:"用户部门ID"`
 	SysDept   SysDept   `json:"sysDept" gorm:"foreignKey:DeptsId;references:DeptId"`
+}
+
+func (SysUser) TableName() string {
+	return "sys_users"
 }
