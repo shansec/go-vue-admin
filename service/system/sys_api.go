@@ -85,5 +85,9 @@ func (apiService *ApiService) GetApisInfo(getApisInfo systemReq.GetApiList) (api
 	if err != nil {
 		return nil, 0, errors.New("api 列表获取失败")
 	}
-	return apis, int64(len(apis)), nil
+	err = db.Count(&total).Error
+	if err != nil {
+		return nil, 0, errors.New("api 列表获取失败")
+	}
+	return apis, total, nil
 }
