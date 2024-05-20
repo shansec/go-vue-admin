@@ -5,9 +5,10 @@ import (
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/model/system"
 	systemReq "github/shansec/go-vue-admin/model/system/request"
-	"gorm.io/gorm"
 	"strconv"
 	"time"
+
+	"gorm.io/gorm"
 )
 
 type DeptService struct{}
@@ -60,7 +61,7 @@ func (deptService *DeptService) GetDept(info systemReq.GetDeptList) (deptList []
 	if info.Status != "" {
 		db = db.Where("status = ?", info.Status)
 	}
-	err = db.Limit(limit).Offset(offset).Find(&depts).Error
+	err = db.Limit(limit).Offset(offset).Order("sort ASC").Find(&depts).Error
 	if err != nil {
 		return nil, 0, errors.New("获取用户列表失败")
 	}

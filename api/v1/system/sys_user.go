@@ -117,7 +117,7 @@ func (b *BaseApi) Register(c *gin.Context) {
 		Email:     register.Email,
 		Status:    register.Status,
 		DeptsId:   register.DeptsId,
-		RolesId:   1,
+		RolesId:   888,
 	}
 	userResgisterRes, err := userService.Register(*user)
 	if err != nil {
