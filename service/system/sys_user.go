@@ -108,17 +108,18 @@ func (userService *UserService) DelUserInformation(uuid uuid.UUID) error {
 func (userService *UserService) UpdateUserInformation(userInfo *system.SysUser) error {
 	var user system.SysUser
 	err := global.MAY_DB.Model(&user).
-		Select("updated_at", "username", "nick_name", "depts_id", "phone", "email", "status", "sex").
+		Select("updated_at", "username", "nick_name", "depts_id", "phone", "email", "status", "sex", "theme_color").
 		Where("uuid = ?", userInfo.UUID).
 		Updates(map[string]interface{}{
-			"updated_at": time.Now(),
-			"username":   userInfo.Username,
-			"nick_name":  userInfo.NickName,
-			"depts_id":   userInfo.DeptsId,
-			"phone":      userInfo.Phone,
-			"email":      userInfo.Email,
-			"status":     userInfo.Status,
-			"sex":        userInfo.Sex,
+			"updated_at":  time.Now(),
+			"username":    userInfo.Username,
+			"nick_name":   userInfo.NickName,
+			"depts_id":    userInfo.DeptsId,
+			"phone":       userInfo.Phone,
+			"email":       userInfo.Email,
+			"status":      userInfo.Status,
+			"sex":         userInfo.Sex,
+			"theme_color": userInfo.ThemeColor,
 		}).Error
 	if err != nil {
 		return errors.New("更新用户信息失败")
@@ -162,13 +163,13 @@ func (userService *UserService) GetUsersInformation(info systemReq.GetUserList) 
 	if info.Status != "" {
 		db = db.Where("status = ?", info.Status)
 	}
-	err = db.Limit(limit).Offset(offset).Preload("SysRole").Preload("SysDept").Find(&users).Error
+	err = db.Count(&total).Error
 	if err != nil {
 		return nil, 0, errors.New("获取用户列表失败")
 	}
-	err = db.Count(&total).Error
+	err = db.Limit(limit).Offset(offset).Preload("SysRole").Preload("SysDept").Find(&users).Error
 	if err != nil {
-		return nil, total, errors.New("获取用户列表失败")
+		return nil, 0, errors.New("获取用户列表失败")
 	}
 	return users, total, nil
 }

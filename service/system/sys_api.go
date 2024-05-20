@@ -6,6 +6,7 @@ import (
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/model/system"
 	systemReq "github/shansec/go-vue-admin/model/system/request"
+
 	"gorm.io/gorm"
 )
 
@@ -81,9 +82,13 @@ func (apiService *ApiService) GetApisInfo(getApisInfo systemReq.GetApiList) (api
 	if getApisInfo.Method != "" {
 		db = db.Where("method = ?", getApisInfo.Method)
 	}
+	err = db.Count(&total).Error
+	if err != nil {
+		return nil, 0, errors.New("api 列表获取失败")
+	}
 	err = db.Limit(limit).Offset(offset).Find(&apis).Error
 	if err != nil {
 		return nil, 0, errors.New("api 列表获取失败")
 	}
-	return apis, int64(len(apis)), nil
+	return apis, total, nil
 }
