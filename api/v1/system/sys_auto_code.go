@@ -1,15 +1,20 @@
 package system
 
 import (
-	"github.com/gin-gonic/gin"
+	"errors"
+	"fmt"
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/model/common/response"
 	"github/shansec/go-vue-admin/model/system"
 	"github/shansec/go-vue-admin/model/system/request"
 	"github/shansec/go-vue-admin/utils"
 	SystemVerify "github/shansec/go-vue-admin/verify/system"
-	"go.uber.org/zap"
+	"net/url"
+	"os"
 	"strings"
+
+	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 )
 
 type AutoCodeApi struct{}
@@ -97,5 +102,77 @@ func (a *AutoCodeApi) DelPackage(c *gin.Context) {
 		response.FailWithMessage("删除失败", c)
 	} else {
 		response.OkWithMessage("删除成功", c)
+	}
+}
+
+func (a *AutoCodeApi) PreviewCode(c *gin.Context) {
+	var autocode system.AutoCodeStruct
+	_ = c.ShouldBindJSON(&autocode)
+	if err := utils.Verify(autocode, SystemVerify.AutoCodeVerify); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	// 处理关键字
+	autocode.Pretreatment()
+	// 包名首字母处理
+	autocode.PackageT = utils.FirstUpper(autocode.Package)
+	autocodeMap, err := autoCodeService.PreviewCode(autocode)
+	if err != nil {
+		global.MAY_LOGGER.Error("预览代码失败", zap.Error(err))
+		response.FailWithMessage("预览代码失败", c)
+	} else {
+		response.OkWithDetailed(gin.H{"code": autocodeMap}, "预览成功", c)
+	}
+}
+
+func (a *AutoCodeApi) CreateCode(c *gin.Context) {
+	var autoCode system.AutoCodeStruct
+	_ = c.ShouldBindJSON(&autoCode)
+	if err := utils.Verify(autoCode, SystemVerify.AutoCodeVerify); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	autoCode.Pretreatment()
+	var apiIDs []uint
+	var menuID uint
+	if autoCode.AutoCreateApiToSql {
+		if ids, err := autoCodeService.CreateApiAuto(&autoCode); err != nil {
+			global.MAY_LOGGER.Error("自动创建代码失败", zap.Error(err))
+			c.Writer.Header().Add("success", "false")
+			c.Writer.Header().Add("msg", url.QueryEscape("自动创建代码失败"))
+			return
+		} else {
+			apiIDs = ids
+		}
+	}
+
+	// if autoCode.AutoCreateMenuToSql {
+	// 	if id, err := autoCodeService.AutoCreateMenu(&a); err != nil {
+	// 		global.GVA_LOG.Error("自动化创建失败!请自行清空垃圾数据!", zap.Error(err))
+	// 		c.Writer.Header().Add("success", "false")
+	// 		c.Writer.Header().Add("msg", url.QueryEscape("自动化创建失败!请自行清空垃圾数据!"))
+	// 	} else {
+	// 		menuId = id
+	// 	}
+	// }
+
+	autoCode.PackageT = utils.FirstUpper(autoCode.Package)
+	err := autoCodeService.CreateCode(autoCode, menuID, apiIDs...)
+	if err != nil {
+		if errors.Is(err, errors.New("创建代码成功并移动文件成功")) {
+			c.Writer.Header().Add("success", "true")
+			c.Writer.Header().Add("msg", url.QueryEscape(err.Error()))
+		} else {
+			c.Writer.Header().Add("success", "false")
+			c.Writer.Header().Add("msg", url.QueryEscape(err.Error()))
+			_ = os.Remove("./govueadmin.zip")
+		}
+	} else {
+		c.Writer.Header().Add("Content-Disposition", fmt.Sprintf("attachment; filename=%s", "govueadmin.zip"))
+		c.Writer.Header().Add("Content-Type", "application/json")
+		c.Writer.Header().Add("success", "true")
+		c.File("./govueadmin.zip")
+		_ = os.Remove("./govueadmin.zip")
 	}
 }

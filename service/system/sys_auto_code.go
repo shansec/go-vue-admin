@@ -9,10 +9,14 @@ import (
 	"github/shansec/go-vue-admin/template/auto_template"
 	"github/shansec/go-vue-admin/utils"
 	"github/shansec/go-vue-admin/utils/ast"
-	"gorm.io/gorm"
+	"io"
 	"os"
 	"path/filepath"
+	"strconv"
+	"strings"
 	"text/template"
+
+	"gorm.io/gorm"
 )
 
 type AutoCodeService struct{}
@@ -35,6 +39,14 @@ type autoPackage struct {
 	path  string
 	cache string
 	name  string
+}
+
+type tplData struct {
+	template         *template.Template
+	autoPackage      string
+	locationPath     string
+	autoCodePath     string
+	autoMoveFilePath string
 }
 
 const (
@@ -222,4 +234,502 @@ func (autoCodeService *AutoCodeService) CreatePackageCache(packageName string) e
 	}
 
 	return nil
+}
+
+func (autoCodeService *AutoCodeService) PreviewCode(a system.AutoCodeStruct) (map[string]string, error) {
+	makeDictType(&a)
+	for i := range a.Fields {
+		if a.Fields[i].FieldType == "time.Time" {
+			a.HasTimer = true
+			if a.Fields[i].FieldSearchType != "" {
+				a.HasSearchTimer = true
+			}
+		}
+		if a.Fields[i].Sort {
+			a.NeedSort = true
+		}
+		if a.Fields[i].FieldType == "picture" {
+			a.HasPic = true
+		}
+		if a.Fields[i].FieldType == "video" {
+			a.HasPic = true
+		}
+		if a.Fields[i].FieldType == "richtext" {
+			a.HasRichText = true
+		}
+		if a.Fields[i].FieldType == "pictures" {
+			a.HasPic = true
+			a.NeedJSON = true
+		}
+		if a.Fields[i].FieldType == "file" {
+			a.HasFile = true
+			a.NeedJSON = true
+		}
+
+		if a.DefaultModel {
+			a.PrimaryField = &system.Field{
+				FieldName:    "ID",
+				FieldType:    "uint",
+				FieldDesc:    "ID",
+				FieldJson:    "ID",
+				DataTypeLong: "20",
+				Comment:      "主键ID",
+				ColumnName:   "id",
+			}
+		}
+
+		if !a.DefaultModel && a.PrimaryField == nil && a.Fields[i].PrimaryKey {
+			// 设置主键
+			a.PrimaryField = a.Fields[i]
+		}
+	}
+	dataList, _, needMkdir, err := autoCodeService.getNeedList(&a)
+	if err != nil {
+		return nil, err
+	}
+
+	// 创建文件夹
+	if err = utils.CreateDir(needMkdir...); err != nil {
+		return nil, err
+	}
+
+	resultMap := make(map[string]string)
+
+	for _, data := range dataList {
+		ext := ""
+		if ext = filepath.Ext(data.autoCodePath); ext != ".txt" {
+			continue
+		}
+
+		file, err := os.OpenFile(data.autoCodePath, os.O_CREATE|os.O_WRONLY, 0o755)
+		if err != nil {
+			return nil, err
+		}
+		err = data.template.Execute(file, a)
+		if err != nil {
+			return nil, err
+		}
+		_ = file.Close()
+
+		file, err = os.OpenFile(data.autoCodePath, os.O_CREATE|os.O_RDONLY, 0o755)
+		if err != nil {
+			return nil, err
+		}
+		builder := strings.Builder{}
+		builder.WriteString("```")
+
+		if ext != "" && strings.Contains(ext, ".") {
+			builder.WriteString(strings.Replace(ext, ".", "", -1))
+		}
+		builder.WriteString("\n\n")
+		readData, err := io.ReadAll(file)
+		if err != nil {
+			return nil, err
+		}
+		builder.WriteString(string(readData))
+		builder.WriteString("\n\n````")
+		paths := strings.Split(data.autoCodePath, string(os.PathSeparator))
+		resultMap[paths[1]+"-"+paths[3]] = builder.String()
+		_ = file.Close()
+	}
+	defer func() {
+		if err := os.RemoveAll(autoPath); err != nil {
+			return
+		}
+	}()
+	return resultMap, nil
+}
+
+func (autoCodeService *AutoCodeService) CreateCode(a system.AutoCodeStruct, menuID uint, ids ...uint) (err error) {
+	makeDictType(&a)
+	for i := range a.Fields {
+		if a.Fields[i].FieldType == "time.Time" {
+			a.HasTimer = true
+			if a.Fields[i].FieldSearchType != "" {
+				a.HasSearchTimer = true
+			}
+		}
+		if a.Fields[i].Sort {
+			a.NeedSort = true
+		}
+		if a.Fields[i].FieldType == "picture" {
+			a.HasPic = true
+		}
+		if a.Fields[i].FieldType == "video" {
+			a.HasPic = true
+		}
+		if a.Fields[i].FieldType == "richtext" {
+			a.HasRichText = true
+		}
+		if a.Fields[i].FieldType == "pictures" {
+			a.NeedJSON = true
+			a.HasPic = true
+		}
+		if a.Fields[i].FieldType == "file" {
+			a.NeedJSON = true
+			a.HasFile = true
+		}
+		if a.DefaultModel {
+			a.PrimaryField = &system.Field{
+				FieldName:    "ID",
+				FieldType:    "uint",
+				FieldDesc:    "ID",
+				FieldJson:    "ID",
+				DataTypeLong: "20",
+				Comment:      "主键ID",
+				ColumnName:   "id",
+			}
+		}
+		if !a.DefaultModel && a.PrimaryField == nil && a.Fields[i].PrimaryKey {
+			a.PrimaryField = a.Fields[i]
+		}
+	}
+	// 增加判断: 重复创建struct
+	// if a.AutoMoveFile && AutoCodeHistoryServiceApp.Repeat(autoCode.BusinessDB, autoCode.StructName, autoCode.Package) {
+	// 	return RepeatErr
+	// }
+	dataList, fileList, needMkdir, err := autoCodeService.getNeedList(&a)
+	if err != nil {
+		return err
+	}
+	// meta, _ := json.Marshal(a)
+
+	// 增加判断：Package不为空
+	if a.Package == "" {
+		return errors.New("Package为空\n")
+	}
+
+	// 写入文件前，先创建文件夹
+	if err = utils.CreateDir(needMkdir...); err != nil {
+		return err
+	}
+
+	// 生成文件
+	for _, value := range dataList {
+		f, err := os.OpenFile(value.autoCodePath, os.O_CREATE|os.O_WRONLY, 0o755)
+		if err != nil {
+			return err
+		}
+		if err = value.template.Execute(f, a); err != nil {
+			return err
+		}
+		_ = f.Close()
+	}
+
+	defer func() { // 移除中间文件
+		if err := os.RemoveAll(autoPath); err != nil {
+			return
+		}
+	}()
+	bf := strings.Builder{}
+	idBf := strings.Builder{}
+	injectionCodeMeta := strings.Builder{}
+	for _, id := range ids {
+		idBf.WriteString(strconv.Itoa(int(id)))
+		idBf.WriteString(";")
+	}
+	if a.AutoMoveFile { // 判断是否需要自动转移
+		Init(a.Package)
+		for index := range dataList {
+			autoCodeService.addAutoMoveFile(&dataList[index])
+		}
+		// 判断目标文件是否都可以移动
+		for _, value := range dataList {
+			if utils.FileExist(value.autoMoveFilePath) {
+				return errors.New(fmt.Sprintf("目标文件已存在:%s\n", value.autoMoveFilePath))
+			}
+		}
+		for _, value := range dataList { // 移动文件
+			if err := utils.FileMove(value.autoCodePath, value.autoMoveFilePath); err != nil {
+				return err
+			}
+		}
+
+		{
+			// 在gorm.go 注入 自动迁移
+			path := filepath.Join(global.MAY_CONFIG.AutoCode.Root, global.MAY_CONFIG.AutoCode.SInitialize, "gorm.go")
+			varDB := utils.MaheHump(a.BusinessDB)
+			ast.AddRegisterTablesAst(path, "RegisterTables", a.Package, varDB, a.BusinessDB, a.StructName)
+		}
+
+		{
+			// router.go 注入 自动迁移
+			path := filepath.Join(global.MAY_CONFIG.AutoCode.Root, global.MAY_CONFIG.AutoCode.SInitialize, "router.go")
+			ast.AddRouterCode(path, "Routers", a.Package, a.StructName)
+		}
+		// 给各个enter进行注入
+		err = injectionCode(a.StructName, &injectionCodeMeta)
+		if err != nil {
+			return
+		}
+		// 保存生成信息
+		for _, data := range dataList {
+			if len(data.autoMoveFilePath) != 0 {
+				bf.WriteString(data.autoMoveFilePath)
+				bf.WriteString(";")
+			}
+		}
+	} else { // 打包
+		if err = utils.ZipFiles("./govueadmin.zip", fileList, ".", "."); err != nil {
+			return err
+		}
+	}
+	// if a.AutoMoveFile || a.AutoCreateApiToSql || a.AutoCreateMenuToSql {
+	// 	if a.TableName != "" {
+	// 		err = AutoCodeHistoryServiceApp.CreateAutoCodeHistory(
+	// 			string(meta),
+	// 			a.StructName,
+	// 			a.Description,
+	// 			bf.String(),
+	// 			injectionCodeMeta.String(),
+	// 			a.TableName,
+	// 			idBf.String(),
+	// 			a.Package,
+	// 			a.BusinessDB,
+	// 			menuID,
+	// 		)
+	// 	} else {
+	// 		err = AutoCodeHistoryServiceApp.CreateAutoCodeHistory(
+	// 			string(meta),
+	// 			a.StructName,
+	// 			a.Description,
+	// 			bf.String(),
+	// 			injectionCodeMeta.String(),
+	// 			a.StructName,
+	// 			idBf.String(),
+	// 			a.Package,
+	// 			a.BusinessDB,
+	// 			menuID,
+	// 		)
+	// 	}
+	// }
+	if err != nil {
+		return err
+	}
+	if a.AutoMoveFile {
+		return errors.New("创建代码成功并移动文件成功")
+	}
+	return nil
+}
+
+func makeDictType(autoCode *system.AutoCodeStruct) {
+	DictTypesM := make(map[string]string)
+	for _, code := range autoCode.Fields {
+		if code.DictType != "" {
+			DictTypesM[code.DictType] = ""
+		}
+	}
+
+	for key := range DictTypesM {
+		autoCode.DictTypes = append(autoCode.DictTypes, key)
+	}
+}
+
+func (autoCodeService *AutoCodeService) addAutoMoveFile(data *tplData) {
+	base := filepath.Base(data.autoCodePath)
+	fileSlice := strings.Split(data.autoCodePath, string(os.PathSeparator))
+	n := len(fileSlice)
+	if n <= 2 {
+		return
+	}
+	// autocode_template/server/admin/api/admin.go 	n = 5
+	// autocode_template/web/admin/api/admin.js
+	if strings.Contains(fileSlice[1], "server") {
+		if strings.Contains(fileSlice[n-2], "router") {
+			data.autoMoveFilePath = filepath.Join(global.MAY_CONFIG.AutoCode.Root, fmt.Sprintf(global.MAY_CONFIG.AutoCode.SRouter, data.autoPackage), base)
+		} else if strings.Contains(fileSlice[n-2], "api") {
+			data.autoMoveFilePath = filepath.Join(global.MAY_CONFIG.AutoCode.Root, fmt.Sprintf(global.MAY_CONFIG.AutoCode.SApi, data.autoPackage), base)
+		} else if strings.Contains(fileSlice[n-2], "service") {
+			data.autoMoveFilePath = filepath.Join(global.MAY_CONFIG.AutoCode.Root, fmt.Sprintf(global.MAY_CONFIG.AutoCode.SService, data.autoPackage), base)
+		} else if strings.Contains(fileSlice[n-2], "model") {
+			data.autoMoveFilePath = filepath.Join(global.MAY_CONFIG.AutoCode.Root, fmt.Sprintf(global.MAY_CONFIG.AutoCode.SModel, data.autoPackage), base)
+		} else if strings.Contains(fileSlice[n-2], "request") {
+			data.autoMoveFilePath = filepath.Join(global.MAY_CONFIG.AutoCode.Root, fmt.Sprintf(global.MAY_CONFIG.AutoCode.SRequest, data.autoPackage), base)
+		}
+	} else if strings.Contains(fileSlice[1], "web") {
+		if strings.Contains(fileSlice[n-1], "js") {
+			data.autoMoveFilePath = filepath.Join(global.MAY_CONFIG.AutoCode.Root,
+				global.MAY_CONFIG.AutoCode.WWeb, global.MAY_CONFIG.AutoCode.WApi, data.autoPackage, base)
+		} else if strings.Contains(fileSlice[n-2], "form") {
+			data.autoMoveFilePath = filepath.Join(global.MAY_CONFIG.AutoCode.Root,
+				global.MAY_CONFIG.AutoCode.WWeb, global.MAY_CONFIG.AutoCode.WForm, data.autoPackage, filepath.Base(filepath.Dir(filepath.Dir(data.autoCodePath))), strings.TrimSuffix(base, filepath.Ext(base))+"Form.vue")
+		} else if strings.Contains(fileSlice[n-2], "table") {
+			data.autoMoveFilePath = filepath.Join(global.MAY_CONFIG.AutoCode.Root,
+				global.MAY_CONFIG.AutoCode.WWeb, global.MAY_CONFIG.AutoCode.WTable, data.autoPackage, filepath.Base(filepath.Dir(filepath.Dir(data.autoCodePath))), base)
+		}
+	}
+}
+
+func (autoCodeService *AutoCodeService) CreateApiAuto(a *system.AutoCodeStruct) (ids []uint, err error) {
+	apiList := []system.SysApi{
+		{
+			Path:        "/" + a.Abbreviation + "/" + "create" + a.StructName,
+			Description: "新增" + a.Description,
+			ApiGroup:    a.Description,
+			Method:      "POST",
+		},
+		{
+			Path:        "/" + a.Abbreviation + "/" + "delete" + a.StructName,
+			Description: "删除" + a.Description,
+			ApiGroup:    a.Description,
+			Method:      "DELETE",
+		},
+		{
+			Path:        "/" + a.Abbreviation + "/" + "delete" + a.StructName,
+			Description: "批量删除" + a.Description,
+			ApiGroup:    a.Description,
+			Method:      "DELETE",
+		},
+		{
+			Path:        "/" + a.Abbreviation + "/" + "update" + a.StructName,
+			Description: "更新" + a.Description,
+			ApiGroup:    a.Description,
+			Method:      "PUT",
+		},
+		{
+			Path:        "/" + a.Abbreviation + "/" + "find" + a.StructName,
+			Description: "根据ID获取" + a.Description,
+			ApiGroup:    a.Description,
+			Method:      "GET",
+		},
+		{
+			Path:        "/" + a.Abbreviation + "/" + "get" + a.StructName,
+			Description: "获取" + a.Description + "列表",
+			ApiGroup:    a.Description,
+			Method:      "GET",
+		},
+	}
+	global.MAY_DB.Transaction(func(ctx *gorm.DB) error {
+		for _, data := range apiList {
+			var api system.SysApi
+			if errors.Is(ctx.Where("path = ? AND method = ?", data.Path, data.Method).First(&api).Error, gorm.ErrRecordNotFound) {
+				if err = ctx.Create(&data).Error; err != nil {
+					return err
+				} else {
+					ids = append(ids, data.ID)
+				}
+			}
+		}
+		return nil
+	})
+	return ids, err
+}
+
+// func (autoCodeService *AutoCodeService) AutoCreateMenu(a *system.AutoCodeStruct) (id uint, err error) {
+// 	var menu system.SysBaseMenu
+// 	err = global.GVA_DB.First(&menu, "name = ?", a.Abbreviation).Error
+// 	if err == nil {
+// 		return 0, errors.New("存在相同的菜单路由，请关闭自动创建菜单功能")
+// 	}
+// 	menu.ParentId = 0
+// 	menu.Name = a.Abbreviation
+// 	menu.Path = a.Abbreviation
+// 	menu.Meta.Title = a.Description
+// 	menu.Component = fmt.Sprintf("view/%s/%s/%s.vue", a.Package, a.PackageName, a.PackageName)
+// 	err = global.GVA_DB.Create(&menu).Error
+// 	return menu.ID, err
+// }
+
+func (autoCodeService *AutoCodeService) getNeedList(autoCode *system.AutoCodeStruct) (dataList []tplData, fileList []string, needMkdir []string, err error) {
+	// 去空格
+	utils.TrimSpace(autoCode)
+	for _, filed := range autoCode.Fields {
+		utils.TrimSpace(filed)
+	}
+
+	tplFiles, err := autoCodeService.GetAllTplFile(autocodePath, nil)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+	dataList = make([]tplData, 0, len(tplFiles))
+	fileList = make([]string, 0, len(tplFiles))
+	needMkdir = make([]string, 0, len(tplFiles))
+	// 根据文件路径生成 tplData 结构体
+	for _, file := range tplFiles {
+		dataList = append(dataList, tplData{locationPath: file, autoPackage: autoCode.Package})
+	}
+
+	for index, value := range dataList {
+		dataList[index].template, err = template.ParseFiles(value.locationPath)
+		if err != nil {
+			return nil, nil, nil, err
+		}
+	}
+	// 生成文件路径，填充 autoCodePath 字段，readme.txt.tpl不符合规则，需要特殊处理
+	// resource/template/web/api.js.tpl -> autoCode/web/autoCode.PackageName/api/autoCode.PackageName.js
+	// resource/template/readme.txt.tpl -> autoCode/readme.txt
+
+	// resource/autocode_template/readme.txt.tpl
+	// resource/autocode_template/server/**
+	for index, value := range dataList {
+		// 例如 value = resource/autocode_template/server/api.go.tpl
+		// 例如 value = resource/autocode_template/web/api.js.tpl
+		trimBase := strings.TrimPrefix(value.locationPath, autocodePath+"/")
+		// if trimBase == "readme.txt.tpl" {
+		// 	dataList[index].autoCodePath = autoPath + "readme.txt"
+		// 	continue
+		// }
+
+		// trimBase = server/api.go.tpl
+		// trimBase = web/api.js.tpl
+		if lastSeparator := strings.LastIndex(trimBase, "/"); lastSeparator != -1 {
+			// origFileName = api.go
+			// origFileName = api.js
+			origFileName := strings.TrimSuffix(trimBase[lastSeparator+1:], ".tpl")
+			firstDot := strings.Index(origFileName, ".")
+			if firstDot != -1 {
+				var fileName string
+				// origFileName[firstDot:] = go
+				// origFileName[firstDot:] = js
+				if origFileName[firstDot:] != ".go" {
+					// fileName = admin.js
+					fileName = autoCode.PackageName + origFileName[firstDot:]
+				} else {
+					// fileName = admin.go
+					fileName = autoCode.HumpPackageName + origFileName[firstDot:]
+				}
+				// autocode_template/server/admin/api/admin.go
+				// autocode_template/web/admin/api/admin.js
+				dataList[index].autoCodePath = filepath.Join(autoPath, trimBase[:lastSeparator], autoCode.PackageName,
+					origFileName[:firstDot], fileName)
+			}
+		}
+
+		if lastSeparator := strings.LastIndex(dataList[index].autoCodePath, string(os.PathSeparator)); lastSeparator != -1 {
+			needMkdir = append(needMkdir, dataList[index].autoCodePath[:lastSeparator])
+		}
+	}
+	for _, value := range dataList {
+		fileList = append(fileList, value.autoCodePath)
+	}
+	return dataList, fileList, needMkdir, err
+}
+
+func injectionCode(structName string, bf *strings.Builder) error {
+	for _, meta := range injectionPaths {
+		code := fmt.Sprintf(meta.structNameF, structName)
+		ast.ImportForAutoEnter(meta.path, meta.funcName, code)
+		bf.WriteString(fmt.Sprintf("%s@%s@%s;", meta.path, meta.funcName, code))
+	}
+	return nil
+}
+
+func (autoCodeService *AutoCodeService) GetAllTplFile(pathName string, fileList []string) ([]string, error) {
+	files, err := os.ReadDir(pathName)
+	if err != nil {
+		return nil, err
+	}
+	for _, file := range files {
+		if file.IsDir() {
+			fileList, err = autoCodeService.GetAllTplFile(pathName+"/"+file.Name(), fileList)
+			if err != nil {
+				return nil, err
+			}
+		} else {
+			if strings.HasSuffix(file.Name(), ".tpl") {
+				fileList = append(fileList, pathName+"/"+file.Name())
+			}
+		}
+	}
+	return fileList, err
 }
