@@ -7,4 +7,5 @@ type ServiceGroup struct {
 	AutoCodeService
 	InitService
 	ApiService
+	MenuService
 }

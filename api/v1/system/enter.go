@@ -20,4 +20,5 @@ var (
 	autoCodeService     = service.ServiceGroupApp.SystemServiceGroup.AutoCodeService
 	initDbService       = service.ServiceGroupApp.SystemServiceGroup.InitService
 	apiService          = service.ServiceGroupApp.SystemServiceGroup.ApiService
+	menuService         = service.ServiceGroupApp.SystemServiceGroup.MenuService
 )
