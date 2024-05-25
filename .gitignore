@@ -25,3 +25,4 @@ yarn-error.log*
 web/.pnpm-debug.log
 web/pnpm-lock.yaml
 /log/
+config.yaml

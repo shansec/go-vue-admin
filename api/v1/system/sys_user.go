@@ -23,6 +23,12 @@ type BaseApi struct{}
 // @Success 200 {object} response.Response{data=systemRes.Login, msg=string}	"用户登录"
 // @Router /base/login [POST]
 func (b *BaseApi) Login(c *gin.Context) {
+	if global.MAY_DB == nil {
+		global.MAY_LOGGER.Error("数据库未初始化，请先初始化")
+		response.FailWithMessage("数据库未初始化，请先初始化", c)
+		return
+	}
+
 	var login systemReq.Login
 	_ = c.ShouldBindJSON(&login)
 	if err := utils.Verify(login, SystemVerify.LoginVerify); err != nil {

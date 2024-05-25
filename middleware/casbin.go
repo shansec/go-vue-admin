@@ -26,7 +26,6 @@ func CasbinAuth() gin.HandlerFunc {
 		method := c.Request.Method
 		// 获取用户的所有角色
 		role := strconv.Itoa(int(requestUse.RoleId))
-
 		// 判断策略是否存在
 		enforce := system.CasbinServiceNew.Casbin()
 		success, _ := enforce.Enforce(obj, method, role)

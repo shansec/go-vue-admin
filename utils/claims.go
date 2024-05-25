@@ -9,7 +9,7 @@ import (
 )
 
 func GetClaims(c *gin.Context) (*systemReq.CustomClaims, error) {
-	token := c.Request.Header.Get("token")
+	token := c.Request.Header.Get("x-token")
 	j := NewJWT()
 	claims, err := j.ParseToken(token)
 	if err != nil {
