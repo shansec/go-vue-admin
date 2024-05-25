@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"time"
 
+	"go.uber.org/zap"
+
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/initialize"
-
-	"go.uber.org/zap"
 )
 
 type server interface {

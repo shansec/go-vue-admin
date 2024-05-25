@@ -6,11 +6,11 @@ import (
 	"os"
 	"path/filepath"
 
-	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/utils"
-
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
+
+	"github/shansec/go-vue-admin/global"
+	"github/shansec/go-vue-admin/utils"
 )
 
 func Viper(path ...string) *viper.Viper {

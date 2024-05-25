@@ -15,7 +15,7 @@ type Create struct {
 // GetDeptList structure
 type GetDeptList struct {
 	Page     int    `json:"page"`     // 页码
-	PagSize  int    `json:"pageSize"` // 每页大小
+	PageSize int    `json:"pageSize"` // 每页大小
 	DeptName string `json:"deptName"` // 用户昵称 	// 用户手机号
 	Status   string `json:"status"`   // 用户状态
 }

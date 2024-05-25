@@ -2,14 +2,16 @@ package system
 
 import (
 	"context"
+
 	"github.com/pkg/errors"
+	"gorm.io/gorm"
+
 	"github/shansec/go-vue-admin/global"
 	model "github/shansec/go-vue-admin/model/system"
 	"github/shansec/go-vue-admin/service/system"
-	"gorm.io/gorm"
 )
 
-const initOrderApi = InitOrder + 4
+const initOrderApi = InitOrder + 1
 
 type initApi struct{}
 

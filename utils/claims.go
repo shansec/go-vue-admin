@@ -1,11 +1,11 @@
 package utils
 
 import (
-	"github/shansec/go-vue-admin/global"
-	systemReq "github/shansec/go-vue-admin/model/system/request"
-
 	"github.com/gin-gonic/gin"
 	"github.com/satori/uuid"
+
+	"github/shansec/go-vue-admin/global"
+	systemReq "github/shansec/go-vue-admin/model/system/request"
 )
 
 func GetClaims(c *gin.Context) (*systemReq.CustomClaims, error) {
@@ -43,5 +43,18 @@ func GetUseUuid(c *gin.Context) uuid.UUID {
 	} else {
 		nextUser := claims.(*systemReq.CustomClaims)
 		return nextUser.UUID
+	}
+}
+
+func GetUserRoleId(c *gin.Context) uint {
+	if claims, exists := c.Get("claims"); !exists {
+		if cl, err := GetClaims(c); err != nil {
+			return 0
+		} else {
+			return cl.RoleId
+		}
+	} else {
+		waitUse := claims.(*systemReq.CustomClaims)
+		return waitUse.RoleId
 	}
 }

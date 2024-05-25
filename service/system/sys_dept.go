@@ -2,13 +2,14 @@ package system
 
 import (
 	"errors"
-	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/system"
-	systemReq "github/shansec/go-vue-admin/model/system/request"
 	"strconv"
 	"time"
 
 	"gorm.io/gorm"
+
+	"github/shansec/go-vue-admin/global"
+	"github/shansec/go-vue-admin/model/system"
+	systemReq "github/shansec/go-vue-admin/model/system/request"
 )
 
 type DeptService struct{}
@@ -52,8 +53,8 @@ func (deptService *DeptService) EstablishDept(d system.SysDept) (err error) {
 // @return: deptList []system.SysDept, total int64, err error
 func (deptService *DeptService) GetDept(info systemReq.GetDeptList) (deptList []system.SysDept, total int64, err error) {
 	var depts []system.SysDept
-	limit := info.PagSize
-	offset := info.PagSize * (info.Page - 1)
+	limit := info.PageSize
+	offset := info.PageSize * (info.Page - 1)
 	db := global.MAY_DB.Model(&system.SysDept{})
 	if info.DeptName != "" {
 		db = db.Where("dept_name LIKE ?", "%"+info.DeptName+"%")

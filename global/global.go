@@ -1,12 +1,12 @@
 package global
 
 import (
-	"github/shansec/go-vue-admin/config"
-	"golang.org/x/sync/singleflight"
-
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
+	"golang.org/x/sync/singleflight"
 	"gorm.io/gorm"
+
+	"github/shansec/go-vue-admin/config"
 )
 
 var (

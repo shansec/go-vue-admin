@@ -1,9 +1,9 @@
 package system
 
 import (
-	"github/shansec/go-vue-admin/global"
-
 	"github.com/satori/uuid"
+
+	"github/shansec/go-vue-admin/global"
 )
 
 type SysUser struct {

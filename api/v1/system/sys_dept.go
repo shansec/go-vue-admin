@@ -2,13 +2,14 @@ package system
 
 import (
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
+
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/model/common/response"
 	"github/shansec/go-vue-admin/model/system"
 	systemReq "github/shansec/go-vue-admin/model/system/request"
 	"github/shansec/go-vue-admin/utils"
 	SystemVerify "github/shansec/go-vue-admin/verify/system"
-	"go.uber.org/zap"
 )
 
 type DeptApi struct{}
@@ -82,7 +83,7 @@ func (d *DeptApi) GetDeptList(c *gin.Context) {
 			List:     depts,
 			Total:    total,
 			Page:     deptPageInfo.Page,
-			PageSize: deptPageInfo.PagSize,
+			PageSize: deptPageInfo.PageSize,
 		}, "获取部门列表成功", c)
 	}
 }

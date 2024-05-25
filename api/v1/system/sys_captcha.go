@@ -3,10 +3,11 @@ package system
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/mojocn/base64Captcha"
+	"go.uber.org/zap"
+
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/model/common/response"
 	systemRes "github/shansec/go-vue-admin/model/system/response"
-	"go.uber.org/zap"
 )
 
 var store = base64Captcha.DefaultMemStore

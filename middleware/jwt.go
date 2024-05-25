@@ -1,14 +1,14 @@
 package middleware
 
 import (
-	"github/shansec/go-vue-admin/global"
 	"strconv"
 	"time"
 
+	"github.com/gin-gonic/gin"
+
+	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/model/common/response"
 	"github/shansec/go-vue-admin/utils"
-
-	"github.com/gin-gonic/gin"
 )
 
 func JwtAuth() gin.HandlerFunc {

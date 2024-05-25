@@ -3,16 +3,15 @@ package system
 import (
 	"errors"
 	"fmt"
-	systemReq "github/shansec/go-vue-admin/model/system/request"
 	"time"
 
+	"github.com/satori/uuid"
 	"gorm.io/gorm"
 
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/model/system"
+	systemReq "github/shansec/go-vue-admin/model/system/request"
 	"github/shansec/go-vue-admin/utils"
-
-	"github.com/satori/uuid"
 )
 
 type UserService struct{}
@@ -151,8 +150,8 @@ func (userService *UserService) GetUserInformation(uuid uuid.UUID) (userInfo *sy
 // @return: usersInfo []system.SysUser, err error
 func (userService *UserService) GetUsersInformation(info systemReq.GetUserList) (usersInfo []system.SysUser, total int64, err error) {
 	var users []system.SysUser
-	limit := info.PagSize
-	offset := info.PagSize * (info.Page - 1)
+	limit := info.PageSize
+	offset := info.PageSize * (info.Page - 1)
 	db := global.MAY_DB.Model(&system.SysUser{})
 	if info.NickName != "" {
 		db = db.Where("nick_name LIKE ?", "%"+info.NickName+"%")

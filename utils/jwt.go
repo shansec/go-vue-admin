@@ -4,10 +4,10 @@ import (
 	"errors"
 	"time"
 
+	"github.com/golang-jwt/jwt/v4"
+
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/model/system/request"
-
-	"github.com/golang-jwt/jwt/v4"
 )
 
 type JWT struct {

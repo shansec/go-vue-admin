@@ -11,6 +11,7 @@ type ApiGroup struct {
 	AutoCodeApi
 	DBApi
 	SysApi
+	RoleApi
 }
 
 var (
@@ -20,4 +21,6 @@ var (
 	autoCodeService     = service.ServiceGroupApp.SystemServiceGroup.AutoCodeService
 	initDbService       = service.ServiceGroupApp.SystemServiceGroup.InitService
 	apiService          = service.ServiceGroupApp.SystemServiceGroup.ApiService
+	roleService         = service.ServiceGroupApp.SystemServiceGroup.RoleService
+	casbinService       = service.ServiceGroupApp.SystemServiceGroup.CasbinService
 )
