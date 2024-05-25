@@ -2,10 +2,12 @@ package system
 
 import (
 	"context"
+
 	"github.com/pkg/errors"
+	"gorm.io/gorm"
+
 	model "github/shansec/go-vue-admin/model/system"
 	"github/shansec/go-vue-admin/service/system"
-	"gorm.io/gorm"
 )
 
 const initOrderDept = InitOrder + 1

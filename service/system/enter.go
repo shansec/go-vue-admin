@@ -7,5 +7,6 @@ type ServiceGroup struct {
 	AutoCodeService
 	InitService
 	ApiService
-	MenuService
+	RoleService
+	CasbinService
 }

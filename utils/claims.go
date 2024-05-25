@@ -1,11 +1,11 @@
 package utils
 
 import (
-	"github/shansec/go-vue-admin/global"
-	systemReq "github/shansec/go-vue-admin/model/system/request"
-
 	"github.com/gin-gonic/gin"
 	"github.com/satori/uuid"
+
+	"github/shansec/go-vue-admin/global"
+	systemReq "github/shansec/go-vue-admin/model/system/request"
 )
 
 func GetClaims(c *gin.Context) (*systemReq.CustomClaims, error) {

@@ -3,12 +3,13 @@ package ast
 import (
 	"bytes"
 	"fmt"
+	"os"
+	"strings"
+
 	"go/ast"
 	"go/parser"
 	"go/printer"
 	"go/token"
-	"os"
-	"strings"
 )
 
 func AppendNodeToList(stmts []ast.Stmt, stmt ast.Stmt, index int) []ast.Stmt {

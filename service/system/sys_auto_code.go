@@ -3,12 +3,6 @@ package system
 import (
 	"errors"
 	"fmt"
-	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/system"
-	systemReq "github/shansec/go-vue-admin/model/system/request"
-	"github/shansec/go-vue-admin/template/auto_template"
-	"github/shansec/go-vue-admin/utils"
-	"github/shansec/go-vue-admin/utils/ast"
 	"io"
 	"os"
 	"path/filepath"
@@ -17,6 +11,13 @@ import (
 	"text/template"
 
 	"gorm.io/gorm"
+
+	"github/shansec/go-vue-admin/global"
+	"github/shansec/go-vue-admin/model/system"
+	systemReq "github/shansec/go-vue-admin/model/system/request"
+	"github/shansec/go-vue-admin/template/auto_template"
+	"github/shansec/go-vue-admin/utils"
+	"github/shansec/go-vue-admin/utils/ast"
 )
 
 type AutoCodeService struct{}
@@ -617,7 +618,7 @@ func (autoCodeService *AutoCodeService) CreateApiAuto(a *system.AutoCodeStruct) 
 
 // func (autoCodeService *AutoCodeService) AutoCreateMenu(a *system.AutoCodeStruct) (id uint, err error) {
 // 	var menu system.SysBaseMenu
-// 	err = global.GVA_DB.First(&menu, "name = ?", a.Abbreviation).Error
+// 	err = global.MAY_DB.First(&menu, "name = ?", a.Abbreviation).Error
 // 	if err == nil {
 // 		return 0, errors.New("存在相同的菜单路由，请关闭自动创建菜单功能")
 // 	}
@@ -626,7 +627,7 @@ func (autoCodeService *AutoCodeService) CreateApiAuto(a *system.AutoCodeStruct) 
 // 	menu.Path = a.Abbreviation
 // 	menu.Meta.Title = a.Description
 // 	menu.Component = fmt.Sprintf("view/%s/%s/%s.vue", a.Package, a.PackageName, a.PackageName)
-// 	err = global.GVA_DB.Create(&menu).Error
+// 	err = global.MAY_DB.Create(&menu).Error
 // 	return menu.ID, err
 // }
 

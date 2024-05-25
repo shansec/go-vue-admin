@@ -3,11 +3,12 @@ package ast
 import (
 	"bytes"
 	"fmt"
+	"os"
+
 	"go/ast"
 	"go/parser"
 	"go/printer"
 	"go/token"
-	"os"
 )
 
 // 自动为 gorm.go 注册一个自动迁移

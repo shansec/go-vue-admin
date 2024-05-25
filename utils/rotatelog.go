@@ -3,10 +3,10 @@ package utils
 import (
 	"os"
 
-	"github/shansec/go-vue-admin/global"
-
 	"github.com/natefinch/lumberjack"
 	"go.uber.org/zap/zapcore"
+
+	"github/shansec/go-vue-admin/global"
 )
 
 func GetWriteSyncer(file string) zapcore.WriteSyncer {

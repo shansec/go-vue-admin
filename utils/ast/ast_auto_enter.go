@@ -3,11 +3,12 @@ package ast
 import (
 	"bytes"
 	"fmt"
+	"os"
+
 	"go/ast"
 	"go/parser"
 	"go/printer"
 	"go/token"
-	"os"
 )
 
 func ImportForAutoEnter(path string, funcName string, code string) {

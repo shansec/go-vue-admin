@@ -4,15 +4,17 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"path/filepath"
+
 	"github.com/gofrs/uuid/v5"
 	"github.com/gookit/color"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
+
 	"github/shansec/go-vue-admin/config"
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/model/system/request"
 	"github/shansec/go-vue-admin/utils"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
-	"path/filepath"
 )
 
 type MysqlInit struct{}

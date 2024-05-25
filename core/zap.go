@@ -5,11 +5,11 @@ import (
 	"os"
 	"time"
 
-	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/utils"
-
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
+
+	"github/shansec/go-vue-admin/global"
+	"github/shansec/go-vue-admin/utils"
 )
 
 func Zap() (logger *zap.Logger) {

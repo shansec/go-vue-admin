@@ -1,10 +1,10 @@
 package initialize
 
 import (
-	"github/shansec/go-vue-admin/global"
-
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+
+	"github/shansec/go-vue-admin/global"
 )
 
 func GormMysql() *gorm.DB {

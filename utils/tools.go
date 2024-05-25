@@ -2,13 +2,14 @@ package utils
 
 import (
 	"errors"
-	"github/shansec/go-vue-admin/global"
 	"os"
 	"path/filepath"
 	"reflect"
 	"strings"
 
 	"go.uber.org/zap"
+
+	"github/shansec/go-vue-admin/global"
 )
 
 func PathExists(path string) (bool, error) {

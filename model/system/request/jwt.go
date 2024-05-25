@@ -16,4 +16,5 @@ type BaseClaims struct {
 	ID       uint
 	Username string
 	NickName string
+	RoleId   uint
 }

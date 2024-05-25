@@ -3,18 +3,19 @@ package system
 import (
 	"errors"
 	"fmt"
-	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/common/response"
-	"github/shansec/go-vue-admin/model/system"
-	"github/shansec/go-vue-admin/model/system/request"
-	"github/shansec/go-vue-admin/utils"
-	SystemVerify "github/shansec/go-vue-admin/verify/system"
 	"net/url"
 	"os"
 	"strings"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+
+	"github/shansec/go-vue-admin/global"
+	"github/shansec/go-vue-admin/model/common/response"
+	"github/shansec/go-vue-admin/model/system"
+	"github/shansec/go-vue-admin/model/system/request"
+	"github/shansec/go-vue-admin/utils"
+	SystemVerify "github/shansec/go-vue-admin/verify/system"
 )
 
 type AutoCodeApi struct{}

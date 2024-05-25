@@ -3,16 +3,15 @@ package system
 import (
 	"errors"
 	"fmt"
-	systemReq "github/shansec/go-vue-admin/model/system/request"
 	"time"
 
+	"github.com/satori/uuid"
 	"gorm.io/gorm"
 
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/model/system"
+	systemReq "github/shansec/go-vue-admin/model/system/request"
 	"github/shansec/go-vue-admin/utils"
-
-	"github.com/satori/uuid"
 )
 
 type UserService struct{}

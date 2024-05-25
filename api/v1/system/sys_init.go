@@ -2,10 +2,11 @@ package system
 
 import (
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
+
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/model/common/response"
 	"github/shansec/go-vue-admin/model/system/request"
-	"go.uber.org/zap"
 )
 
 type DBApi struct{}

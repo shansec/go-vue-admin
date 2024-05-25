@@ -2,9 +2,10 @@ package system
 
 import (
 	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
+
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/model/common/response"
-	"go.uber.org/zap"
 )
 
 type SystemConfigApi struct{}

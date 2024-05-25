@@ -2,11 +2,13 @@ package system
 
 import (
 	"context"
+
 	"github.com/pkg/errors"
+	"gorm.io/gorm"
+
 	model "github/shansec/go-vue-admin/model/system"
 	"github/shansec/go-vue-admin/service/system"
 	"github/shansec/go-vue-admin/utils"
-	"gorm.io/gorm"
 )
 
 const initOrderUser = InitOrder + 3

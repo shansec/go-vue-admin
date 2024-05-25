@@ -2,6 +2,7 @@ package response
 
 import (
 	"github.com/satori/uuid"
+
 	"github/shansec/go-vue-admin/model/system"
 )
 

@@ -1,9 +1,11 @@
 package request
 
 import (
-	"github/shansec/go-vue-admin/model/common/request"
 	{{ if or .HasSearchTimer .DefaultModel}}"time"{{ end }}
+
 	{{ if .NeedJSON }}"gorm.io/datatypes"{{ end }}
+      
+	"github/shansec/go-vue-admin/model/common/request"
 )
 
 type {{.StructName}}Search struct{

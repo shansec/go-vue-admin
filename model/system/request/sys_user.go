@@ -1,9 +1,9 @@
 package request
 
 import (
-	"github/shansec/go-vue-admin/model/system"
-
 	"github.com/satori/uuid"
+
+	"github/shansec/go-vue-admin/model/system"
 )
 
 // Register structure

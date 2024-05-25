@@ -2,16 +2,18 @@ package ast
 
 import (
 	"bytes"
-	"go/ast"
-	"go/format"
-	"go/parser"
-	"go/token"
-	"golang.org/x/text/cases"
-	"golang.org/x/text/language"
 	"log"
 	"os"
 	"strconv"
 	"strings"
+
+	"go/ast"
+	"go/format"
+	"go/parser"
+	"go/token"
+
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 type Visitor struct {

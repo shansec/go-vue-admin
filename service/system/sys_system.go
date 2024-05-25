@@ -1,9 +1,10 @@
 package system
 
 import (
+	"go.uber.org/zap"
+
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/utils"
-	"go.uber.org/zap"
 )
 
 type SystemConfigService struct{}

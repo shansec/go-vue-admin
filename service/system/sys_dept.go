@@ -2,13 +2,14 @@ package system
 
 import (
 	"errors"
-	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/system"
-	systemReq "github/shansec/go-vue-admin/model/system/request"
 	"strconv"
 	"time"
 
 	"gorm.io/gorm"
+
+	"github/shansec/go-vue-admin/global"
+	"github/shansec/go-vue-admin/model/system"
+	systemReq "github/shansec/go-vue-admin/model/system/request"
 )
 
 type DeptService struct{}

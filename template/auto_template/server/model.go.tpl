@@ -2,9 +2,11 @@
 package {{.Package}}
 
 import (
-	{{ if .DefaultModel }}"github/shansec/go-vue-admin/global"{{ end }}
 	{{ if or .HasTimer }}"time"{{ end }}
+
 	{{ if .NeedJSON }}"gorm.io/datatypes"{{ end }}
+      
+	{{ if .DefaultModel }}"github/shansec/go-vue-admin/global"{{ end }}
 )
 
 // {{.Description}} 结构体  {{.StructName}}
