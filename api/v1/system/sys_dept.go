@@ -83,7 +83,7 @@ func (d *DeptApi) GetDeptList(c *gin.Context) {
 			List:     depts,
 			Total:    total,
 			Page:     deptPageInfo.Page,
-			PageSize: deptPageInfo.PagSize,
+			PageSize: deptPageInfo.PageSize,
 		}, "获取部门列表成功", c)
 	}
 }

@@ -68,8 +68,8 @@ func (apiService *ApiService) UpdateApiInfo(updateApiInfo *system.SysApi) error 
 // @return: apiList []system.SysApi, total int64, err error
 func (apiService *ApiService) GetApisInfo(getApisInfo systemReq.GetApiList) (apiList []system.SysApi, total int64, err error) {
 	var apis []system.SysApi
-	limit := getApisInfo.PagSize
-	offset := getApisInfo.PagSize * (getApisInfo.Page - 1)
+	limit := getApisInfo.PageSize
+	offset := getApisInfo.PageSize * (getApisInfo.Page - 1)
 	db := global.MAY_DB.Model(&system.SysApi{})
 	if getApisInfo.Path != "" {
 		db = db.Where("path LIKE ?", "%"+getApisInfo.Path+"%")

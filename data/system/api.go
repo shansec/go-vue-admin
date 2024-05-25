@@ -11,7 +11,7 @@ import (
 	"github/shansec/go-vue-admin/service/system"
 )
 
-const initOrderApi = InitOrder + 4
+const initOrderApi = InitOrder + 1
 
 type initApi struct{}
 

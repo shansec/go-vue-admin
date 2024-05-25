@@ -21,7 +21,6 @@ var (
 	autoCodeService     = service.ServiceGroupApp.SystemServiceGroup.AutoCodeService
 	initDbService       = service.ServiceGroupApp.SystemServiceGroup.InitService
 	apiService          = service.ServiceGroupApp.SystemServiceGroup.ApiService
-	menuService         = service.ServiceGroupApp.SystemServiceGroup.MenuService
 	roleService         = service.ServiceGroupApp.SystemServiceGroup.RoleService
 	casbinService       = service.ServiceGroupApp.SystemServiceGroup.CasbinService
 )

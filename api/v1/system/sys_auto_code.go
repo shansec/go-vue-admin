@@ -79,7 +79,7 @@ func (a *AutoCodeApi) GetPackageList(c *gin.Context) {
 			List:     packages,
 			Total:    total,
 			Page:     packageInfo.Page,
-			PageSize: packageInfo.PagSize,
+			PageSize: packageInfo.PageSize,
 		}, "获取包列表成功", c)
 	}
 }

@@ -208,7 +208,7 @@ func (b *BaseApi) GetUsersInfo(c *gin.Context) {
 			List:     users,
 			Total:    total,
 			Page:     pageInfo.Page,
-			PageSize: pageInfo.PagSize,
+			PageSize: pageInfo.PageSize,
 		}, "获取用户列表成功", c)
 	}
 }

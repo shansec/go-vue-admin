@@ -7,6 +7,7 @@ import (
 	"gorm.io/gorm"
 
 	"github/shansec/go-vue-admin/global"
+	"github/shansec/go-vue-admin/model/common/request"
 	"github/shansec/go-vue-admin/model/system"
 	systemReq "github/shansec/go-vue-admin/model/system/request"
 )
@@ -94,5 +95,71 @@ func (roleService *RoleService) DeleteRoleService(role *system.SysRole) error {
 		}
 		return nil
 	})
+	return err
+}
+
+// UpdateRoleService
+// @author: [Shansec](https://github.com/shansec)
+// @function: UpdateRoleService
+// @description: 更新角色
+// @param: (role system.SysRole
+// @return: system.SysRole, error
+func (roleService *RoleService) UpdateRoleService(role system.SysRole) (system.SysRole, error) {
+	var oldRole system.SysRole
+	err := global.MAY_DB.Where("role_id = ?", role.RoleId).First(&oldRole).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return system.SysRole{}, errors.New("角色不存在！")
+	}
+	err = global.MAY_DB.Model(&oldRole).Updates(role).Error
+	return role, err
+}
+
+// GetRoleListService
+// @author: [Shansec](https://github.com/shansec)
+// @function: GetRoleListService
+// @description: 分页获取角色列表
+// @param: info request.PageInfo
+// @return: list interface{}, total int64, err error
+func (roleService *RoleService) GetRoleListService(info request.PageInfo) (list interface{}, total int64, err error) {
+	limit := info.PageSize
+	offset := info.PageSize * (info.Page - 1)
+	db := global.MAY_DB.Model(&system.SysRole{})
+	if err = db.Where("parent_id = ?", "0").Count(&total).Error; total == 0 || err != nil {
+		return nil, 0, err
+	}
+	var roles []system.SysRole
+	err = db.Limit(limit).Offset(offset).Preload("DataRoleId").Where("parent_id = ?", "0").Find(&roles).Error
+	for k := range roles {
+		err = roleService.findChildrenRole(&roles[k])
+	}
+	return roles, total, err
+}
+
+// findChildrenRole
+// @author: [Shansec](https://github.com/shansec)
+// @function: findChildrenRole
+// @description: 查找子角色
+// @param: role *system.SysRole
+// @return: error
+func (roleService *RoleService) findChildrenRole(role *system.SysRole) (err error) {
+	err = global.MAY_DB.Preload("DataRoleId").Where("parent_id = ?", role.RoleId).Find(&role.Children).Error
+	if len(role.Children) > 0 {
+		for k := range role.Children {
+			err = roleService.findChildrenRole(&role.Children[k])
+		}
+	}
+	return err
+}
+
+// SetRoleService
+// @author: [Shansec](https://github.com/shansec)
+// @function: SetRoleService
+// @description: 设置角色
+// @param: role *system.SysRole
+// @return: error
+func (roleService *RoleService) SetRoleService(role system.SysRole) error {
+	var r system.SysRole
+	global.MAY_DB.Preload("DataRoleId").First(&r, "role_id = ?", role.RoleId)
+	err := global.MAY_DB.Model(&r).Association("DataRoleId").Replace(&role.DataRoleId)
 	return err
 }

@@ -11,7 +11,7 @@ import (
 	"github/shansec/go-vue-admin/utils"
 )
 
-const initOrderRole = InitOrder + 2
+const initOrderRole = initOrderMenu + 1
 
 type initRole struct{}
 
@@ -38,9 +38,9 @@ func (r *initRole) InitData(ctx context.Context) (cont context.Context, err erro
 		return ctx, errors.New("missing db in context")
 	}
 	role := []model.SysRole{
-		{RoleId: 888, RoleName: "普通用户", ParentId: utils.Pointer[int](0)},
-		{RoleId: 9528, RoleName: "测试角色", ParentId: utils.Pointer[int](0)},
-		{RoleId: 8881, RoleName: "普通用户子角色", ParentId: utils.Pointer[int](888)},
+		{RoleId: 888, RoleName: "普通用户", ParentId: utils.Pointer[uint](0)},
+		{RoleId: 9528, RoleName: "测试角色", ParentId: utils.Pointer[uint](0)},
+		{RoleId: 8881, RoleName: "普通用户子角色", ParentId: utils.Pointer[uint](888)},
 	}
 	if err := db.Create(&role).Error; err != nil {
 		return ctx, errors.Wrap(err, model.SysRole{}.TableName()+"表初始化失败！")

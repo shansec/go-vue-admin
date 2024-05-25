@@ -46,15 +46,15 @@ func GetUseUuid(c *gin.Context) uuid.UUID {
 	}
 }
 
-func GetUserAuthorityId(c *gin.Context) uint {
+func GetUserRoleId(c *gin.Context) uint {
 	if claims, exists := c.Get("claims"); !exists {
 		if cl, err := GetClaims(c); err != nil {
 			return 0
 		} else {
-			return cl.AuthorityId
+			return cl.RoleId
 		}
 	} else {
 		waitUse := claims.(*systemReq.CustomClaims)
-		return waitUse.AuthorityId
+		return waitUse.RoleId
 	}
 }

@@ -11,7 +11,7 @@ import (
 	"github/shansec/go-vue-admin/utils"
 )
 
-const initOrderUser = InitOrder + 3
+const initOrderUser = initOrderRole + 1
 
 type initUser struct{}
 

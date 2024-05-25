@@ -126,7 +126,7 @@ func (s *SysApi) GetApiList(c *gin.Context) {
 			List:     apis,
 			Total:    total,
 			Page:     apiPageInfo.Page,
-			PageSize: apiPageInfo.PagSize,
+			PageSize: apiPageInfo.PageSize,
 		}, "api 列表获取成功", c)
 	}
 }

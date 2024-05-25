@@ -10,7 +10,7 @@ import (
 	"github/shansec/go-vue-admin/service/system"
 )
 
-const initOrderDept = InitOrder + 1
+const initOrderDept = initOrderCasbin + 1
 
 type initDept struct{}
 

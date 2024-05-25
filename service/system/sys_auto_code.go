@@ -139,8 +139,8 @@ func (autoCodeService *AutoCodeService) CreateAutoCode(s *system.SysAutoCode) er
 // @return: error
 func (autoCodeService *AutoCodeService) GetPackages(info systemReq.GetPackageList) (pkgList []system.SysAutoCode, total int64, err error) {
 	var autoCodes []system.SysAutoCode
-	limit := info.PagSize
-	offset := info.PagSize * (info.Page - 1)
+	limit := info.PageSize
+	offset := info.PageSize * (info.Page - 1)
 	db := global.MAY_DB.Model(&system.SysAutoCode{})
 
 	if info.PackageName != "" {
