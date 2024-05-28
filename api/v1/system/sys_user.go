@@ -60,6 +60,7 @@ func (b *BaseApi) TokenNext(c *gin.Context, user system.SysUser) {
 		ID:       user.ID,
 		NickName: user.NickName,
 		Username: user.Username,
+		RoleId:   uint(user.RolesId),
 	})
 	token, err := jwt.CreateToken(claims)
 	if err != nil {

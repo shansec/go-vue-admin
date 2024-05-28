@@ -23,14 +23,14 @@ func CasbinAuth() gin.HandlerFunc {
 		path := c.Request.URL.Path
 		obj := strings.TrimPrefix(path, global.MAY_CONFIG.System.RouterPrefix)
 		// 获取请求的方法
-		method := c.Request.Method
+		act := c.Request.Method
 		// 获取用户的所有角色
-		role := strconv.Itoa(int(requestUse.RoleId))
+		sub := strconv.Itoa(int(requestUse.RoleId))
 		// 判断策略是否存在
 		enforce := system.CasbinServiceNew.Casbin()
-		success, _ := enforce.Enforce(obj, method, role)
+		success, _ := enforce.Enforce(sub, obj, act)
 		if !success {
-			response.FailWithDetailed(gin.H{}, "权限不足", c)
+			response.FailNoAuthDetailed(gin.H{}, "权限不足", c)
 			c.Abort()
 			return
 		}
