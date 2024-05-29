@@ -36,7 +36,7 @@ func (userService *UserService) Login(u *system.SysUser, loginMethod bool) (user
 	} else {
 		db = global.MAY_DB.Where("username = ?", u.Username)
 	}
-	err = db.Preload("SysDept").First(&user).Error
+	err = db.Preload("SysRoles").Preload("SysRole").Preload("SysDept").First(&user).Error
 	if err == nil {
 		if ok := utils.BcryptCheck(u.Password, user.Password); !ok {
 			return nil, errors.New("密码错误")

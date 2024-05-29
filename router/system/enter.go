@@ -8,4 +8,5 @@ type RouterGroup struct {
 	AutoCodeRouter
 	InitRouter
 	ApiRouter
+	RoleRouter
 }

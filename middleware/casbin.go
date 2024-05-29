@@ -30,7 +30,7 @@ func CasbinAuth() gin.HandlerFunc {
 		enforce := system.CasbinServiceNew.Casbin()
 		success, _ := enforce.Enforce(sub, obj, act)
 		if !success {
-			response.FailNoAuthDetailed(gin.H{}, "权限不足", c)
+			response.ResetWithDetailed(gin.H{"reload": true}, "权限不足", c)
 			c.Abort()
 			return
 		}

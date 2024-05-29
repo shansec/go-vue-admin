@@ -16,7 +16,6 @@ const (
 	RESET   = 101
 	ERROR   = 201
 	SUCCESS = 200
-	NOAUTH  = 4033
 )
 
 func Result(code int, data interface{}, msg string, c *gin.Context) {
@@ -53,10 +52,6 @@ func FailWithMessage(message string, c *gin.Context) {
 
 func FailWithDetailed(data interface{}, message string, c *gin.Context) {
 	Result(ERROR, data, message, c)
-}
-
-func FailNoAuthDetailed(data interface{}, message string, c *gin.Context) {
-	Result(NOAUTH, data, message, c)
 }
 
 func Reset(c *gin.Context) {

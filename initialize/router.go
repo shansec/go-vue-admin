@@ -39,6 +39,7 @@ func Routers() *gin.Engine {
 		systemRouter.InitSystemConfigRouter(PrivateGroup)
 		systemRouter.InitAutoCodeRouter(PrivateGroup)
 		systemRouter.InitApiRouter(PrivateGroup)
+		systemRouter.InitRoleRouter(PrivateGroup)
 	}
 
 	global.MAY_LOGGER.Info("router register success")

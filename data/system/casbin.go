@@ -64,10 +64,16 @@ func (i *initCasbin) InitData(ctx context.Context) (context.Context, error) {
 		{Ptype: "p", V0: "888", V1: "/autocode/delPackageInfo", V2: "DELETE"},
 		{Ptype: "p", V0: "888", V1: "/autocode/getPackageList", V2: "GET"},
 
-		{Ptype: "p", V0: "888", V1: "/autocode/getPackageList", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/dept/createDept", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/dept/delDeptInfo", V2: "DELETE"},
 		{Ptype: "p", V0: "888", V1: "/dept/getDeptList", V2: "GET"},
 		{Ptype: "p", V0: "888", V1: "/dept/updateDeptInfo", V2: "PUT"},
+
+		{Ptype: "p", V0: "888", V1: "/role/createRole", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/role/deleteRole", V2: "DELETE"},
+		{Ptype: "p", V0: "888", V1: "/role/updateRole", V2: "PUT"},
+		{Ptype: "p", V0: "888", V1: "/role/getRoleList", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/role/setChildRole", V2: "POST"},
 
 		{Ptype: "p", V0: "888", V1: "/system/status", V2: "GET"},
 

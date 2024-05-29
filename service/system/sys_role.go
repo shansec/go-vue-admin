@@ -62,10 +62,10 @@ func (roleService *RoleService) DeleteRoleService(role *system.SysRole) error {
 	if len(role.Users) != 0 {
 		return errors.New("此角色有用户正在使用，无法删除该角色！")
 	}
-	if err = global.MAY_DB.Where("role_id", role.RoleId).First(&system.SysUser{}).Error; !errors.Is(err, gorm.ErrRecordNotFound) {
+	if err = global.MAY_DB.Where("roles_id", role.RoleId).First(&system.SysUser{}).Error; !errors.Is(err, gorm.ErrRecordNotFound) {
 		return errors.New("此角色有用户正在使用，无法删除该角色！")
 	}
-	if err = global.MAY_DB.Where("parent_id = ?", role.ParentId).First(&system.SysRole{}).Error; !errors.Is(err, gorm.ErrRecordNotFound) {
+	if err = global.MAY_DB.Where("parent_id = ?", role.RoleId).First(&system.SysRole{}).Error; !errors.Is(err, gorm.ErrRecordNotFound) {
 		return errors.New("此角色下还有子角色，无法删除该角色！")
 	}
 	err = global.MAY_DB.Transaction(func(ctx *gorm.DB) error {
