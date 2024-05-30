@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/satori/uuid"
+	"github.com/gofrs/uuid/v5"
 	"gorm.io/gorm"
 
 	"github/shansec/go-vue-admin/global"
@@ -36,7 +36,7 @@ func (userService *UserService) Login(u *system.SysUser, loginMethod bool) (user
 	} else {
 		db = global.MAY_DB.Where("username = ?", u.Username)
 	}
-	err = db.Preload("SysDept").First(&user).Error
+	err = db.Preload("SysRoles").Preload("SysRole").Preload("SysDept").First(&user).Error
 	if err == nil {
 		if ok := utils.BcryptCheck(u.Password, user.Password); !ok {
 			return nil, errors.New("密码错误")
@@ -78,7 +78,7 @@ func (userService *UserService) Register(u system.SysUser) (userInfo system.SysU
 		return userInfo, errors.New("用户名已注册")
 	}
 	u.Password = utils.BcryptHash(u.Password)
-	u.UUID = uuid.NewV4()
+	u.UUID = uuid.Must(uuid.NewV4())
 	err = global.MAY_DB.Omit("SysRole", "SysDept").Create(&u).Error
 	return u, err
 }

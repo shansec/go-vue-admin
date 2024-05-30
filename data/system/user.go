@@ -3,6 +3,7 @@ package system
 import (
 	"context"
 
+	"github.com/gofrs/uuid/v5"
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
 
@@ -39,6 +40,7 @@ func (u *initUser) InitData(ctx context.Context) (cont context.Context, err erro
 	}
 	password := utils.BcryptHash("admin")
 	data := model.SysUser{
+		UUID:      uuid.Must(uuid.NewV4()),
 		Username:  "admin",
 		Password:  password,
 		NickName:  "管理员",

@@ -145,33 +145,33 @@ var (
 
 func (casbinService *CasbinService) Casbin() *casbin.SyncedCachedEnforcer {
 	once.Do(func() {
-		db, err := gormAdapter.NewAdapterByDB(global.MAY_DB)
+		a, err := gormAdapter.NewAdapterByDB(global.MAY_DB)
 		if err != nil {
-			zap.L().Error("适配数据库失败", zap.Error(err))
+			zap.L().Error("适配数据库失败请检查casbin表是否为InnoDB引擎!", zap.Error(err))
 			return
 		}
-		modelTxt := `
+		text := `
 		[request_definition]
 		r = sub, obj, act
-
+		
 		[policy_definition]
 		p = sub, obj, act
-
+		
 		[role_definition]
 		g = _, _
-
+		
 		[policy_effect]
 		e = some(where (p.eft == allow))
-
+		
 		[matchers]
-		m = r.sub == p.sub && keyMatch2(r.obj, p.obj) && r.act == p.act
+		m = r.sub == p.sub && keyMatch2(r.obj,p.obj) && r.act == p.act
 		`
-		model, err := model.NewModelFromString(modelTxt)
+		m, err := model.NewModelFromString(text)
 		if err != nil {
-			zap.L().Error("字符串加载模型失败", zap.Error(err))
+			zap.L().Error("字符串加载模型失败!", zap.Error(err))
 			return
 		}
-		syncedCachedEnforcer, _ = casbin.NewSyncedCachedEnforcer(db, model)
+		syncedCachedEnforcer, _ = casbin.NewSyncedCachedEnforcer(m, a)
 		syncedCachedEnforcer.SetExpireTime(60 * 60)
 		_ = syncedCachedEnforcer.LoadPolicy()
 	})

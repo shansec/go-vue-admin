@@ -2,14 +2,14 @@ package utils
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/satori/uuid"
+	"github.com/gofrs/uuid/v5"
 
 	"github/shansec/go-vue-admin/global"
 	systemReq "github/shansec/go-vue-admin/model/system/request"
 )
 
 func GetClaims(c *gin.Context) (*systemReq.CustomClaims, error) {
-	token := c.Request.Header.Get("token")
+	token := c.Request.Header.Get("x-token")
 	j := NewJWT()
 	claims, err := j.ParseToken(token)
 	if err != nil {
