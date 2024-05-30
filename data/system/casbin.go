@@ -50,23 +50,23 @@ func (i *initCasbin) InitData(ctx context.Context) (context.Context, error) {
 
 		{Ptype: "p", V0: "888", V1: "/user/delUserInfo", V2: "DELETE"},
 		{Ptype: "p", V0: "888", V1: "/user/getUserInfo", V2: "GET"},
-		{Ptype: "p", V0: "888", V1: "/user/getUsersInfo", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/user/getUsersInfo", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/user/modifyPassword", V2: "PUT"},
 		{Ptype: "p", V0: "888", V1: "/user/updateUserInfo", V2: "PUT"},
 		{Ptype: "p", V0: "888", V1: "/user/updateUserStatus", V2: "PUT"},
 
 		{Ptype: "p", V0: "888", V1: "/api/createApi", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/api/deleteApi", V2: "DELETE"},
-		{Ptype: "p", V0: "888", V1: "/api/getApiList", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/api/getApiList", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/api/updateApi", V2: "PUT"},
 
 		{Ptype: "p", V0: "888", V1: "/autocode/createPackage", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/autocode/delPackageInfo", V2: "DELETE"},
-		{Ptype: "p", V0: "888", V1: "/autocode/getPackageList", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/autocode/getPackageList", V2: "POST"},
 
 		{Ptype: "p", V0: "888", V1: "/dept/createDept", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/dept/delDeptInfo", V2: "DELETE"},
-		{Ptype: "p", V0: "888", V1: "/dept/getDeptList", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/dept/getDeptList", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/dept/updateDeptInfo", V2: "PUT"},
 
 		{Ptype: "p", V0: "888", V1: "/role/createRole", V2: "POST"},

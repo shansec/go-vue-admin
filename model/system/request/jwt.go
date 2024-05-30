@@ -1,8 +1,8 @@
 package request
 
 import (
+	"github.com/gofrs/uuid/v5"
 	"github.com/golang-jwt/jwt/v4"
-	"github.com/satori/uuid"
 )
 
 type CustomClaims struct {

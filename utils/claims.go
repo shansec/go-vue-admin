@@ -2,7 +2,7 @@ package utils
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/satori/uuid"
+	"github.com/gofrs/uuid/v5"
 
 	"github/shansec/go-vue-admin/global"
 	systemReq "github/shansec/go-vue-admin/model/system/request"

@@ -21,7 +21,7 @@ type RoleApi struct{}
 // @Description 添加角色，返回添加结果
 // @Tags SysRole
 // @Produce json
-// @Param   createRoleInfo, roleInfo body system.SysRole true "添加角色"
+// @Param   createRoleInfo body system.SysRole true "添加角色"
 // @Success 200 {object} response.Response{data=systemRes.SysRoleResponse, msg=string}	"添加角色,返回添加结果"
 // @Failure 400 {object} response.Response "请求参数验证失败"
 // @Failure 500 {object} response.Response   "添加角色失败"

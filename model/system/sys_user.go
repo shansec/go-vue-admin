@@ -1,7 +1,7 @@
 package system
 
 import (
-	"github.com/satori/uuid"
+	"github.com/gofrs/uuid/v5"
 
 	"github/shansec/go-vue-admin/global"
 )
@@ -18,7 +18,7 @@ type SysUser struct {
 	Phone      string    `json:"phone"  gorm:"comment:用户手机号"`                                                          // 用户手机号
 	Email      string    `json:"email"  gorm:"comment:用户邮箱"`                                                           // 用户邮箱
 	Status     int       `json:"status" gorm:"default:1;comment:用户状态 1为开启，2为禁用"`                                       // 用户状态 1为开启，2为禁用
-	RolesId    int       `json:"rolesId" gorm:"comment:用户角色ID"`                                                        // 用户角色ID
+	RolesId    uint      `json:"rolesId" gorm:"comment:用户角色ID"`                                                        // 用户角色ID
 	SysRole    SysRole   `json:"sysRole" gorm:"foreignKey:RolesId;references:RoleId"`
 	SysRoles   []SysRole `json:"sysRoles" gorm:"many2many:sys_user_role;"`
 	DeptsId    int       `json:"deptsId" gorm:"用户部门ID"`

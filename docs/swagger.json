@@ -122,7 +122,7 @@
             }
         },
         "/api/getApiList": {
-            "get": {
+            "post": {
                 "description": "分页查询 api 信息列表",
                 "consumes": [
                     "application/json"
@@ -787,6 +787,290 @@
                 }
             }
         },
+        "/role/createRole": {
+            "post": {
+                "description": "添加角色，返回添加结果",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysRole"
+                ],
+                "summary": "添加角色",
+                "parameters": [
+                    {
+                        "description": "添加角色",
+                        "name": "createRoleInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.SysRole"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "添加角色,返回添加结果",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        " msg": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/definitions/response.SysRoleResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "添加角色失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/role/deleteRole": {
+            "delete": {
+                "description": "删除角色，返回添加结果",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysRole"
+                ],
+                "summary": "删除角色",
+                "parameters": [
+                    {
+                        "description": "删除角色",
+                        "name": "delRoleInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.SysRole"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "删除角色,返回添加结果",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "删除角色失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/role/getRoleList": {
+            "post": {
+                "description": "分页获取角色列表",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysRole"
+                ],
+                "summary": "分页获取角色列表",
+                "parameters": [
+                    {
+                        "description": "分页获取角色列表",
+                        "name": "pageInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.PageInfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "分页获取角色列表",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        " msg": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/definitions/response.PageResult"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "分页获取角色列表失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/role/setChildRole": {
+            "post": {
+                "description": "设置子角色",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysRole"
+                ],
+                "summary": "设置子角色",
+                "parameters": [
+                    {
+                        "description": "设置子角色",
+                        "name": "role",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.SysRole"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "设置子角色",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "设置子角色失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/role/updateRole": {
+            "put": {
+                "description": "更新角色，返回添加结果",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysRole"
+                ],
+                "summary": "更新角色",
+                "parameters": [
+                    {
+                        "description": "更新角色",
+                        "name": "updateRole",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.SysRole"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "更新角色,返回添加结果",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        " msg": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/definitions/response.SysRoleResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "更新角色失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/system/status": {
             "get": {
                 "description": "查询并返回系统的服务器相关信息",
@@ -902,7 +1186,7 @@
             }
         },
         "/user/getUsersInfo": {
-            "get": {
+            "post": {
                 "produces": [
                     "application/json"
                 ],
@@ -1310,6 +1594,19 @@
                 }
             }
         },
+        "request.PageInfo": {
+            "type": "object",
+            "properties": {
+                "page": {
+                    "description": "页码",
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "description": "每页大小",
+                    "type": "integer"
+                }
+            }
+        },
         "request.Register": {
             "type": "object",
             "properties": {
@@ -1416,11 +1713,36 @@
                 }
             }
         },
+        "response.SysRoleResponse": {
+            "type": "object",
+            "properties": {
+                "role": {
+                    "$ref": "#/definitions/system.SysRole"
+                }
+            }
+        },
         "response.SysUserResponse": {
             "type": "object",
             "properties": {
                 "user": {
                     "$ref": "#/definitions/system.SysUser"
+                }
+            }
+        },
+        "system.Meta": {
+            "type": "object",
+            "properties": {
+                "affix": {
+                    "type": "boolean"
+                },
+                "icon": {
+                    "type": "string"
+                },
+                "keepAlive": {
+                    "type": "boolean"
+                },
+                "title": {
+                    "type": "string"
                 }
             }
         },
@@ -1441,8 +1763,60 @@
                 "label": {
                     "type": "string"
                 },
-                "package_name": {
+                "packageName": {
                     "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "system.SysBaseMenu": {
+            "type": "object",
+            "properties": {
+                "children": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/system.SysBaseMenu"
+                    }
+                },
+                "component": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "hidden": {
+                    "type": "boolean"
+                },
+                "id": {
+                    "description": "主键 ID",
+                    "type": "integer"
+                },
+                "menuLevel": {
+                    "type": "integer"
+                },
+                "meta": {
+                    "$ref": "#/definitions/system.Meta"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "parentId": {
+                    "type": "integer"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "sort": {
+                    "type": "integer"
+                },
+                "sysRoles": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/system.SysRole"
+                    }
                 },
                 "updatedAt": {
                     "type": "string"
@@ -1509,9 +1883,21 @@
                     "description": "创建时间",
                     "type": "string"
                 },
+                "dataRoleId": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/system.SysRole"
+                    }
+                },
                 "deletedAt": {
                     "description": "删除时间",
                     "type": "string"
+                },
+                "menus": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/system.SysBaseMenu"
+                    }
                 },
                 "parentId": {
                     "description": "父角色ID",
@@ -1584,6 +1970,10 @@
                     "items": {
                         "$ref": "#/definitions/system.SysRole"
                     }
+                },
+                "themeColor": {
+                    "description": "用户主题颜色",
+                    "type": "string"
                 },
                 "updatedAt": {
                     "type": "string"

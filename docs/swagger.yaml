@@ -132,6 +132,15 @@ definitions:
         description: 用户名
         type: string
     type: object
+  request.PageInfo:
+    properties:
+      page:
+        description: 页码
+        type: integer
+      pageSize:
+        description: 每页大小
+        type: integer
+    type: object
   request.Register:
     properties:
       deptsId:
@@ -205,10 +214,26 @@ definitions:
       picPath:
         type: string
     type: object
+  response.SysRoleResponse:
+    properties:
+      role:
+        $ref: '#/definitions/system.SysRole'
+    type: object
   response.SysUserResponse:
     properties:
       user:
         $ref: '#/definitions/system.SysUser'
+    type: object
+  system.Meta:
+    properties:
+      affix:
+        type: boolean
+      icon:
+        type: string
+      keepAlive:
+        type: boolean
+      title:
+        type: string
     type: object
   system.SysAutoCode:
     properties:
@@ -222,8 +247,43 @@ definitions:
         type: integer
       label:
         type: string
-      package_name:
+      packageName:
         type: string
+      updatedAt:
+        type: string
+    type: object
+  system.SysBaseMenu:
+    properties:
+      children:
+        items:
+          $ref: '#/definitions/system.SysBaseMenu'
+        type: array
+      component:
+        type: string
+      createdAt:
+        description: 创建时间
+        type: string
+      hidden:
+        type: boolean
+      id:
+        description: 主键 ID
+        type: integer
+      menuLevel:
+        type: integer
+      meta:
+        $ref: '#/definitions/system.Meta'
+      name:
+        type: string
+      parentId:
+        type: integer
+      path:
+        type: string
+      sort:
+        type: integer
+      sysRoles:
+        items:
+          $ref: '#/definitions/system.SysRole'
+        type: array
       updatedAt:
         type: string
     type: object
@@ -267,9 +327,17 @@ definitions:
       createdAt:
         description: 创建时间
         type: string
+      dataRoleId:
+        items:
+          $ref: '#/definitions/system.SysRole'
+        type: array
       deletedAt:
         description: 删除时间
         type: string
+      menus:
+        items:
+          $ref: '#/definitions/system.SysBaseMenu'
+        type: array
       parentId:
         description: 父角色ID
         type: integer
@@ -322,6 +390,9 @@ definitions:
         items:
           $ref: '#/definitions/system.SysRole'
         type: array
+      themeColor:
+        description: 用户主题颜色
+        type: string
       updatedAt:
         type: string
       userName:
@@ -405,7 +476,7 @@ paths:
       tags:
       - SysApi
   /api/getApiList:
-    get:
+    post:
       consumes:
       - application/json
       description: 分页查询 api 信息列表
@@ -804,6 +875,177 @@ paths:
       summary: 初始化数据
       tags:
       - InitDB
+  /role/createRole:
+    post:
+      description: 添加角色，返回添加结果
+      parameters:
+      - description: 添加角色
+        in: body
+        name: createRoleInfo
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysRole'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 添加角色,返回添加结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                ' msg':
+                  type: string
+                data:
+                  $ref: '#/definitions/response.SysRoleResponse'
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 添加角色失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 添加角色
+      tags:
+      - SysRole
+  /role/deleteRole:
+    delete:
+      description: 删除角色，返回添加结果
+      parameters:
+      - description: 删除角色
+        in: body
+        name: delRoleInfo
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysRole'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除角色,返回添加结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 删除角色失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 删除角色
+      tags:
+      - SysRole
+  /role/getRoleList:
+    post:
+      description: 分页获取角色列表
+      parameters:
+      - description: 分页获取角色列表
+        in: body
+        name: pageInfo
+        required: true
+        schema:
+          $ref: '#/definitions/request.PageInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 分页获取角色列表
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                ' msg':
+                  type: string
+                data:
+                  $ref: '#/definitions/response.PageResult'
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 分页获取角色列表失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 分页获取角色列表
+      tags:
+      - SysRole
+  /role/setChildRole:
+    post:
+      description: 设置子角色
+      parameters:
+      - description: 设置子角色
+        in: body
+        name: role
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysRole'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 设置子角色
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 设置子角色失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 设置子角色
+      tags:
+      - SysRole
+  /role/updateRole:
+    put:
+      description: 更新角色，返回添加结果
+      parameters:
+      - description: 更新角色
+        in: body
+        name: updateRole
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysRole'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新角色,返回添加结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                ' msg':
+                  type: string
+                data:
+                  $ref: '#/definitions/response.SysRoleResponse'
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 更新角色失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 更新角色
+      tags:
+      - SysRole
   /system/status:
     get:
       description: 查询并返回系统的服务器相关信息
@@ -870,7 +1112,7 @@ paths:
       tags:
       - SysUser
   /user/getUsersInfo:
-    get:
+    post:
       parameters:
       - description: 获取用户列表
         in: body

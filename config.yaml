@@ -33,8 +33,8 @@ zap:
   log-in-console: true
 # jwt
 jwt:
-  signing-key: 'Shansec'
-  expires-time: 86400
+  signing-key: 5adfc23f-2f8d-47d9-a370-36b37493f202
+  expires-time: 604800
   buffer-time: 86400
   issuer: 'Shansec'
 # captcha

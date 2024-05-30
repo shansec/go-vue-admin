@@ -60,7 +60,7 @@ func (b *BaseApi) TokenNext(c *gin.Context, user system.SysUser) {
 		ID:       user.ID,
 		NickName: user.NickName,
 		Username: user.Username,
-		RoleId:   uint(user.RolesId),
+		RoleId:   user.RolesId,
 	})
 	token, err := jwt.CreateToken(claims)
 	if err != nil {
@@ -199,7 +199,7 @@ func (b *BaseApi) GetUserInfo(c *gin.Context) {
 // @Produce json
 // @Param   data body systemReq.GetUserList true "获取用户列表"
 // @Success 200 {object} response.Response{data=response.PageResult, msg=string} "获取用户列表"
-// @Router /user/getUsersInfo [GET]
+// @Router /user/getUsersInfo [POST]
 func (b *BaseApi) GetUsersInfo(c *gin.Context) {
 	var pageInfo systemReq.GetUserList
 	err := c.ShouldBindJSON(&pageInfo)

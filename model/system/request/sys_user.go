@@ -1,7 +1,7 @@
 package request
 
 import (
-	"github.com/satori/uuid"
+	"github.com/gofrs/uuid/v5"
 
 	"github/shansec/go-vue-admin/model/system"
 )
