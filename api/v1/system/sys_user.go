@@ -159,7 +159,7 @@ func (b *BaseApi) DelUserInfo(c *gin.Context) {
 // @Produce json
 // @Param   data body system.SysUser true "更新用户信息"
 // @Success 200 {object} response.Response{msg=string} "更新用户信息，返回操作结果"
-// @Router /user/updateUserInfo [PUT]
+// @Router /user/updateUserInfo [POST]
 func (b *BaseApi) UpdateUserInfo(c *gin.Context) {
 	var user system.SysUser
 	_ = c.ShouldBindJSON(&user)

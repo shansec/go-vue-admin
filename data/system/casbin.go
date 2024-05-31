@@ -52,7 +52,7 @@ func (i *initCasbin) InitData(ctx context.Context) (context.Context, error) {
 		{Ptype: "p", V0: "888", V1: "/user/getUserInfo", V2: "GET"},
 		{Ptype: "p", V0: "888", V1: "/user/getUsersInfo", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/user/modifyPassword", V2: "PUT"},
-		{Ptype: "p", V0: "888", V1: "/user/updateUserInfo", V2: "PUT"},
+		{Ptype: "p", V0: "888", V1: "/user/updateUserInfo", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/user/updateUserStatus", V2: "PUT"},
 
 		{Ptype: "p", V0: "888", V1: "/api/createApi", V2: "POST"},
@@ -75,11 +75,11 @@ func (i *initCasbin) InitData(ctx context.Context) (context.Context, error) {
 		{Ptype: "p", V0: "888", V1: "/role/getRoleList", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/role/setChildRole", V2: "POST"},
 
-		{Ptype: "p", V0: "888", V1: "/system/status", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/system/getServerInfo", V2: "GET"},
 
 		{Ptype: "p", V0: "9528", V1: "/user/register", V2: "POST"},
 
-		{Ptype: "p", V0: "9528", V1: "/system/status", V2: "GET"},
+		{Ptype: "p", V0: "9528", V1: "/system/getServerInfo", V2: "GET"},
 	}
 	if err := db.Create(&entities).Error; err != nil {
 		return ctx, errors.Wrap(err, "Casbin 表 ("+i.InitTableName()+") 数据初始化失败!")
