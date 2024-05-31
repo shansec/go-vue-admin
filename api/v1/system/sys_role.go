@@ -76,7 +76,7 @@ func (r *RoleApi) DeleteRole(c *gin.Context) {
 
 	if err = roleService.DeleteRoleService(&delRoleInfo); err != nil {
 		global.MAY_LOGGER.Error("删除角色失败", zap.Error(err))
-		response.FailWithMessage("删除角色失败", c)
+		response.FailWithMessage("删除角色失败："+err.Error(), c)
 		return
 	}
 	response.OkWithMessage("删除角色成功", c)

@@ -71,7 +71,7 @@ func (roleService *RoleService) DeleteRoleService(role *system.SysRole) error {
 	err = global.MAY_DB.Transaction(func(ctx *gorm.DB) error {
 		var err error
 		// Unscoped 方法用于移除 GORM 默认的软删除约束
-		if err = ctx.Preload("SysBaseMenus").Preload("DataRoleId").Where("role_id = ?", role.RoleId).First(role).Unscoped().Delete(role).Error; err != nil {
+		if err = ctx.Preload("SysBaseMenus").Preload("DataRoleId").Where("role_id = ?", role.RoleId).First(role).Error; err != nil {
 			return err
 		}
 		if len(role.SysBaseMenus) != 0 {
@@ -85,6 +85,9 @@ func (roleService *RoleService) DeleteRoleService(role *system.SysRole) error {
 			}
 		}
 		if err = ctx.Delete(&system.SysUserRole{}, "sys_role_role_id = ?", role.RoleId).Error; err != nil {
+			return err
+		}
+		if err = ctx.Where("role_id = ?", role.RoleId).Unscoped().Delete(role).Error; err != nil {
 			return err
 		}
 
