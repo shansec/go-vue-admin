@@ -111,13 +111,13 @@ func Init(packageName string) {
 	}
 }
 
-// CreateAutoCode
+// CreatePackageService
 // @author: [Shansec](https://github.com/shansec)
-// @function: CreateAutoCode
+// @function: CreatePackageService
 // @description: 创建代码包
 // @param: s *system.SysAutoCode
 // @return: error
-func (autoCodeService *AutoCodeService) CreateAutoCode(s *system.SysAutoCode) error {
+func (autoCodeService *AutoCodeService) CreatePackageService(s *system.SysAutoCode) error {
 	if s.PackageName == "system" || s.PackageName == "" {
 		return errors.New("不能使用保留的包名")
 	}
@@ -131,13 +131,13 @@ func (autoCodeService *AutoCodeService) CreateAutoCode(s *system.SysAutoCode) er
 	return global.MAY_DB.Create(&s).Error
 }
 
-// GetPackages
+// GetPackageListService
 // @author: [Shansec](https://github.com/shansec)
-// @function: GetPackages
+// @function: GetPackageListService
 // @description: 获取代码包列表
 // @param: s *system.SysAutoCode
 // @return: error
-func (autoCodeService *AutoCodeService) GetPackages(info systemReq.GetPackageList) (pkgList []system.SysAutoCode, total int64, err error) {
+func (autoCodeService *AutoCodeService) GetPackageListService(info systemReq.GetPackageList) (pkgList []system.SysAutoCode, total int64, err error) {
 	var autoCodes []system.SysAutoCode
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
@@ -154,13 +154,13 @@ func (autoCodeService *AutoCodeService) GetPackages(info systemReq.GetPackageLis
 	return autoCodes, int64(len(autoCodes)), nil
 }
 
-// DelPackageInfo
+// DelPackageService
 // @author: [Shansec](https://github.com/shansec)
-// @function: DelPackageInfo
+// @function: DelPackageService
 // @description: 删除代码包
 // @param: s *system.SysAutoCode
 // @return: error
-func (autoCodeService *AutoCodeService) DelPackageInfo(s *system.SysAutoCode) error {
+func (autoCodeService *AutoCodeService) DelPackageService(s *system.SysAutoCode) error {
 	return global.MAY_DB.Delete(s).Error
 }
 
@@ -237,7 +237,13 @@ func (autoCodeService *AutoCodeService) CreatePackageCache(packageName string) e
 	return nil
 }
 
-func (autoCodeService *AutoCodeService) PreviewCode(a system.AutoCodeStruct) (map[string]string, error) {
+// PreviewCodeService
+// @author: [Shansec](https://github.com/shansec)
+// @function: PreviewCodeService
+// @description: 预览代码
+// @param: a system.AutoCodeStruct
+// @return: map[string]string, error
+func (autoCodeService *AutoCodeService) PreviewCodeService(a system.AutoCodeStruct) (map[string]string, error) {
 	makeDictType(&a)
 	for i := range a.Fields {
 		if a.Fields[i].FieldType == "time.Time" {

@@ -32,7 +32,7 @@ func (d *DBApi) InitDB(c *gin.Context) {
 		response.FailWithMessage("参数错误", c)
 		return
 	}
-	if err := initDbService.InitDB(dbInfo); err != nil {
+	if err := initDbService.InitDBService(dbInfo); err != nil {
 		global.MAY_LOGGER.Error("初始化失败", zap.Error(err))
 		response.FailWithMessage("初始化失败", c)
 		return

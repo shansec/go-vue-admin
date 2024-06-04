@@ -34,7 +34,7 @@ func (s *SysApi) CreateApi(c *gin.Context) {
 		return
 	}
 
-	if err := apiService.CreateApiInfo(&createApiInfo); err != nil {
+	if err := apiService.CreateApiService(&createApiInfo); err != nil {
 		global.MAY_LOGGER.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
 	} else {
@@ -62,7 +62,7 @@ func (s *SysApi) DeleteApi(c *gin.Context) {
 		return
 	}
 
-	if err := apiService.DeleteApiInfo(&deleteApiInfo); err != nil {
+	if err := apiService.DeleteApiService(&deleteApiInfo); err != nil {
 		global.MAY_LOGGER.Error("删除失败!", zap.Error(err))
 		response.FailWithMessage("删除失败", c)
 	} else {
@@ -90,7 +90,7 @@ func (s *SysApi) UpdateApi(c *gin.Context) {
 		return
 	}
 
-	if err := apiService.UpdateApiInfo(&updateApiInfo); err != nil {
+	if err := apiService.UpdateApiService(&updateApiInfo); err != nil {
 		global.MAY_LOGGER.Error("更新失败!", zap.Error(err))
 		response.FailWithMessage("更新失败", c)
 	} else {
@@ -118,7 +118,7 @@ func (s *SysApi) GetApiList(c *gin.Context) {
 	}
 
 	// 查询 api 列表
-	if apis, total, err := apiService.GetApisInfo(apiPageInfo); err != nil {
+	if apis, total, err := apiService.GetApiListService(apiPageInfo); err != nil {
 		global.MAY_LOGGER.Error("api 列表获取失败", zap.Error(err))
 		response.FailWithMessage("api 列表获取失败", c)
 	} else {

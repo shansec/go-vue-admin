@@ -16,13 +16,13 @@ type DeptService struct{}
 
 const DEPT_STATUS = "2"
 
-// EstablishDept
+// CreateDeptService
 // @author: [Shansec](https://github.com/shansec)
-// @function: EstablishDept
+// @function: CreateDeptService
 // @description: 添加部门
 // @param: d system.SysDept
 // @return: err error
-func (deptService *DeptService) EstablishDept(d system.SysDept) (err error) {
+func (deptService *DeptService) CreateDeptService(d system.SysDept) (err error) {
 	var dept system.SysDept
 	if !errors.Is(global.MAY_DB.Where("dept_name = ?", d.DeptName).First(&dept).Error, gorm.ErrRecordNotFound) {
 		return errors.New("部门名称已被占用")
@@ -45,13 +45,13 @@ func (deptService *DeptService) EstablishDept(d system.SysDept) (err error) {
 	return nil
 }
 
-// GetDept
+// GetDeptListService
 // @author: [Shansec](https://github.com/shansec)
-// @function: GetDept
+// @function: GetDeptListService
 // @description: 获取部门列表
 // @param: info systemReq.GetDeptList
 // @return: deptList []system.SysDept, total int64, err error
-func (deptService *DeptService) GetDept(info systemReq.GetDeptList) (deptList []system.SysDept, total int64, err error) {
+func (deptService *DeptService) GetDeptListService(info systemReq.GetDeptList) (deptList []system.SysDept, total int64, err error) {
 	var depts []system.SysDept
 	limit := info.PageSize
 	offset := info.PageSize * (info.Page - 1)
@@ -106,13 +106,13 @@ func (deptService *DeptService) GetDeptCall(deptList []system.SysDept, dept syst
 	return dept
 }
 
-// DelDeptInformation
+// DelDeptInfoService
 // @author: [Shansec](https://github.com/shansec)
-// @function: DelDeptInformation
+// @function: DelDeptInfoService
 // @description: 删除部门信息
 // @param: dept system.SysDept
 // @return: err error
-func (deptService *DeptService) DelDeptInformation(dept system.SysDept) (err error) {
+func (deptService *DeptService) DelDeptInfoService(dept system.SysDept) (err error) {
 	var depts []system.SysDept
 	var depart system.SysDept
 	global.MAY_DB.Where("parent_id = ?", dept.DeptId).Find(&depts)
@@ -125,13 +125,13 @@ func (deptService *DeptService) DelDeptInformation(dept system.SysDept) (err err
 	return nil
 }
 
-// UpdateDeptInformation
+// UpdateDeptInfoService
 // @author: [Shansec](https://github.com/shansec)
-// @function: UpdateDeptInformation
+// @function: UpdateDeptInfoService
 // @description: 更改部门信息
 // @param: deptInfo *system.SysDept
 // @return: err error
-func (deptService *DeptService) UpdateDeptInformation(deptInfo *system.SysDept) error {
+func (deptService *DeptService) UpdateDeptInfoService(deptInfo *system.SysDept) error {
 	var dept system.SysDept
 	err := global.MAY_DB.Model(&dept).
 		Select("updated_at", "dept_name", "sort", "leader", "phone", "email", "status").

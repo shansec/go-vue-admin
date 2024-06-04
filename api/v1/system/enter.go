@@ -12,6 +12,7 @@ type ApiGroup struct {
 	DBApi
 	SysApi
 	RoleApi
+	MenuApi
 }
 
 var (
@@ -23,4 +24,5 @@ var (
 	apiService          = service.ServiceGroupApp.SystemServiceGroup.ApiService
 	roleService         = service.ServiceGroupApp.SystemServiceGroup.RoleService
 	casbinService       = service.ServiceGroupApp.SystemServiceGroup.CasbinService
+	menuService         = service.ServiceGroupApp.SystemServiceGroup.MenuService
 )

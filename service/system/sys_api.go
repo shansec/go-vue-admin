@@ -13,39 +13,39 @@ import (
 
 type ApiService struct{}
 
-// CreateApiInfo
+// CreateApiService
 // @author: [Shansec](https://github.com/shansec)
-// @function: CreateApiInfo
+// @function: CreateApiService
 // @description: 创建 api
 // @param: createApiInfo *system.SysApi
 // @return: error
-func (apiService *ApiService) CreateApiInfo(createApiInfo *system.SysApi) error {
+func (apiService *ApiService) CreateApiService(createApiInfo *system.SysApi) error {
 	if !errors.Is(global.MAY_DB.Where("path = ?", createApiInfo.Path).First(&system.SysApi{}).Error, gorm.ErrRecordNotFound) {
 		return errors.New("存在相同的路径")
 	}
 	return global.MAY_DB.Create(&createApiInfo).Error
 }
 
-// DeleteApiInfo
+// DeleteApiService
 // @author: [Shansec](https://github.com/shansec)
-// @function: DeleteApiInfo
+// @function: DeleteApiService
 // @description: 删除 api
 // @param: deleteApiInfo *system.SysApi
 // @return: error
-func (apiService *ApiService) DeleteApiInfo(deleteApiInfo *system.SysApi) error {
+func (apiService *ApiService) DeleteApiService(deleteApiInfo *system.SysApi) error {
 	if err := global.MAY_DB.Delete(&deleteApiInfo).Error; err != nil {
 		return errors.New("删除 api 信息失败")
 	}
 	return nil
 }
 
-// UpdateApiInfo
+// UpdateApiService
 // @author: [Shansec](https://github.com/shansec)
-// @function: UpdateApiInfo
+// @function: UpdateApiService
 // @description: 更新 api
 // @param: updateApiInfo *system.SysApi
 // @return: error
-func (apiService *ApiService) UpdateApiInfo(updateApiInfo *system.SysApi) error {
+func (apiService *ApiService) UpdateApiService(updateApiInfo *system.SysApi) error {
 	var api system.SysApi
 	err := global.MAY_DB.Model(&api).Where("id = ?", updateApiInfo.ID).Updates(map[string]interface{}{
 		"path":        updateApiInfo.Path,
@@ -66,7 +66,7 @@ func (apiService *ApiService) UpdateApiInfo(updateApiInfo *system.SysApi) error 
 // @description: 获取 api 列表
 // @param: getApisInfo systemReq.GetApiList
 // @return: apiList []system.SysApi, total int64, err error
-func (apiService *ApiService) GetApisInfo(getApisInfo systemReq.GetApiList) (apiList []system.SysApi, total int64, err error) {
+func (apiService *ApiService) GetApiListService(getApisInfo systemReq.GetApiList) (apiList []system.SysApi, total int64, err error) {
 	var apis []system.SysApi
 	limit := getApisInfo.PageSize
 	offset := getApisInfo.PageSize * (getApisInfo.Page - 1)

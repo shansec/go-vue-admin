@@ -4,11 +4,11 @@ import "github/shansec/go-vue-admin/global"
 
 type SysBaseMenu struct {
 	global.MAY_MODEL
-	MenuLevel uint          `json:"-`
-	ParentId  uint          `json:"parentId" gorm:"comment:父菜单ID"`
+	MenuLevel uint          `json:"-" gorm:"default:0;comment:菜单级别"`
+	ParentId  uint          `json:"parentId" gorm:"default:0;comment:父菜单ID"`
 	Path      string        `json:"path" gorm:"comment:路由path"`
 	Name      string        `json:"name" gorm:"comment:路由name"`
-	Hidden    bool          `json:"hidden" gorm:"comment:是否在列表隐藏"`
+	Hidden    bool          `json:"hidden" gorm:"default:false;comment:是否在列表隐藏"`
 	Component string        `json:"component" gorm:"comment:对应的文件路径"`
 	Sort      int           `json:"sort" gorm:"comment:排序"`
 	Meta      Meta          `json:"meta" gorm:"embedded;comment:附加属性"`

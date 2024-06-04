@@ -28,7 +28,7 @@ func (d *DeptApi) CreateDept(c *gin.Context) {
 	_ = c.ShouldBindJSON(&deptInfo)
 
 	// 验证输入数据
-	if err := utils.Verify(deptInfo, SystemVerify.CreateVerify); err != nil {
+	if err := utils.Verify(deptInfo, SystemVerify.CreateDeptVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
@@ -46,7 +46,7 @@ func (d *DeptApi) CreateDept(c *gin.Context) {
 	}
 
 	// 添加部门
-	if err := deptService.EstablishDept(*dept); err != nil {
+	if err := deptService.CreateDeptService(*dept); err != nil {
 		global.MAY_LOGGER.Error("添加部门失败", zap.Error(err))
 		response.FailWithMessage(err.Error(), c)
 		return
@@ -75,7 +75,7 @@ func (d *DeptApi) GetDeptList(c *gin.Context) {
 	}
 
 	// 查询部门列表
-	if depts, total, err := deptService.GetDept(deptPageInfo); err != nil {
+	if depts, total, err := deptService.GetDeptListService(deptPageInfo); err != nil {
 		global.MAY_LOGGER.Error("获取部门列表失败", zap.Error(err))
 		response.FailWithMessage("获取部门列表失败", c)
 	} else {
@@ -104,13 +104,13 @@ func (d *DeptApi) DelDeptInfo(c *gin.Context) {
 	_ = c.ShouldBindJSON(&deptInfo)
 
 	// 验证输入数据
-	if err := utils.Verify(deptInfo, SystemVerify.DeleteVerify); err != nil {
+	if err := utils.Verify(deptInfo, SystemVerify.DeleteDeptVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
 
 	// 删除部门及其下级信息
-	if err := deptService.DelDeptInformation(deptInfo); err != nil {
+	if err := deptService.DelDeptInfoService(deptInfo); err != nil {
 		global.MAY_LOGGER.Error("删除部门信息失败,请检查是否包含下级部门", zap.Error(err))
 		response.FailWithMessage("删除部门信息失败,请检查是否包含下级部门", c)
 	} else {
@@ -134,13 +134,13 @@ func (d *DeptApi) UpdateDeptInfo(c *gin.Context) {
 	_ = c.ShouldBindJSON(&dept)
 
 	// 验证输入数据
-	if err := utils.Verify(dept, SystemVerify.UpdateVerify); err != nil {
+	if err := utils.Verify(dept, SystemVerify.UpdateDeptVerify); err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
 
 	// 更新部门信息
-	if err := deptService.UpdateDeptInformation(&dept); err != nil {
+	if err := deptService.UpdateDeptInfoService(&dept); err != nil {
 		global.MAY_LOGGER.Error("更改部门信息失败", zap.Error(err))
 		response.FailWithMessage("更改部门信息失败", c)
 	} else {

@@ -79,7 +79,7 @@ func (i inits) Swap(k, j int) {
 
 type InitService struct{}
 
-func (initService *InitService) InitDB(config request.InitDB) (err error) {
+func (initService *InitService) InitDBService(config request.InitDB) (err error) {
 	ctx := context.TODO()
 	if len(initalizer) == 0 {
 		return errors.New("无可用初始化！")
