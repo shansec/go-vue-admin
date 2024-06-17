@@ -28,3 +28,36 @@ func (menuService *MenuService) CreateMenuService(menu system.SysBaseMenu) (syst
 	}
 	return menu, nil
 }
+
+// DeleteMenuService
+// @author: [Shansec](https://github.com/shansec)
+// @function: DeleteMenuService
+// @description: 删除菜单
+// @param: menu system.SysBaseMenu
+// @return: error
+func (menuService *MenuService) DeleteMenuService(menu *system.SysBaseMenu) error {
+	err := global.MAY_DB.Preload("SysRoles").Where("id = ?", menu.ID).First(&menu).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return errors.New("菜单不存在！")
+	}
+	err = global.MAY_DB.Transaction(func(ctx *gorm.DB) error {
+		var err error
+
+		if err = ctx.Preload("SysRoles").Where("id = ?", menu.ID).First(menu).Error; err != nil {
+			return err
+		}
+
+		if len(menu.SysRoles) != 0 {
+			if err = ctx.Model(menu).Association("SysRoles").Delete(menu.SysRoles); err != nil {
+				return err
+			}
+		}
+
+		if err = ctx.Where("id = ?", menu.ID).Unscoped().Delete(menu).Error; err != nil {
+			return err
+		}
+
+		return nil
+	})
+	return err
+}

@@ -44,3 +44,32 @@ func (m *MenuApi) CreateMenu(c *gin.Context) {
 	}
 	response.OkWithDetailed(systemRes.SysMenuResponse{Menu: menu}, "创建成功", c)
 }
+
+// DeleteMenu
+// @Summary 删除菜单
+// @Description 删除菜单，返回操作结果
+// @Tags SysBaseMenu
+// @Produce json
+// @Param   menuInfo body system.SysBaseMenu true "删除菜单"
+// @Success 200 {object} response.Response{msg=string}	"删除菜单,返回操作结果"
+// @Failure 400 {object} response.Response "请求参数验证失败"
+// @Failure 500 {object} response.Response   "删除菜单失败"
+// @Router /menu/deleteMenu [DELETE]
+func (m *MenuApi) DeleteMenu(c *gin.Context) {
+	var menuInfo system.SysBaseMenu
+	var err error
+	_ = c.ShouldBindJSON(&menuInfo)
+
+	err = utils.Verify(menuInfo, systemVerify.DeleteMenuVerify)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	if err = menuService.DeleteMenuService(&menuInfo); err != nil {
+		global.MAY_LOGGER.Error("删除菜单失败", zap.Error(err))
+		response.FailWithMessage("删除菜单失败"+err.Error(), c)
+		return
+	}
+	response.OkWithMessage("删除菜单成功", c)
+}
