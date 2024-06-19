@@ -102,3 +102,19 @@ func (menuService *MenuService) findChildrenMenu(menu *system.SysBaseMenu) (err 
 	}
 	return err
 }
+
+// UpdateMenuService
+// @author: [Shansec](https://github.com/shansec)
+// @function: UpdateMenuService
+// @description: 修改菜单信息
+// @param: menu system.SysBaseMenu
+// @return: error
+func (menuService *MenuService) UpdateMenuService(menu system.SysBaseMenu) error {
+	var oldMenu system.SysBaseMenu
+	err := global.MAY_DB.Where("id = ?", menu.ID).First(&oldMenu).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return errors.New("菜单不存在")
+	}
+	err = global.MAY_DB.Model(&oldMenu).Updates(menu).Error
+	return err
+}

@@ -214,6 +214,11 @@ definitions:
       picPath:
         type: string
     type: object
+  response.SysMenuResponse:
+    properties:
+      menu:
+        $ref: '#/definitions/system.SysBaseMenu'
+    type: object
   response.SysRoleResponse:
     properties:
       role:
@@ -223,6 +228,98 @@ definitions:
     properties:
       user:
         $ref: '#/definitions/system.SysUser'
+    type: object
+  system.AutoCodeStruct:
+    properties:
+      abbreviation:
+        description: Struct简称
+        type: string
+      autoCreateApiToSql:
+        description: 是否自动创建api
+        type: boolean
+      autoCreateMenuToSql:
+        description: 是否自动创建menu
+        type: boolean
+      autoCreateResource:
+        description: 是否自动创建资源标识
+        type: boolean
+      autoMoveFile:
+        description: 是否自动移动文件
+        type: boolean
+      businessDB:
+        description: 业务数据库
+        type: string
+      defaultModel:
+        description: 是否使用默认Model
+        type: boolean
+      description:
+        description: Struct中文名称
+        type: string
+      fields:
+        items:
+          $ref: '#/definitions/system.Field'
+        type: array
+      humpPackageName:
+        description: go文件名称
+        type: string
+      package:
+        type: string
+      packageName:
+        description: 文件名称
+        type: string
+      primaryField:
+        $ref: '#/definitions/system.Field'
+      structName:
+        description: Struct名称
+        type: string
+      tableName:
+        description: 表名
+        type: string
+    type: object
+  system.Field:
+    properties:
+      clearable:
+        description: 是否可清空
+        type: boolean
+      columnName:
+        description: 数据库字段
+        type: string
+      comment:
+        description: 数据库字段描述
+        type: string
+      dataTypeLong:
+        description: 数据库字段长度
+        type: string
+      dictType:
+        description: 字典
+        type: string
+      errorText:
+        description: 校验失败文字
+        type: string
+      fieldDesc:
+        description: 中文名
+        type: string
+      fieldJson:
+        description: FieldJson
+        type: string
+      fieldName:
+        description: Field名
+        type: string
+      fieldSearchType:
+        description: 搜索条件
+        type: string
+      fieldType:
+        description: Field数据类型
+        type: string
+      primaryKey:
+        description: 是否主键
+        type: boolean
+      require:
+        description: 是否必填
+        type: boolean
+      sort:
+        description: 是否增加排序
+        type: boolean
     type: object
   system.Meta:
     properties:
@@ -267,8 +364,6 @@ definitions:
         type: boolean
       id:
         description: 主键 ID
-        type: integer
-      menuLevel:
         type: integer
       meta:
         $ref: '#/definitions/system.Meta'
@@ -548,6 +643,41 @@ paths:
       summary: 更新 api
       tags:
       - SysApi
+  /autocode/createCode:
+    post:
+      consumes:
+      - application/json
+      description: 创建代码
+      parameters:
+      - description: 创建代码
+        in: body
+        name: autoCode
+        required: true
+        schema:
+          $ref: '#/definitions/system.AutoCodeStruct'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 创建代码，返回结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 创建代码失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 创建代码
+      tags:
+      - SysAutoCode
   /autocode/createPackage:
     post:
       consumes:
@@ -654,6 +784,41 @@ paths:
           schema:
             $ref: '#/definitions/response.Response'
       summary: 获取创建的包列表
+      tags:
+      - SysAutoCode
+  /autocode/previewCode:
+    post:
+      consumes:
+      - application/json
+      description: 预览代码
+      parameters:
+      - description: 预览代码
+        in: body
+        name: autocode
+        required: true
+        schema:
+          $ref: '#/definitions/system.AutoCodeStruct'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 预览代码，返回结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 预览代码失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 预览代码
       tags:
       - SysAutoCode
   /base/captcha:
@@ -875,6 +1040,142 @@ paths:
       summary: 初始化数据
       tags:
       - InitDB
+  /menu/createMenu:
+    post:
+      description: 添加菜单，返回添加结果
+      parameters:
+      - description: 添加菜单
+        in: body
+        name: menuInfo
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysBaseMenu'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 添加菜单,返回添加结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                ' msg':
+                  type: string
+                data:
+                  $ref: '#/definitions/response.SysMenuResponse'
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 添加菜单失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 添加菜单
+      tags:
+      - SysBaseMenu
+  /menu/deleteMenu:
+    delete:
+      description: 删除菜单，返回操作结果
+      parameters:
+      - description: 删除菜单
+        in: body
+        name: menuInfo
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysBaseMenu'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除菜单,返回操作结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 删除菜单失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 删除菜单
+      tags:
+      - SysBaseMenu
+  /menu/getMenuList:
+    post:
+      description: 分页获取菜单
+      parameters:
+      - description: 分页获取菜单
+        in: body
+        name: pageInfo
+        required: true
+        schema:
+          $ref: '#/definitions/request.PageInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 分页获取菜单
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                ' msg':
+                  type: string
+                data:
+                  $ref: '#/definitions/response.PageResult'
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 分页获取菜单失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 分页获取菜单
+      tags:
+      - SysBaseMenu
+  /menu/updateMenu:
+    put:
+      description: 修改菜单，返回操作结果
+      parameters:
+      - description: 修改菜单
+        in: body
+        name: menuInfo
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysBaseMenu'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 修改菜单,返回操作结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 修改菜单失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 修改菜单
+      tags:
+      - SysBaseMenu
   /role/createRole:
     post:
       description: 添加角色，返回添加结果
@@ -1188,7 +1489,7 @@ paths:
       tags:
       - SysUser
   /user/updateUserInfo:
-    put:
+    post:
       parameters:
       - description: 更新用户信息
         in: body

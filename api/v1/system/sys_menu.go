@@ -113,3 +113,33 @@ func (m *MenuApi) GetMenuList(c *gin.Context) {
 		PageSize: pageInfo.PageSize,
 	}, "获取成功", c)
 }
+
+// UpdateMenu
+// @Summary 修改菜单
+// @Description 修改菜单，返回操作结果
+// @Tags SysBaseMenu
+// @Produce json
+// @Param   menuInfo body system.SysBaseMenu true "修改菜单"
+// @Success 200 {object} response.Response{msg=string}	"修改菜单,返回操作结果"
+// @Failure 400 {object} response.Response "请求参数验证失败"
+// @Failure 500 {object} response.Response   "修改菜单失败"
+// @Router /menu/updateMenu [PUT]
+func (m *MenuApi) UpdateMenu(c *gin.Context) {
+	var menuInfo system.SysBaseMenu
+	_ = c.ShouldBindJSON(&menuInfo)
+
+	err := utils.Verify(menuInfo, systemVerify.UpdateMenuVerify)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	err = menuService.UpdateMenuService(menuInfo)
+	if err != nil {
+		global.MAY_LOGGER.Error("修改菜单信息失败", zap.Error(err))
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	response.OkWithMessage("修改成功", c)
+}
