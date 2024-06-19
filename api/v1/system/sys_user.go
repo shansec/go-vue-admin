@@ -1,14 +1,15 @@
 package system
 
 import (
+	systemRes "github/shansec/go-vue-admin/dao/response"
+
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 
+	"github/shansec/go-vue-admin/dao/common/response"
+	systemReq "github/shansec/go-vue-admin/dao/request"
 	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/common/response"
 	"github/shansec/go-vue-admin/model/system"
-	systemReq "github/shansec/go-vue-admin/model/system/request"
-	systemRes "github/shansec/go-vue-admin/model/system/response"
 	"github/shansec/go-vue-admin/utils"
 	SystemVerify "github/shansec/go-vue-admin/verify/system"
 )

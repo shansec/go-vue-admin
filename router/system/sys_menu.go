@@ -14,5 +14,6 @@ func (m *MenuRouter) InitMenuRouter(Router *gin.RouterGroup) {
 	{
 		menuRouter.POST("createMenu", menuApi.CreateMenu)   // 添加菜单
 		menuRouter.DELETE("deleteMenu", menuApi.DeleteMenu) // 删除菜单
+		menuRouter.POST("getMenuList", menuApi.GetMenuList) // 分页获取菜单
 	}
 }

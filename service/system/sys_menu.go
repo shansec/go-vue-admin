@@ -2,6 +2,7 @@ package system
 
 import (
 	"errors"
+	"github/shansec/go-vue-admin/dao/common/request"
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/model/system"
 
@@ -59,5 +60,45 @@ func (menuService *MenuService) DeleteMenuService(menu *system.SysBaseMenu) erro
 
 		return nil
 	})
+	return err
+}
+
+// GetMenuListService
+// @author: [Shansec](https://github.com/shansec)
+// @function: GetMenuListService
+// @description: 分页获取菜单信息
+// @param: pageInfo request.PageInfo
+// @return: list interface{}, total int64, err error
+func (menuService *MenuService) GetMenuListService(pageInfo request.PageInfo) (list interface{}, total int64, err error) {
+	limit := pageInfo.PageSize
+	offset := pageInfo.PageSize * (pageInfo.Page - 1)
+	db := global.MAY_DB.Model(&system.SysBaseMenu{})
+	if err = db.Where("parent_id = ?", "0").Count(&total).Error; err != nil {
+		return nil, 0, err
+	}
+	var menuList []system.SysBaseMenu
+	err = db.Limit(limit).Offset(offset).Where("parent_id = ?", "0").Find(&menuList).Error
+	if err != nil {
+		return nil, 0, err
+	}
+	for index := range menuList {
+		err = menuService.findChildrenMenu(&menuList[index])
+	}
+	return menuList, total, nil
+}
+
+// findChildrenMenu
+// @author: [Shansec](https://github.com/shansec)
+// @function: findChildrenMenu
+// @description: 分页获取菜单信息辅助方法，查找子菜单
+// @param: menu *system.SysBaseMenu
+// @return: err error
+func (menuService *MenuService) findChildrenMenu(menu *system.SysBaseMenu) (err error) {
+	err = global.MAY_DB.Where("parent_id = ?", menu.ID).Find(&menu.Children).Error
+	if len(menu.Children) > 0 {
+		for index := range menu.Children {
+			err = menuService.findChildrenMenu(&menu.Children[index])
+		}
+	}
 	return err
 }

@@ -1,11 +1,13 @@
 package system
 
 import (
+	"github/shansec/go-vue-admin/dao/common/request"
+	"github/shansec/go-vue-admin/dao/common/response"
+	systemRes "github/shansec/go-vue-admin/dao/response"
 	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/common/response"
 	"github/shansec/go-vue-admin/model/system"
-	systemRes "github/shansec/go-vue-admin/model/system/response"
 	"github/shansec/go-vue-admin/utils"
+	commonVerify "github/shansec/go-vue-admin/verify/common"
 	systemVerify "github/shansec/go-vue-admin/verify/system"
 
 	"github.com/gin-gonic/gin"
@@ -72,4 +74,42 @@ func (m *MenuApi) DeleteMenu(c *gin.Context) {
 		return
 	}
 	response.OkWithMessage("删除菜单成功", c)
+}
+
+// GetMenuList
+// @Summary 分页获取菜单
+// @Description 分页获取菜单
+// @Tags SysBaseMenu
+// @Produce json
+// @Param   pageInfo body request.PageInfo true "分页获取菜单"
+// @Success 200 {object} response.Response{data=response.PageResult, msg=string}	"分页获取菜单"
+// @Failure 400 {object} response.Response "请求参数验证失败"
+// @Failure 500 {object} response.Response   "分页获取菜单失败"
+// @Router /menu/getMenuList [POST]
+func (m *MenuApi) GetMenuList(c *gin.Context) {
+	var pageInfo request.PageInfo
+	var err error
+	if err = c.ShouldBindJSON(&pageInfo); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	err = utils.Verify(pageInfo, commonVerify.PageInfoVerify)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	list, total, err := menuService.GetMenuListService(pageInfo)
+	if err != nil {
+		global.MAY_LOGGER.Error("分页获取菜单失败", zap.Error(err))
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	response.OkWithDetailed(response.PageResult{
+		List:     list,
+		Total:    total,
+		Page:     pageInfo.Page,
+		PageSize: pageInfo.PageSize,
+	}, "获取成功", c)
 }

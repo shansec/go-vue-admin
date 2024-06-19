@@ -12,8 +12,8 @@ import (
 	"gorm.io/gorm"
 
 	"github/shansec/go-vue-admin/config"
+	"github/shansec/go-vue-admin/dao/request"
 	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/system/request"
 	"github/shansec/go-vue-admin/utils"
 )
 

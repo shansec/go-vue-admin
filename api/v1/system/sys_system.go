@@ -4,8 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 
+	"github/shansec/go-vue-admin/dao/common/response"
 	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/common/response"
 )
 
 type SystemConfigApi struct{}

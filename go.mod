@@ -3,6 +3,8 @@ module github/shansec/go-vue-admin
 go 1.20
 
 require (
+	github.com/casbin/casbin/v2 v2.89.0
+	github.com/casbin/gorm-adapter/v3 v3.24.0
 	github.com/fsnotify/fsnotify v1.6.0
 	github.com/gin-gonic/gin v1.9.1
 	github.com/gofrs/uuid/v5 v5.1.0
@@ -11,7 +13,6 @@ require (
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/natefinch/lumberjack v2.0.0+incompatible
 	github.com/pkg/errors v0.9.1
-	github.com/satori/uuid v1.2.0
 	github.com/shirou/gopsutil/v3 v3.24.3
 	github.com/spf13/viper v1.15.0
 	github.com/swaggo/files v1.0.1
@@ -29,8 +30,6 @@ require (
 	github.com/BurntSushi/toml v1.3.2 // indirect
 	github.com/KyleBanks/depth v1.2.1 // indirect
 	github.com/bytedance/sonic v1.11.3 // indirect
-	github.com/casbin/casbin/v2 v2.89.0 // indirect
-	github.com/casbin/gorm-adapter/v3 v3.24.0 // indirect
 	github.com/casbin/govaluate v1.1.0 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20230717121745-296ad89f973d // indirect
 	github.com/chenzhuoyu/iasm v0.9.1 // indirect
