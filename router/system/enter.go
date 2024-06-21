@@ -9,4 +9,5 @@ type RouterGroup struct {
 	InitRouter
 	ApiRouter
 	RoleRouter
+	MenuRouter
 }

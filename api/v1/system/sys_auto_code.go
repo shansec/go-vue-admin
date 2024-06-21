@@ -10,10 +10,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 
+	"github/shansec/go-vue-admin/dao/common/response"
+	"github/shansec/go-vue-admin/dao/request"
 	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/common/response"
 	"github/shansec/go-vue-admin/model/system"
-	"github/shansec/go-vue-admin/model/system/request"
 	"github/shansec/go-vue-admin/utils"
 	SystemVerify "github/shansec/go-vue-admin/verify/system"
 )
@@ -46,7 +46,7 @@ func (a *AutoCodeApi) CreatePackage(c *gin.Context) {
 		return
 	}
 
-	err := autoCodeService.CreateAutoCode(&autoCode)
+	err := autoCodeService.CreatePackageService(&autoCode)
 	if err != nil {
 		global.MAY_LOGGER.Error("创建失败!", zap.Error(err))
 		response.FailWithMessage("创建失败", c)
@@ -71,7 +71,7 @@ func (a *AutoCodeApi) GetPackageList(c *gin.Context) {
 	var packageInfo request.GetPackageList
 	_ = c.ShouldBindJSON(&packageInfo)
 
-	if packages, total, err := autoCodeService.GetPackages(packageInfo); err != nil {
+	if packages, total, err := autoCodeService.GetPackageListService(packageInfo); err != nil {
 		global.MAY_LOGGER.Error("获取包列表失败", zap.Error(err))
 		response.FailWithMessage("获取包列表失败", c)
 	} else {
@@ -98,7 +98,7 @@ func (a *AutoCodeApi) GetPackageList(c *gin.Context) {
 func (a *AutoCodeApi) DelPackage(c *gin.Context) {
 	var autoCode system.SysAutoCode
 	_ = c.ShouldBindJSON(&autoCode)
-	if err := autoCodeService.DelPackageInfo(&autoCode); err != nil {
+	if err := autoCodeService.DelPackageService(&autoCode); err != nil {
 		global.MAY_LOGGER.Error("删除失败!", zap.Error(err))
 		response.FailWithMessage("删除失败", c)
 	} else {
@@ -106,6 +106,17 @@ func (a *AutoCodeApi) DelPackage(c *gin.Context) {
 	}
 }
 
+// PreviewCode
+// @Summary 预览代码
+// @Description 预览代码
+// @Tags SysAutoCode
+// @Accept json
+// @Produce json
+// @Param   autocode body system.AutoCodeStruct true "预览代码"
+// @Success 200 {object} response.Response{msg=string} "预览代码，返回结果"
+// @Failure 400 {object} response.Response "请求参数验证失败"
+// @Failure 500 {object} response.Response "预览代码失败"
+// @Router /autocode/previewCode [POST]
 func (a *AutoCodeApi) PreviewCode(c *gin.Context) {
 	var autocode system.AutoCodeStruct
 	_ = c.ShouldBindJSON(&autocode)
@@ -117,7 +128,7 @@ func (a *AutoCodeApi) PreviewCode(c *gin.Context) {
 	autocode.Pretreatment()
 	// 包名首字母处理
 	autocode.PackageT = utils.FirstUpper(autocode.Package)
-	autocodeMap, err := autoCodeService.PreviewCode(autocode)
+	autocodeMap, err := autoCodeService.PreviewCodeService(autocode)
 	if err != nil {
 		global.MAY_LOGGER.Error("预览代码失败", zap.Error(err))
 		response.FailWithMessage("预览代码失败", c)
@@ -126,6 +137,17 @@ func (a *AutoCodeApi) PreviewCode(c *gin.Context) {
 	}
 }
 
+// CreateCode
+// @Summary 创建代码
+// @Description 创建代码
+// @Tags SysAutoCode
+// @Accept json
+// @Produce json
+// @Param   autoCode body system.AutoCodeStruct true "创建代码"
+// @Success 200 {object} response.Response{msg=string} "创建代码，返回结果"
+// @Failure 400 {object} response.Response "请求参数验证失败"
+// @Failure 500 {object} response.Response "创建代码失败"
+// @Router /autocode/createCode [POST]
 func (a *AutoCodeApi) CreateCode(c *gin.Context) {
 	var autoCode system.AutoCodeStruct
 	_ = c.ShouldBindJSON(&autoCode)

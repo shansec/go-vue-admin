@@ -9,4 +9,5 @@ type ServiceGroup struct {
 	ApiService
 	RoleService
 	CasbinService
+	MenuService
 }

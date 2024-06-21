@@ -4,9 +4,9 @@ import (
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 
+	"github/shansec/go-vue-admin/dao/common/response"
+	"github/shansec/go-vue-admin/dao/request"
 	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/common/response"
-	"github/shansec/go-vue-admin/model/system/request"
 )
 
 type DBApi struct{}
@@ -32,7 +32,7 @@ func (d *DBApi) InitDB(c *gin.Context) {
 		response.FailWithMessage("参数错误", c)
 		return
 	}
-	if err := initDbService.InitDB(dbInfo); err != nil {
+	if err := initDbService.InitDBService(dbInfo); err != nil {
 		global.MAY_LOGGER.Error("初始化失败", zap.Error(err))
 		response.FailWithMessage("初始化失败", c)
 		return

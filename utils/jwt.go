@@ -6,8 +6,8 @@ import (
 
 	"github.com/golang-jwt/jwt/v4"
 
+	"github/shansec/go-vue-admin/dao/request"
 	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/system/request"
 )
 
 type JWT struct {

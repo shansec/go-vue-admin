@@ -242,6 +242,64 @@
                 }
             }
         },
+        "/autocode/createCode": {
+            "post": {
+                "description": "创建代码",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysAutoCode"
+                ],
+                "summary": "创建代码",
+                "parameters": [
+                    {
+                        "description": "创建代码",
+                        "name": "autoCode",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.AutoCodeStruct"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "创建代码，返回结果",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "创建代码失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/autocode/createPackage": {
             "post": {
                 "consumes": [
@@ -414,6 +472,64 @@
                     },
                     "500": {
                         "description": "获取创建的包列表失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/autocode/previewCode": {
+            "post": {
+                "description": "预览代码",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysAutoCode"
+                ],
+                "summary": "预览代码",
+                "parameters": [
+                    {
+                        "description": "预览代码",
+                        "name": "autocode",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.AutoCodeStruct"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "预览代码，返回结果",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "预览代码失败",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -780,6 +896,232 @@
                     },
                     "500": {
                         "description": "初始化失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/menu/createMenu": {
+            "post": {
+                "description": "添加菜单，返回添加结果",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysBaseMenu"
+                ],
+                "summary": "添加菜单",
+                "parameters": [
+                    {
+                        "description": "添加菜单",
+                        "name": "menuInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.SysBaseMenu"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "添加菜单,返回添加结果",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        " msg": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/definitions/response.SysMenuResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "添加菜单失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/menu/deleteMenu": {
+            "delete": {
+                "description": "删除菜单，返回操作结果",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysBaseMenu"
+                ],
+                "summary": "删除菜单",
+                "parameters": [
+                    {
+                        "description": "删除菜单",
+                        "name": "menuInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.SysBaseMenu"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "删除菜单,返回操作结果",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "删除菜单失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/menu/getMenuList": {
+            "post": {
+                "description": "分页获取菜单",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysBaseMenu"
+                ],
+                "summary": "分页获取菜单",
+                "parameters": [
+                    {
+                        "description": "分页获取菜单",
+                        "name": "pageInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.PageInfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "分页获取菜单",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        " msg": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/definitions/response.PageResult"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "分页获取菜单失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/menu/updateMenu": {
+            "put": {
+                "description": "修改菜单，返回操作结果",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysBaseMenu"
+                ],
+                "summary": "修改菜单",
+                "parameters": [
+                    {
+                        "description": "修改菜单",
+                        "name": "menuInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.SysBaseMenu"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "修改菜单,返回操作结果",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "修改菜单失败",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1318,7 +1660,7 @@
             }
         },
         "/user/updateUserInfo": {
-            "put": {
+            "post": {
                 "produces": [
                     "application/json"
                 ],
@@ -1713,6 +2055,14 @@
                 }
             }
         },
+        "response.SysMenuResponse": {
+            "type": "object",
+            "properties": {
+                "menu": {
+                    "$ref": "#/definitions/system.SysBaseMenu"
+                }
+            }
+        },
         "response.SysRoleResponse": {
             "type": "object",
             "properties": {
@@ -1726,6 +2076,132 @@
             "properties": {
                 "user": {
                     "$ref": "#/definitions/system.SysUser"
+                }
+            }
+        },
+        "system.AutoCodeStruct": {
+            "type": "object",
+            "properties": {
+                "abbreviation": {
+                    "description": "Struct简称",
+                    "type": "string"
+                },
+                "autoCreateApiToSql": {
+                    "description": "是否自动创建api",
+                    "type": "boolean"
+                },
+                "autoCreateMenuToSql": {
+                    "description": "是否自动创建menu",
+                    "type": "boolean"
+                },
+                "autoCreateResource": {
+                    "description": "是否自动创建资源标识",
+                    "type": "boolean"
+                },
+                "autoMoveFile": {
+                    "description": "是否自动移动文件",
+                    "type": "boolean"
+                },
+                "businessDB": {
+                    "description": "业务数据库",
+                    "type": "string"
+                },
+                "defaultModel": {
+                    "description": "是否使用默认Model",
+                    "type": "boolean"
+                },
+                "description": {
+                    "description": "Struct中文名称",
+                    "type": "string"
+                },
+                "fields": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/system.Field"
+                    }
+                },
+                "humpPackageName": {
+                    "description": "go文件名称",
+                    "type": "string"
+                },
+                "package": {
+                    "type": "string"
+                },
+                "packageName": {
+                    "description": "文件名称",
+                    "type": "string"
+                },
+                "primaryField": {
+                    "$ref": "#/definitions/system.Field"
+                },
+                "structName": {
+                    "description": "Struct名称",
+                    "type": "string"
+                },
+                "tableName": {
+                    "description": "表名",
+                    "type": "string"
+                }
+            }
+        },
+        "system.Field": {
+            "type": "object",
+            "properties": {
+                "clearable": {
+                    "description": "是否可清空",
+                    "type": "boolean"
+                },
+                "columnName": {
+                    "description": "数据库字段",
+                    "type": "string"
+                },
+                "comment": {
+                    "description": "数据库字段描述",
+                    "type": "string"
+                },
+                "dataTypeLong": {
+                    "description": "数据库字段长度",
+                    "type": "string"
+                },
+                "dictType": {
+                    "description": "字典",
+                    "type": "string"
+                },
+                "errorText": {
+                    "description": "校验失败文字",
+                    "type": "string"
+                },
+                "fieldDesc": {
+                    "description": "中文名",
+                    "type": "string"
+                },
+                "fieldJson": {
+                    "description": "FieldJson",
+                    "type": "string"
+                },
+                "fieldName": {
+                    "description": "Field名",
+                    "type": "string"
+                },
+                "fieldSearchType": {
+                    "description": "搜索条件",
+                    "type": "string"
+                },
+                "fieldType": {
+                    "description": "Field数据类型",
+                    "type": "string"
+                },
+                "primaryKey": {
+                    "description": "是否主键",
+                    "type": "boolean"
+                },
+                "require": {
+                    "description": "是否必填",
+                    "type": "boolean"
+                },
+                "sort": {
+                    "description": "是否增加排序",
+                    "type": "boolean"
                 }
             }
         },
@@ -1792,9 +2268,6 @@
                 },
                 "id": {
                     "description": "主键 ID",
-                    "type": "integer"
-                },
-                "menuLevel": {
                     "type": "integer"
                 },
                 "meta": {
