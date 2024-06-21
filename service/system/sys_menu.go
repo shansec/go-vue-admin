@@ -115,6 +115,6 @@ func (menuService *MenuService) UpdateMenuService(menu system.SysBaseMenu) error
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return errors.New("菜单不存在")
 	}
-	err = global.MAY_DB.Model(&oldMenu).Updates(menu).Error
+	err = global.MAY_DB.Model(&system.SysBaseMenu{}).Where("id = ?", menu.ID).Updates(menu).Error
 	return err
 }

@@ -35,7 +35,7 @@ func (b *BaseApi) Captcha(c *gin.Context) {
 	cp := base64Captcha.NewCaptcha(driver, store)
 
 	// 生成验证码
-	if id, b64s, err := cp.Generate(); err != nil {
+	if id, b64s, _, err := cp.Generate(); err != nil {
 		global.MAY_LOGGER.Error("验证码获取失败", zap.Error(err))
 		response.FailWithMessage("验证码获取失败", c)
 	} else {
