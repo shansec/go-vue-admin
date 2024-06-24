@@ -3,6 +3,7 @@ package system
 import (
 	"github/shansec/go-vue-admin/dao/common/request"
 	"github/shansec/go-vue-admin/dao/common/response"
+	req "github/shansec/go-vue-admin/dao/request"
 	res "github/shansec/go-vue-admin/dao/response"
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/model/system"
@@ -164,4 +165,39 @@ func (m *MenuApi) GetMenuTree(c *gin.Context) {
 	response.OkWithDetailed(response.NoPageResult{
 		List: list,
 	}, "获取成功", c)
+}
+
+func (m *MenuApi) GetRoleMenu(c *gin.Context) {
+	roleId := utils.GetUserRoleId(c)
+	if roleId == 0 {
+		response.FailWithMessage("非法访问", c)
+		return
+	}
+
+	menus, err := menuService.GetRoleMenuService(roleId)
+	if err != nil {
+		global.MAY_LOGGER.Error("获取角色菜单失败", zap.Error(err))
+		response.FailWithMessage("获取角色菜单失败", c)
+		return
+	}
+	response.OkWithDetailed(response.NoPageResult{List: menus}, "获取角色菜单成功", c)
+}
+
+func (m *MenuApi) GetSpecialRoleMenu(c *gin.Context) {
+	var roleInfo req.GetSpecialRoleByID
+	_ = c.ShouldBindJSON(&roleInfo)
+
+	err := utils.Verify(roleInfo, systemVerify.RoleIdVerify)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	menus, err := menuService.GetRoleMenuService(roleInfo.RoleId)
+	if err != nil {
+		global.MAY_LOGGER.Error("获取角色菜单失败", zap.Error(err))
+		response.FailWithMessage("获取角色菜单失败", c)
+		return
+	}
+	response.OkWithDetailed(response.NoPageResult{List: menus}, "获取角色菜单成功", c)
 }

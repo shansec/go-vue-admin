@@ -18,6 +18,8 @@ func (m *MenuRouter) InitMenuRouter(Router *gin.RouterGroup) {
 		menuRouter.PUT("updateMenu", menuApi.UpdateMenu)    // 修改菜单
 	}
 	{
-		menuRouter.POST("getMenuTree", menuApi.GetMenuTree) // 获取树状菜单
+		menuRouter.POST("getMenuTree", menuApi.GetMenuTree)               // 获取树状菜单
+		menuRouter.GET("getRoleMenu", menuApi.GetRoleMenu)                // 获取当前登录角色菜单
+		menuRouter.POST("getSpecialRoleMenu", menuApi.GetSpecialRoleMenu) // 根据角色 ID 获取菜单
 	}
 }

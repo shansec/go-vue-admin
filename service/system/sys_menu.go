@@ -150,3 +150,23 @@ func (menuService *MenuService) GetMenuTreeService() (list interface{}, err erro
 	}
 	return menuList, nil
 }
+
+func (menuService *MenuService) GetRoleMenuService(roleId uint) (menus []system.SysBaseMenu, err error) {
+	var roleMenus []system.SysRoleMenu
+	var menuIds []uint
+
+	err = global.MAY_DB.Where("sys_role_role_id = ?", roleId).Find(&roleMenus).Error
+	if err != nil {
+		return nil, err
+	}
+
+	for _, menu := range roleMenus {
+		menuIds = append(menuIds, menu.MenuId)
+	}
+
+	err = global.MAY_DB.Where("id IN (?)", menuIds).Find(&menus).Error
+	if err != nil {
+		return nil, err
+	}
+	return menus, nil
+}

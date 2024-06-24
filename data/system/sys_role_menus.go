@@ -28,7 +28,7 @@ func (i *initMenuRole) TableInited(ctx context.Context) bool {
 }
 
 func (i initMenuRole) InitTableName() string {
-	return "sys_menu_authorities"
+	return "sys_role_menus"
 }
 
 func (i *initMenuRole) InitData(ctx context.Context) (next context.Context, err error) {
