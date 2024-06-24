@@ -18,7 +18,7 @@ func init() {
 	system.RegisterInit(initOrderMenu, &initMenu{})
 }
 
-func (i *initMenu) InitTableName() string {
+func (i initMenu) InitTableName() string {
 	return model.SysBaseMenu{}.TableName()
 }
 

@@ -19,7 +19,7 @@ func init() {
 	system.RegisterInit(initOrderRole, &initRole{})
 }
 
-func (r *initRole) InitTableName() string {
+func (r initRole) InitTableName() string {
 	return model.SysRole{}.TableName()
 }
 

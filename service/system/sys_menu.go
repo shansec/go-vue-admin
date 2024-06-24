@@ -5,6 +5,7 @@ import (
 	"github/shansec/go-vue-admin/dao/common/request"
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/model/system"
+	"time"
 
 	"gorm.io/gorm"
 )
@@ -115,6 +116,37 @@ func (menuService *MenuService) UpdateMenuService(menu system.SysBaseMenu) error
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		return errors.New("菜单不存在")
 	}
-	err = global.MAY_DB.Model(&oldMenu).Updates(menu).Error
+	err = global.MAY_DB.Model(&oldMenu).Updates(map[string]interface{}{
+		"parent_id":  menu.ParentId,
+		"name":       menu.Name,
+		"path":       menu.Path,
+		"hidden":     menu.Hidden,
+		"component":  menu.Component,
+		"sort":       menu.Sort,
+		"keep_alive": menu.Meta.KeepAlive,
+		"title":      menu.Meta.Title,
+		"icon":       menu.Meta.Icon,
+		"affix":      menu.Meta.Affix,
+		"updated_at": time.Now(),
+	}).Error
 	return err
+}
+
+// GetMenuTreeService
+// @author: [Shansec](https://github.com/shansec)
+// @function: GetMenuTreeService
+// @description: 获取树状菜单
+// @param: nil
+// @return: list interface{}, err error
+func (menuService *MenuService) GetMenuTreeService() (list interface{}, err error) {
+	var menuList []system.SysBaseMenu
+	db := global.MAY_DB.Model(&system.SysBaseMenu{})
+	err = db.Where("parent_id = ?", "0").Find(&menuList).Error
+	if err != nil {
+		return nil, err
+	}
+	for index := range menuList {
+		err = menuService.findChildrenMenu(&menuList[index])
+	}
+	return menuList, nil
 }

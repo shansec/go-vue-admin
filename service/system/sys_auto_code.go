@@ -669,7 +669,7 @@ func (autoCodeService *AutoCodeService) getNeedList(autoCode *system.AutoCodeStr
 	// resource/autocode_template/readme.txt.tpl
 	// resource/autocode_template/server/**
 	for index, value := range dataList {
-		// 例如 value = resource/autocode_template/server/api.go.tpl
+		// 例如 value = resource/autocode_template/server/sys_api.go.tpl
 		// 例如 value = resource/autocode_template/web/api.js.tpl
 		trimBase := strings.TrimPrefix(value.locationPath, autocodePath+"/")
 		// if trimBase == "readme.txt.tpl" {
@@ -677,10 +677,10 @@ func (autoCodeService *AutoCodeService) getNeedList(autoCode *system.AutoCodeStr
 		// 	continue
 		// }
 
-		// trimBase = server/api.go.tpl
+		// trimBase = server/sys_api.go.tpl
 		// trimBase = web/api.js.tpl
 		if lastSeparator := strings.LastIndex(trimBase, "/"); lastSeparator != -1 {
-			// origFileName = api.go
+			// origFileName = sys_api.go
 			// origFileName = api.js
 			origFileName := strings.TrimSuffix(trimBase[lastSeparator+1:], ".tpl")
 			firstDot := strings.Index(origFileName, ".")
