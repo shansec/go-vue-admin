@@ -11,6 +11,10 @@ type MenuRoleInfo struct {
 	Menu   []system.SysBaseMenu `json:"menu"`
 }
 
+type GetMenuByName struct {
+	Name string `json:"name"`
+}
+
 func DefaultMenu() []system.SysBaseMenu {
 	return []system.SysBaseMenu{
 		{

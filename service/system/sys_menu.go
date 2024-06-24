@@ -131,3 +131,22 @@ func (menuService *MenuService) UpdateMenuService(menu system.SysBaseMenu) error
 	}).Error
 	return err
 }
+
+// GetMenuTreeService
+// @author: [Shansec](https://github.com/shansec)
+// @function: GetMenuTreeService
+// @description: 获取树状菜单
+// @param: nil
+// @return: list interface{}, err error
+func (menuService *MenuService) GetMenuTreeService() (list interface{}, err error) {
+	var menuList []system.SysBaseMenu
+	db := global.MAY_DB.Model(&system.SysBaseMenu{})
+	err = db.Where("parent_id = ?", "0").Find(&menuList).Error
+	if err != nil {
+		return nil, err
+	}
+	for index := range menuList {
+		err = menuService.findChildrenMenu(&menuList[index])
+	}
+	return menuList, nil
+}

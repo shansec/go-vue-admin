@@ -3,7 +3,7 @@ package system
 import (
 	"github/shansec/go-vue-admin/dao/common/request"
 	"github/shansec/go-vue-admin/dao/common/response"
-	systemRes "github/shansec/go-vue-admin/dao/response"
+	res "github/shansec/go-vue-admin/dao/response"
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/model/system"
 	"github/shansec/go-vue-admin/utils"
@@ -44,7 +44,7 @@ func (m *MenuApi) CreateMenu(c *gin.Context) {
 		response.FailWithMessage("创建菜单失败", c)
 		return
 	}
-	response.OkWithDetailed(systemRes.SysMenuResponse{Menu: menu}, "创建成功", c)
+	response.OkWithDetailed(res.SysMenuResponse{Menu: menu}, "创建成功", c)
 }
 
 // DeleteMenu
@@ -142,4 +142,26 @@ func (m *MenuApi) UpdateMenu(c *gin.Context) {
 	}
 
 	response.OkWithMessage("修改成功", c)
+}
+
+// GetMenuTree
+// @Summary 获取树状菜单
+// @Description 获取树状菜单
+// @Tags SysBaseMenu
+// @Produce json
+// @Success 200 {object} response.Response{data=response.NoPageResult, msg=string}	"获取树状菜单"
+// @Failure 400 {object} response.Response "请求参数验证失败"
+// @Failure 500 {object} response.Response   "获取树状菜单失败"
+// @Router /menu/getMenuTree [POST]
+func (m *MenuApi) GetMenuTree(c *gin.Context) {
+	list, err := menuService.GetMenuTreeService()
+	if err != nil {
+		global.MAY_LOGGER.Error("获取失败", zap.Error(err))
+		response.FailWithMessage("获取树状菜单失败", c)
+		return
+	}
+
+	response.OkWithDetailed(response.NoPageResult{
+		List: list,
+	}, "获取成功", c)
 }

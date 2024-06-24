@@ -17,4 +17,7 @@ func (m *MenuRouter) InitMenuRouter(Router *gin.RouterGroup) {
 		menuRouter.POST("getMenuList", menuApi.GetMenuList) // 分页获取菜单
 		menuRouter.PUT("updateMenu", menuApi.UpdateMenu)    // 修改菜单
 	}
+	{
+		menuRouter.POST("getMenuTree", menuApi.GetMenuTree) // 获取树状菜单
+	}
 }
