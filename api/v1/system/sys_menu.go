@@ -167,6 +167,15 @@ func (m *MenuApi) GetMenuTree(c *gin.Context) {
 	}, "获取成功", c)
 }
 
+// GetRoleMenu
+// @Summary 获取当前登录角色菜单
+// @Description 获取当前登录角色菜单
+// @Tags SysBaseMenu
+// @Produce json
+// @Success 200 {object} response.Response{data=response.NoPageResult, msg=string}	"获取当前登录角色菜单"
+// @Failure 400 {object} response.Response "请求参数验证失败"
+// @Failure 500 {object} response.Response   "获取当前登录角色菜单失败"
+// @Router /menu/getRoleMenu [POST]
 func (m *MenuApi) GetRoleMenu(c *gin.Context) {
 	roleId := utils.GetUserRoleId(c)
 	if roleId == 0 {
@@ -183,6 +192,15 @@ func (m *MenuApi) GetRoleMenu(c *gin.Context) {
 	response.OkWithDetailed(response.NoPageResult{List: menus}, "获取角色菜单成功", c)
 }
 
+// GetSpecialRoleMenu
+// @Summary 获取指定角色菜单
+// @Description 获取指定角色菜单
+// @Tags SysBaseMenu
+// @Produce json
+// @Success 200 {object} response.Response{data=response.NoPageResult, msg=string}	"获取指定角色菜单"
+// @Failure 400 {object} response.Response "请求参数验证失败"
+// @Failure 500 {object} response.Response   "获取指定角色菜单失败"
+// @Router /menu/getSpecialRoleMenu [POST]
 func (m *MenuApi) GetSpecialRoleMenu(c *gin.Context) {
 	var roleInfo req.GetSpecialRoleByID
 	_ = c.ShouldBindJSON(&roleInfo)

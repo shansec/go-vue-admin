@@ -151,6 +151,12 @@ func (menuService *MenuService) GetMenuTreeService() (list interface{}, err erro
 	return menuList, nil
 }
 
+// GetRoleMenuService
+// @author: [Shansec](https://github.com/shansec)
+// @function: GetRoleMenuService
+// @description: 获取角色菜单
+// @param: roleId uint
+// @return: menus []system.SysBaseMenu, err error
 func (menuService *MenuService) GetRoleMenuService(roleId uint) (menus []system.SysBaseMenu, err error) {
 	var roleMenus []system.SysRoleMenu
 	var menuIds []uint
