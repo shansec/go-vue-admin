@@ -8,7 +8,7 @@ import (
 
 type MenuRoleInfo struct {
 	RoleId uint                 `json:"roleId"`
-	Menu   []system.SysBaseMenu `json:"menu"`
+	Menus  []system.SysBaseMenu `json:"menus"`
 }
 
 type GetMenuByName struct {

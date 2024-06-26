@@ -1,7 +1,8 @@
 package system
 
 import (
-	systemRes "github/shansec/go-vue-admin/dao/response"
+	req "github/shansec/go-vue-admin/dao/request"
+	res "github/shansec/go-vue-admin/dao/response"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -23,7 +24,7 @@ type RoleApi struct{}
 // @Tags SysRole
 // @Produce json
 // @Param   createRoleInfo body system.SysRole true "添加角色"
-// @Success 200 {object} response.Response{data=systemRes.SysRoleResponse, msg=string}	"添加角色,返回添加结果"
+// @Success 200 {object} response.Response{data=res.SysRoleResponse, msg=string}	"添加角色,返回添加结果"
 // @Failure 400 {object} response.Response "请求参数验证失败"
 // @Failure 500 {object} response.Response   "添加角色失败"
 // @Router /role/createRole [POST]
@@ -49,7 +50,7 @@ func (r *RoleApi) CreateRole(c *gin.Context) {
 		response.FailWithMessage("创建角色成功，权限刷新失败", c)
 		return
 	}
-	response.OkWithDetailed(systemRes.SysRoleResponse{Role: roleInfo}, "创建角色成功", c)
+	response.OkWithDetailed(res.SysRoleResponse{Role: roleInfo}, "创建角色成功", c)
 }
 
 // DeleteRole
@@ -89,7 +90,7 @@ func (r *RoleApi) DeleteRole(c *gin.Context) {
 // @Tags SysRole
 // @Produce json
 // @Param   updateRole body system.SysRole true "更新角色"
-// @Success 200 {object} response.Response{data=systemRes.SysRoleResponse, msg=string}	"更新角色,返回添加结果"
+// @Success 200 {object} response.Response{data=res.SysRoleResponse, msg=string}	"更新角色,返回添加结果"
 // @Failure 400 {object} response.Response "请求参数验证失败"
 // @Failure 500 {object} response.Response "更新角色失败"
 // @Router /role/updateRole [PUT]
@@ -110,7 +111,7 @@ func (r *RoleApi) UpdateRole(c *gin.Context) {
 		response.FailWithMessage("更新角色失败", c)
 		return
 	}
-	response.OkWithDetailed(systemRes.SysRoleResponse{Role: role}, "更新角色成功", c)
+	response.OkWithDetailed(res.SysRoleResponse{Role: role}, "更新角色成功", c)
 }
 
 // GetRoleList
@@ -178,4 +179,33 @@ func (r *RoleApi) SetRole(c *gin.Context) {
 		return
 	}
 	response.OkWithMessage("设置成功", c)
+}
+
+// AddRoleMenu
+// @Summary 角色设置菜单权限
+// @Description 角色设置菜单权限
+// @Tags SysRole
+// @Produce json
+// @Param   info body req.MenuRoleInfo true "角色设置菜单权限"
+// @Success 200 {object} response.Response{msg=string}	"角色设置菜单权限"
+// @Failure 400 {object} response.Response "请求参数验证失败"
+// @Failure 500 {object} response.Response "角色设置菜单权限失败"
+// @Router /role/addRoleMenu [POST]
+func (r *RoleApi) AddRoleMenu(c *gin.Context) {
+	var info req.MenuRoleInfo
+	var err error
+	_ = c.ShouldBindJSON(&info)
+
+	if err = utils.Verify(info, systemVerify.AddRoleMenuVerify); err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	err = roleService.AddRoleMenuService(info.Menus, info.RoleId)
+	if err != nil {
+		global.MAY_LOGGER.Error("菜单设置失败!", zap.Error(err))
+		response.FailWithMessage("菜单设置失败"+err.Error(), c)
+		return
+	}
+	response.OkWithMessage("菜单设置成功", c)
 }

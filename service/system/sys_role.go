@@ -167,3 +167,16 @@ func (roleService *RoleService) SetRoleService(role system.SysRole) error {
 	err := global.MAY_DB.Model(&r).Association("DataRoleId").Replace(&role.DataRoleId)
 	return err
 }
+
+// AddRoleMenuService
+// @author: [Shansec](https://github.com/shansec)
+// @function: AddRoleMenuService
+// @description: 角色设置菜单权限
+// @param: role *system.SysRole
+// @return: error
+func (roleService *RoleService) AddRoleMenuService(menus []system.SysBaseMenu, roleId uint) (err error) {
+	var role system.SysRole
+	global.MAY_DB.Preload("SysBaseMenus").Where("role_id = ?", roleId).First(&role)
+	err = global.MAY_DB.Model(&role).Association("SysBaseMenus").Replace(&menus)
+	return err
+}

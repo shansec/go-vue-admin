@@ -38,7 +38,7 @@ func (i *initMenu) InitData(ctx context.Context) (cont context.Context, err erro
 	}
 	menus := []model.SysBaseMenu{
 		{MenuLevel: 0, Hidden: true, ParentId: 0, Path: "dashboard", Name: "Dashboard", Component: "views/dashboard/index.vue", Sort: 1, Meta: model.Meta{Title: "首页", Icon: "app-group-fill", Affix: true}},
-		{MenuLevel: 0, Hidden: false, ParentId: 0, Path: "supervisor", Name: "Supervisor", Component: "", Sort: 2, Meta: model.Meta{Title: "管理员", Icon: "admin", Affix: false}},
+		{MenuLevel: 0, Hidden: false, ParentId: 0, Path: "supervisor", Name: "Supervisor", Component: "layout/index.vue", Sort: 2, Meta: model.Meta{Title: "管理员", Icon: "admin", Affix: false}},
 		{MenuLevel: 0, Hidden: false, ParentId: 2, Path: "user", Name: "User", Component: "views/authorize/sys-user/index.vue", Sort: 6, Meta: model.Meta{Title: "用户管理", Icon: "user", Affix: false}},
 		{MenuLevel: 0, Hidden: false, ParentId: 2, Path: "menus", Name: "Menus", Component: "views/authorize/sys-menu/index.vue", Sort: 7, Meta: model.Meta{Title: "菜单管理", Icon: "menu", Affix: false}},
 		{MenuLevel: 0, Hidden: false, ParentId: 2, Path: "api", Name: "Api", Component: "views/authorize/sys-api/index.vue", Sort: 8, Meta: model.Meta{Title: "api 管理", Icon: "api", Affix: false}},
