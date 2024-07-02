@@ -74,12 +74,15 @@ func (i *initCasbin) InitData(ctx context.Context) (context.Context, error) {
 		{Ptype: "p", V0: "888", V1: "/role/updateRole", V2: "PUT"},
 		{Ptype: "p", V0: "888", V1: "/role/getRoleList", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/role/setChildRole", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/role/addRoleMenu", V2: "POST"},
 
 		{Ptype: "p", V0: "888", V1: "/menu/createMenu", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/menu/deleteMenu", V2: "DELETE"},
 		{Ptype: "p", V0: "888", V1: "/menu/getMenuList", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/menu/updateMenu", V2: "PUT"},
 		{Ptype: "p", V0: "888", V1: "/menu/getMenuTree", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/menu/getRoleMenu", V2: "GET"},
+		{Ptype: "p", V0: "888", V1: "/menu/getSpecialRoleMenu", V2: "POST"},
 
 		{Ptype: "p", V0: "888", V1: "/system/getServerInfo", V2: "GET"},
 

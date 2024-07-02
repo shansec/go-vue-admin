@@ -150,3 +150,66 @@ func (menuService *MenuService) GetMenuTreeService() (list interface{}, err erro
 	}
 	return menuList, nil
 }
+
+// GetRoleMenuService
+// @author: [Shansec](https://github.com/shansec)
+// @function: GetRoleMenuService
+// @description: 获取角色菜单
+// @param: roleId uint
+// @return: menus []system.SysBaseMenu, err error
+func (menuService *MenuService) GetRoleMenuService(roleId uint) (menuList []system.SysBaseMenu, err error) {
+	var roleMenus []system.SysRoleMenu
+	var menus []system.SysBaseMenu
+	var menuIds []uint
+
+	err = global.MAY_DB.Where("sys_role_role_id = ?", roleId).Find(&roleMenus).Error
+	if err != nil {
+		return nil, err
+	}
+
+	for _, menu := range roleMenus {
+		menuIds = append(menuIds, menu.MenuId)
+	}
+
+	err = global.MAY_DB.Where("id IN (?)", menuIds).Find(&menus).Error
+	if err != nil {
+		return nil, err
+	}
+	for _, menu := range menus {
+		if menu.ParentId != 0 {
+			continue
+		}
+		menuResult := menuService.GetMenuCall(menus, menu)
+		menuList = append(menuList, menuResult)
+	}
+	return menuList, nil
+}
+
+func (menuService *MenuService) GetMenuCall(menuList []system.SysBaseMenu, menu system.SysBaseMenu) system.SysBaseMenu {
+	var menuCalls []system.SysBaseMenu
+	lists := menuList
+	for _, list := range lists {
+		if menu.ID != list.ParentId {
+			continue
+		}
+		menuCall := system.SysBaseMenu{}
+		menuCall.MenuLevel = list.MenuLevel
+		menuCall.ID = list.ID
+		menuCall.ParentId = list.ParentId
+		menuCall.Name = list.Name
+		menuCall.Path = list.Path
+		menuCall.Meta = list.Meta
+		menuCall.Children = list.Children
+		menuCall.Sort = list.Sort
+		menuCall.Component = list.Component
+		menuCall.Hidden = list.Hidden
+		menuCall.SysRoles = list.SysRoles
+		menuCall.CreatedAt = list.CreatedAt
+		menuCall.UpdatedAt = list.UpdatedAt
+		menuCall.DeletedAt = list.DeletedAt
+		mc := menuService.GetMenuCall(menuList, menuCall)
+		menuCalls = append(menuCalls, mc)
+	}
+	menu.Children = menuCalls
+	return menu
+}

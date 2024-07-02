@@ -3,6 +3,7 @@ package system
 import (
 	"github/shansec/go-vue-admin/dao/common/request"
 	"github/shansec/go-vue-admin/dao/common/response"
+	req "github/shansec/go-vue-admin/dao/request"
 	res "github/shansec/go-vue-admin/dao/response"
 	"github/shansec/go-vue-admin/global"
 	"github/shansec/go-vue-admin/model/system"
@@ -164,4 +165,57 @@ func (m *MenuApi) GetMenuTree(c *gin.Context) {
 	response.OkWithDetailed(response.NoPageResult{
 		List: list,
 	}, "获取成功", c)
+}
+
+// GetRoleMenu
+// @Summary 获取当前登录角色菜单
+// @Description 获取当前登录角色菜单
+// @Tags SysBaseMenu
+// @Produce json
+// @Success 200 {object} response.Response{data=response.NoPageResult, msg=string}	"获取当前登录角色菜单"
+// @Failure 400 {object} response.Response "请求参数验证失败"
+// @Failure 500 {object} response.Response   "获取当前登录角色菜单失败"
+// @Router /menu/getRoleMenu [POST]
+func (m *MenuApi) GetRoleMenu(c *gin.Context) {
+	roleId := utils.GetUserRoleId(c)
+	if roleId == 0 {
+		response.FailWithMessage("非法访问", c)
+		return
+	}
+
+	menus, err := menuService.GetRoleMenuService(roleId)
+	if err != nil {
+		global.MAY_LOGGER.Error("获取角色菜单失败", zap.Error(err))
+		response.FailWithMessage("获取角色菜单失败", c)
+		return
+	}
+	response.OkWithDetailed(response.NoPageResult{List: menus}, "获取角色菜单成功", c)
+}
+
+// GetSpecialRoleMenu
+// @Summary 获取指定角色菜单
+// @Description 获取指定角色菜单
+// @Tags SysBaseMenu
+// @Produce json
+// @Success 200 {object} response.Response{data=response.NoPageResult, msg=string}	"获取指定角色菜单"
+// @Failure 400 {object} response.Response "请求参数验证失败"
+// @Failure 500 {object} response.Response   "获取指定角色菜单失败"
+// @Router /menu/getSpecialRoleMenu [POST]
+func (m *MenuApi) GetSpecialRoleMenu(c *gin.Context) {
+	var roleInfo req.GetSpecialRoleByID
+	_ = c.ShouldBindJSON(&roleInfo)
+
+	err := utils.Verify(roleInfo, systemVerify.RoleIdVerify)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	menus, err := menuService.GetRoleMenuService(roleInfo.RoleId)
+	if err != nil {
+		global.MAY_LOGGER.Error("获取角色菜单失败", zap.Error(err))
+		response.FailWithMessage("获取角色菜单失败", c)
+		return
+	}
+	response.OkWithDetailed(response.NoPageResult{List: menus}, "获取角色菜单成功", c)
 }

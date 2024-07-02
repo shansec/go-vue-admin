@@ -18,4 +18,7 @@ func (r *RoleRouter) InitRoleRouter(Router *gin.RouterGroup) {
 		roleRouter.POST("getRoleList", roleApi.GetRoleList) // 获取角色列表
 		roleRouter.POST("setChildRole", roleApi.SetRole)    // 设置子角色
 	}
+	{
+		roleRouter.POST("addRoleMenu", roleApi.AddRoleMenu) // 角色添加菜单权限
+	}
 }
