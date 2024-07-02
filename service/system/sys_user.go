@@ -135,7 +135,7 @@ func (userService *UserService) UpdateUserInformation(userInfo *system.SysUser) 
 // @return: userInfo *system.SysUser, err error
 func (userService *UserService) GetUserInformation(uuid uuid.UUID) (userInfo *system.SysUser, err error) {
 	var user system.SysUser
-	err = global.MAY_DB.Preload("SysDept").Where("uuid = ?", uuid).First(&user).Error
+	err = global.MAY_DB.Preload("SysDept").Preload("SysRole").Where("uuid = ?", uuid).First(&user).Error
 	if err == nil {
 		return &user, nil
 	}
