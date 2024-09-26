@@ -10,4 +10,6 @@ type RouterGroup struct {
 	ApiRouter
 	RoleRouter
 	MenuRouter
+	DictionaryRouter
+	DictionaryDetailRouter
 }

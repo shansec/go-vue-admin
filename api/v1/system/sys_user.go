@@ -1,17 +1,17 @@
 package system
 
 import (
-	systemRes "github/shansec/go-vue-admin/dao/response"
+	systemRes "github.com/shansec/go-vue-admin/dao/response"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 
-	"github/shansec/go-vue-admin/dao/common/response"
-	systemReq "github/shansec/go-vue-admin/dao/request"
-	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/system"
-	"github/shansec/go-vue-admin/utils"
-	SystemVerify "github/shansec/go-vue-admin/verify/system"
+	"github.com/shansec/go-vue-admin/dao/common/response"
+	systemReq "github.com/shansec/go-vue-admin/dao/request"
+	"github.com/shansec/go-vue-admin/global"
+	"github.com/shansec/go-vue-admin/model/system"
+	"github.com/shansec/go-vue-admin/utils"
+	SystemVerify "github.com/shansec/go-vue-admin/verify/system"
 )
 
 type BaseApi struct{}

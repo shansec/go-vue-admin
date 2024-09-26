@@ -1,5 +1,5 @@
 definitions:
-  github_shansec_go-vue-admin_model_system.SysApi:
+  github_com_shansec_go-vue-admin_model_system.SysApi:
     properties:
       apiGroup:
         type: string
@@ -132,6 +132,15 @@ definitions:
         description: 用户名
         type: string
     type: object
+  request.MenuRoleInfo:
+    properties:
+      menus:
+        items:
+          $ref: '#/definitions/system.SysBaseMenu'
+        type: array
+      roleId:
+        type: integer
+    type: object
   request.PageInfo:
     properties:
       page:
@@ -178,6 +187,35 @@ definitions:
         description: 用户登录名
         type: string
     type: object
+  request.SysDictionaryDetailSearch:
+    properties:
+      createdAt:
+        description: 创建时间
+        type: string
+      extend:
+        type: string
+      id:
+        description: 主键 ID
+        type: integer
+      label:
+        type: string
+      page:
+        description: 页码
+        type: integer
+      pageSize:
+        description: 每页大小
+        type: integer
+      sort:
+        type: integer
+      status:
+        type: boolean
+      sysDictionaryID:
+        type: integer
+      updatedAt:
+        type: string
+      value:
+        type: string
+    type: object
   response.Login:
     properties:
       expiresAt:
@@ -186,6 +224,10 @@ definitions:
         type: string
       user:
         $ref: '#/definitions/system.SysUser'
+    type: object
+  response.NoPageResult:
+    properties:
+      list: {}
     type: object
   response.PageResult:
     properties:
@@ -413,6 +455,52 @@ definitions:
       updatedAt:
         type: string
     type: object
+  system.SysDictionary:
+    properties:
+      createdAt:
+        description: 创建时间
+        type: string
+      desc:
+        type: string
+      id:
+        description: 主键 ID
+        type: integer
+      name:
+        type: string
+      status:
+        type: boolean
+      sys-dictionary-details:
+        items:
+          $ref: '#/definitions/system.SysDictionaryDetail'
+        type: array
+      type:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  system.SysDictionaryDetail:
+    properties:
+      createdAt:
+        description: 创建时间
+        type: string
+      extend:
+        type: string
+      id:
+        description: 主键 ID
+        type: integer
+      label:
+        type: string
+      sort:
+        type: integer
+      status:
+        type: boolean
+      sysDictionaryID:
+        type: integer
+      updatedAt:
+        type: string
+      value:
+        type: string
+    type: object
   system.SysRole:
     properties:
       children:
@@ -426,6 +514,9 @@ definitions:
         items:
           $ref: '#/definitions/system.SysRole'
         type: array
+      defaultRouter:
+        description: 默认菜单(默认dashboard)
+        type: string
       deletedAt:
         description: 删除时间
         type: string
@@ -512,7 +603,7 @@ paths:
         name: createApiInfo
         required: true
         schema:
-          $ref: '#/definitions/github_shansec_go-vue-admin_model_system.SysApi'
+          $ref: '#/definitions/github_com_shansec_go-vue-admin_model_system.SysApi'
       produces:
       - application/json
       responses:
@@ -546,7 +637,7 @@ paths:
         name: deleteApiInfo
         required: true
         schema:
-          $ref: '#/definitions/github_shansec_go-vue-admin_model_system.SysApi'
+          $ref: '#/definitions/github_com_shansec_go-vue-admin_model_system.SysApi'
       produces:
       - application/json
       responses:
@@ -595,7 +686,7 @@ paths:
                   type: string
                 list:
                   items:
-                    $ref: '#/definitions/github_shansec_go-vue-admin_model_system.SysApi'
+                    $ref: '#/definitions/github_com_shansec_go-vue-admin_model_system.SysApi'
                   type: array
               type: object
         "400":
@@ -619,7 +710,7 @@ paths:
         name: updateApiInfo
         required: true
         schema:
-          $ref: '#/definitions/github_shansec_go-vue-admin_model_system.SysApi'
+          $ref: '#/definitions/github_com_shansec_go-vue-admin_model_system.SysApi'
       produces:
       - application/json
       responses:
@@ -1009,6 +1100,344 @@ paths:
       summary: 更新部门信息
       tags:
       - SysDept
+  /dictionary/createDictionary:
+    post:
+      description: 添加字典，返回添加结果
+      parameters:
+      - description: 添加字典
+        in: body
+        name: dictionaryInfo
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysDictionary'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 添加字典,返回添加结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 添加字典失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 添加字典
+      tags:
+      - SysDictionary
+  /dictionary/deleteDictionary:
+    delete:
+      description: 删除字典，返回添加结果
+      parameters:
+      - description: 删除字典
+        in: body
+        name: dictionaryInfo
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysDictionary'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除字典,返回删除结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 删除字典失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 删除字典
+      tags:
+      - SysDictionary
+  /dictionary/getDictionary:
+    post:
+      description: 获取字典详情
+      parameters:
+      - description: 获取字典详情
+        in: body
+        name: dictionaryInfo
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysDictionary'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取字典详情
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                ' msg':
+                  type: string
+                data:
+                  $ref: '#/definitions/system.SysDictionary'
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 获取字典详情失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取字典详情
+      tags:
+      - SysDictionary
+  /dictionary/getDictionaryInfoList:
+    post:
+      description: 分页获取字典
+      parameters:
+      - description: 分页获取字典
+        in: body
+        name: dictionaryInfo
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysDictionary'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 分页获取字典
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                ' msg':
+                  type: string
+                data:
+                  $ref: '#/definitions/system.SysDictionary'
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 分页获取字典失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 分页获取字典
+      tags:
+      - SysDictionary
+  /dictionary/updateDictionary:
+    put:
+      description: 修改字典，返回修改结果
+      parameters:
+      - description: 修改字典
+        in: body
+        name: dictionaryInfo
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysDictionary'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 修改字典,返回修改结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 修改字典失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 修改字典
+      tags:
+      - SysDictionary
+  /dictionaryDetail/createDictionaryDetail:
+    post:
+      description: 添加字典详情，返回添加结果
+      parameters:
+      - description: 添加字典详情
+        in: body
+        name: dictionaryDetailInfo
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysDictionaryDetail'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 添加字典详情,返回添加结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 添加字典详情失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 添加字典详情
+      tags:
+      - SysDictionaryDetail
+  /dictionaryDetail/deleteDictionaryDetail:
+    delete:
+      description: 删除字典详情，返回删除结果
+      parameters:
+      - description: 删除字典详情
+        in: body
+        name: dictionaryDetailInfo
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysDictionaryDetail'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 删除字典详情,返回删除结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 删除字典详情失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 删除字典详情
+      tags:
+      - SysDictionaryDetail
+  /dictionaryDetail/getDictionaryDetail:
+    post:
+      description: 获取字典详情
+      parameters:
+      - description: 获取字典详情
+        in: body
+        name: dictionaryDetailInfo
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysDictionaryDetail'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取字典详情
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                ' msg':
+                  type: string
+                data:
+                  $ref: '#/definitions/system.SysDictionaryDetail'
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 获取字典详情失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取字典详情
+      tags:
+      - SysDictionaryDetail
+  /dictionaryDetail/getDictionaryDetailList:
+    post:
+      description: 分页获取字典详情
+      parameters:
+      - description: 分页获取字典详情
+        in: body
+        name: pageInfo
+        required: true
+        schema:
+          $ref: '#/definitions/request.SysDictionaryDetailSearch'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 分页获取字典详情
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                ' msg':
+                  type: string
+                data:
+                  $ref: '#/definitions/response.PageResult'
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 分页获取字典详情失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 分页获取字典详情
+      tags:
+      - SysDictionaryDetail
+  /dictionaryDetail/updateDictionaryDetail:
+    put:
+      description: 修改字典详情，返回修改结果
+      parameters:
+      - description: 修改字典详情
+        in: body
+        name: dictionaryDetailInfo
+        required: true
+        schema:
+          $ref: '#/definitions/system.SysDictionaryDetail'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 修改字典详情,返回修改结果
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 修改字典详情失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 修改字典详情
+      tags:
+      - SysDictionaryDetail
   /init/checkDB:
     post:
       description: 检查是否已初始化
@@ -1143,6 +1572,90 @@ paths:
       summary: 分页获取菜单
       tags:
       - SysBaseMenu
+  /menu/getMenuTree:
+    post:
+      description: 获取树状菜单
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取树状菜单
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                ' msg':
+                  type: string
+                data:
+                  $ref: '#/definitions/response.NoPageResult'
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 获取树状菜单失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取树状菜单
+      tags:
+      - SysBaseMenu
+  /menu/getRoleMenu:
+    post:
+      description: 获取当前登录角色菜单
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取当前登录角色菜单
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                ' msg':
+                  type: string
+                data:
+                  $ref: '#/definitions/response.NoPageResult'
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 获取当前登录角色菜单失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取当前登录角色菜单
+      tags:
+      - SysBaseMenu
+  /menu/getSpecialRoleMenu:
+    post:
+      description: 获取指定角色菜单
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取指定角色菜单
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                ' msg':
+                  type: string
+                data:
+                  $ref: '#/definitions/response.NoPageResult'
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 获取指定角色菜单失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取指定角色菜单
+      tags:
+      - SysBaseMenu
   /menu/updateMenu:
     put:
       description: 修改菜单，返回操作结果
@@ -1176,6 +1689,39 @@ paths:
       summary: 修改菜单
       tags:
       - SysBaseMenu
+  /role/addRoleMenu:
+    post:
+      description: 角色设置菜单权限
+      parameters:
+      - description: 角色设置菜单权限
+        in: body
+        name: info
+        required: true
+        schema:
+          $ref: '#/definitions/request.MenuRoleInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 角色设置菜单权限
+          schema:
+            allOf:
+            - $ref: '#/definitions/response.Response'
+            - properties:
+                msg:
+                  type: string
+              type: object
+        "400":
+          description: 请求参数验证失败
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: 角色设置菜单权限失败
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 角色设置菜单权限
+      tags:
+      - SysRole
   /role/createRole:
     post:
       description: 添加角色，返回添加结果

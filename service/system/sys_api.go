@@ -6,9 +6,9 @@ import (
 
 	"gorm.io/gorm"
 
-	systemReq "github/shansec/go-vue-admin/dao/request"
-	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/system"
+	systemReq "github.com/shansec/go-vue-admin/dao/request"
+	"github.com/shansec/go-vue-admin/global"
+	"github.com/shansec/go-vue-admin/model/system"
 )
 
 type ApiService struct{}

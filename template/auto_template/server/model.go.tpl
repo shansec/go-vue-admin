@@ -6,7 +6,7 @@ import (
 
 	{{ if .NeedJSON }}"gorm.io/datatypes"{{ end }}
       
-	{{ if .DefaultModel }}"github/shansec/go-vue-admin/global"{{ end }}
+	{{ if .DefaultModel }}"github.com/shansec/go-vue-admin/global"{{ end }}
 )
 
 // {{.Description}} 结构体  {{.StructName}}

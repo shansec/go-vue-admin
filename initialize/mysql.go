@@ -4,7 +4,7 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
-	"github/shansec/go-vue-admin/global"
+	"github.com/shansec/go-vue-admin/global"
 )
 
 func GormMysql() *gorm.DB {

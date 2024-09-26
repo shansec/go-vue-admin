@@ -1,8 +1,8 @@
 package {{.Package}}
 
 import (
-	"github/shansec/go-vue-admin/api/v1"
-	"github/shansec/go-vue-admin/middleware"
+	"github.com/shansec/go-vue-admin/api/v1"
+	"github.com/shansec/go-vue-admin/middleware"
 	"github.com/gin-gonic/gin"
 )
 

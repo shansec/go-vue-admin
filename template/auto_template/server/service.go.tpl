@@ -5,9 +5,9 @@ import (
     "gorm.io/gorm"
     {{- end}}
     
-	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/{{.Package}}"
-    {{.Package}}Req "github/shansec/go-vue-admin/model/{{.Package}}/request"
+	"github.com/shansec/go-vue-admin/global"
+	"github.com/shansec/go-vue-admin/model/{{.Package}}"
+    {{.Package}}Req "github.com/shansec/go-vue-admin/model/{{.Package}}/request"
 )
 
 type {{.StructName}}Service struct {

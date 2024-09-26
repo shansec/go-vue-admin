@@ -6,7 +6,7 @@ import (
 	"golang.org/x/sync/singleflight"
 	"gorm.io/gorm"
 
-	"github/shansec/go-vue-admin/config"
+	"github.com/shansec/go-vue-admin/config"
 )
 
 var (

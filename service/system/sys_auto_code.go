@@ -12,12 +12,12 @@ import (
 
 	"gorm.io/gorm"
 
-	systemReq "github/shansec/go-vue-admin/dao/request"
-	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/system"
-	"github/shansec/go-vue-admin/template/auto_template"
-	"github/shansec/go-vue-admin/utils"
-	"github/shansec/go-vue-admin/utils/ast"
+	systemReq "github.com/shansec/go-vue-admin/dao/request"
+	"github.com/shansec/go-vue-admin/global"
+	"github.com/shansec/go-vue-admin/model/system"
+	"github.com/shansec/go-vue-admin/template/auto_template"
+	"github.com/shansec/go-vue-admin/utils"
+	"github.com/shansec/go-vue-admin/utils/ast"
 )
 
 type AutoCodeService struct{}
@@ -89,21 +89,21 @@ func Init(packageName string) {
 	packageInjectionMap = map[string]astInjectionMeta{
 		packageServiceName: {
 			path:         filepath.Join(global.MAY_CONFIG.AutoCode.Root, "service", "enter.go"),
-			importCodeF:  "github/shansec/go-vue-admin/%s/%s",
+			importCodeF:  "github.com/shansec/go-vue-admin/%s/%s",
 			packageNameF: "%s",
 			groupName:    "ServiceGroup",
 			structNameF:  "%sServiceGroup",
 		},
 		packageRouterName: {
 			path:         filepath.Join(global.MAY_CONFIG.AutoCode.Root, "router", "enter.go"),
-			importCodeF:  "github/shansec/go-vue-admin/%s/%s",
+			importCodeF:  "github.com/shansec/go-vue-admin/%s/%s",
 			packageNameF: "%s",
 			groupName:    "RouterGroup",
 			structNameF:  "%sRouterGroup",
 		},
 		packageAPIName: {
 			path:         filepath.Join(global.MAY_CONFIG.AutoCode.Root, "api/v1", "enter.go"),
-			importCodeF:  "github/shansec/go-vue-admin/%s/%s",
+			importCodeF:  "github.com/shansec/go-vue-admin/%s/%s",
 			packageNameF: "%s",
 			groupName:    "ApiGroup",
 			structNameF:  "%sApiGroup",

@@ -2,8 +2,8 @@ package system
 
 import (
 	"context"
-	systemModel "github/shansec/go-vue-admin/model/system"
-	"github/shansec/go-vue-admin/service/system"
+	systemModel "github.com/shansec/go-vue-admin/model/system"
+	"github.com/shansec/go-vue-admin/service/system"
 
 	"github.com/pkg/errors"
 

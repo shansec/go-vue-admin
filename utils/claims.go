@@ -4,8 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gofrs/uuid/v5"
 
-	systemReq "github/shansec/go-vue-admin/dao/request"
-	"github/shansec/go-vue-admin/global"
+	systemReq "github.com/shansec/go-vue-admin/dao/request"
+	"github.com/shansec/go-vue-admin/global"
 )
 
 func GetClaims(c *gin.Context) (*systemReq.CustomClaims, error) {

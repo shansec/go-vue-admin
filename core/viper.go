@@ -9,8 +9,8 @@ import (
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
 
-	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/utils"
+	"github.com/shansec/go-vue-admin/global"
+	"github.com/shansec/go-vue-admin/utils"
 )
 
 func Viper(path ...string) *viper.Viper {

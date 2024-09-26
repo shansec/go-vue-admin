@@ -6,10 +6,10 @@ import (
 
 	"gorm.io/gorm"
 
-	"github/shansec/go-vue-admin/dao/common/request"
-	systemReq "github/shansec/go-vue-admin/dao/request"
-	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/system"
+	"github.com/shansec/go-vue-admin/dao/common/request"
+	systemReq "github.com/shansec/go-vue-admin/dao/request"
+	"github.com/shansec/go-vue-admin/global"
+	"github.com/shansec/go-vue-admin/model/system"
 )
 
 type RoleService struct{}

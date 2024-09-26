@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github/shansec/go-vue-admin/core"
-	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/initialize"
+	"github.com/shansec/go-vue-admin/core"
+	"github.com/shansec/go-vue-admin/global"
+	"github.com/shansec/go-vue-admin/initialize"
 
 	"go.uber.org/zap"
 )

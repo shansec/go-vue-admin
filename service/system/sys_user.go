@@ -8,10 +8,10 @@ import (
 	"github.com/gofrs/uuid/v5"
 	"gorm.io/gorm"
 
-	systemReq "github/shansec/go-vue-admin/dao/request"
-	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/system"
-	"github/shansec/go-vue-admin/utils"
+	systemReq "github.com/shansec/go-vue-admin/dao/request"
+	"github.com/shansec/go-vue-admin/global"
+	"github.com/shansec/go-vue-admin/model/system"
+	"github.com/shansec/go-vue-admin/utils"
 )
 
 type UserService struct{}

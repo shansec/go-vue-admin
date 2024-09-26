@@ -1,14 +1,14 @@
 package system
 
 import (
-	systemRes "github/shansec/go-vue-admin/dao/response"
+	systemRes "github.com/shansec/go-vue-admin/dao/response"
 
 	"github.com/gin-gonic/gin"
 	"github.com/mojocn/base64Captcha"
 	"go.uber.org/zap"
 
-	"github/shansec/go-vue-admin/dao/common/response"
-	"github/shansec/go-vue-admin/global"
+	"github.com/shansec/go-vue-admin/dao/common/response"
+	"github.com/shansec/go-vue-admin/global"
 )
 
 var store = base64Captcha.DefaultMemStore
