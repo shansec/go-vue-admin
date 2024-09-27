@@ -93,7 +93,7 @@ func (i *initCasbin) InitData(ctx context.Context) (context.Context, error) {
 		{Ptype: "p", V0: "888", V1: "/dictionaryDetail/createDictionaryDetail", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/dictionaryDetail/deleteDictionaryDetail", V2: "DELETE"},
 		{Ptype: "p", V0: "888", V1: "/dictionaryDetail/updateDictionaryDetail", V2: "PUT"},
-		{Ptype: "p", V0: "888", V1: "/dictionaryDetail/getSysDictionaryDetail", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/dictionaryDetail/getDictionaryDetail", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/dictionaryDetail/getDictionaryDetailList", V2: "POST"},
 
 		{Ptype: "p", V0: "888", V1: "/system/getServerInfo", V2: "GET"},

@@ -88,7 +88,7 @@ func (d *DictionaryDetailApi) UpdateDictionaryDetail(c *gin.Context) {
 	response.OkWithMessage("更新成功", c)
 }
 
-// GetSysDictionaryDetail
+// GetDictionaryDetail
 // @Summary 获取字典详情
 // @Description 获取字典详情
 // @Tags SysDictionaryDetail
@@ -98,8 +98,9 @@ func (d *DictionaryDetailApi) UpdateDictionaryDetail(c *gin.Context) {
 // @Failure 400 {object} response.Response "请求参数验证失败"
 // @Failure 500 {object} response.Response   "获取字典详情失败"
 // @Router /dictionaryDetail/getDictionaryDetail [POST]
-func (d *DictionaryDetailApi) GetSysDictionaryDetail(c *gin.Context) {
+func (d *DictionaryDetailApi) GetDictionaryDetail(c *gin.Context) {
 	var dictionaryDetailInfo system.SysDictionaryDetail
+
 	err := c.ShouldBindJSON(&dictionaryDetailInfo)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)

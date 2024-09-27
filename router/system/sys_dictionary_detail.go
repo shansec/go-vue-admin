@@ -14,7 +14,7 @@ func (d *DictionaryDetailRouter) InitDictionaryDetailRouter(Router *gin.RouterGr
 		dictionaryDetailRouter.POST("/createDictionaryDetail", dictionaryDetailApi.CreateDictionaryDetail)
 		dictionaryDetailRouter.DELETE("/deleteDictionaryDetail", dictionaryDetailApi.DeleteDictionaryDetail)
 		dictionaryDetailRouter.PUT("/updateDictionaryDetail", dictionaryDetailApi.UpdateDictionaryDetail)
-		dictionaryDetailRouter.POST("/getSysDictionaryDetail", dictionaryDetailApi.GetSysDictionaryDetail)
+		dictionaryDetailRouter.POST("/getDictionaryDetail", dictionaryDetailApi.GetDictionaryDetail)
 		dictionaryDetailRouter.POST("/getDictionaryDetailList", dictionaryDetailApi.GetDictionaryDetailList)
 	}
 }
