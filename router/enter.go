@@ -1,7 +1,7 @@
 package router
 
 import (
-	"github/shansec/go-vue-admin/router/system"
+	"github.com/shansec/go-vue-admin/router/system"
 )
 
 type RouterGroup struct {

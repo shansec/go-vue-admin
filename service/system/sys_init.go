@@ -9,8 +9,8 @@ import (
 
 	"gorm.io/gorm"
 
-	"github/shansec/go-vue-admin/dao/request"
-	"github/shansec/go-vue-admin/global"
+	"github.com/shansec/go-vue-admin/dao/request"
+	"github.com/shansec/go-vue-admin/global"
 )
 
 /* ———— Init ———— */

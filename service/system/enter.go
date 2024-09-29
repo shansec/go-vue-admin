@@ -10,4 +10,6 @@ type ServiceGroup struct {
 	RoleService
 	CasbinService
 	MenuService
+	DictionaryDetailService
+	DictionaryService
 }

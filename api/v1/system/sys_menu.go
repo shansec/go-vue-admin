@@ -1,15 +1,15 @@
 package system
 
 import (
-	"github/shansec/go-vue-admin/dao/common/request"
-	"github/shansec/go-vue-admin/dao/common/response"
-	req "github/shansec/go-vue-admin/dao/request"
-	res "github/shansec/go-vue-admin/dao/response"
-	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/system"
-	"github/shansec/go-vue-admin/utils"
-	commonVerify "github/shansec/go-vue-admin/verify/common"
-	systemVerify "github/shansec/go-vue-admin/verify/system"
+	"github.com/shansec/go-vue-admin/dao/common/request"
+	"github.com/shansec/go-vue-admin/dao/common/response"
+	req "github.com/shansec/go-vue-admin/dao/request"
+	res "github.com/shansec/go-vue-admin/dao/response"
+	"github.com/shansec/go-vue-admin/global"
+	"github.com/shansec/go-vue-admin/model/system"
+	"github.com/shansec/go-vue-admin/utils"
+	commonVerify "github.com/shansec/go-vue-admin/verify/common"
+	systemVerify "github.com/shansec/go-vue-admin/verify/system"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -23,7 +23,7 @@ type MenuApi struct{}
 // @Tags SysBaseMenu
 // @Produce json
 // @Param   menuInfo body system.SysBaseMenu true "添加菜单"
-// @Success 200 {object} response.Response{data=systemRes.SysMenuResponse, msg=string}	"添加菜单,返回添加结果"
+// @Success 200 {object} response.Response{data=res.SysMenuResponse, msg=string}	"添加菜单,返回添加结果"
 // @Failure 400 {object} response.Response "请求参数验证失败"
 // @Failure 500 {object} response.Response   "添加菜单失败"
 // @Router /menu/createMenu [POST]

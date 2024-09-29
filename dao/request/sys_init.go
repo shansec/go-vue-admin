@@ -3,7 +3,7 @@ package request
 import (
 	"fmt"
 
-	"github/shansec/go-vue-admin/config"
+	"github.com/shansec/go-vue-admin/config"
 )
 
 type InitDB struct {

@@ -4,13 +4,13 @@ import (
     "github.com/gin-gonic/gin"
     "go.uber.org/zap"
 
-		"github/shansec/go-vue-admin/global"
-    "github/shansec/go-vue-admin/model/{{.Package}}"
-    {{.Package}}Req "github/shansec/go-vue-admin/model/{{.Package}}/request"
-    "github/shansec/go-vue-admin/model/common/response"
-    "github/shansec/go-vue-admin/service"
+		"github.com/shansec/go-vue-admin/global"
+    "github.com/shansec/go-vue-admin/model/{{.Package}}"
+    {{.Package}}Req "github.com/shansec/go-vue-admin/model/{{.Package}}/request"
+    "github.com/shansec/go-vue-admin/model/common/response"
+    "github.com/shansec/go-vue-admin/service"
     {{- if .AutoCreateResource}}
-    "github/shansec/go-vue-admin/utils"
+    "github.com/shansec/go-vue-admin/utils"
     {{- end }}
 )
 

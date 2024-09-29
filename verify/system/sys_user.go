@@ -1,6 +1,6 @@
 package system
 
-import "github/shansec/go-vue-admin/utils"
+import "github.com/shansec/go-vue-admin/utils"
 
 var (
 	IdVerify             = utils.Rules{"ID": []string{utils.NotEmpty()}}

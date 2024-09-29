@@ -3,10 +3,10 @@ package initialize
 import (
 	"github.com/gin-gonic/gin"
 
-	docs "github/shansec/go-vue-admin/docs"
-	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/middleware"
-	"github/shansec/go-vue-admin/router"
+	docs "github.com/shansec/go-vue-admin/docs"
+	"github.com/shansec/go-vue-admin/global"
+	"github.com/shansec/go-vue-admin/middleware"
+	"github.com/shansec/go-vue-admin/router"
 
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -41,6 +41,8 @@ func Routers() *gin.Engine {
 		systemRouter.InitApiRouter(PrivateGroup)
 		systemRouter.InitRoleRouter(PrivateGroup)
 		systemRouter.InitMenuRouter(PrivateGroup)
+		systemRouter.InitDictionaryRouter(PrivateGroup)
+		systemRouter.InitDictionaryDetailRouter(PrivateGroup)
 	}
 
 	global.MAY_LOGGER.Info("router register success")

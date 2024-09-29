@@ -9,7 +9,7 @@ import (
 
 	"go.uber.org/zap"
 
-	"github/shansec/go-vue-admin/global"
+	"github.com/shansec/go-vue-admin/global"
 )
 
 func PathExists(path string) (bool, error) {

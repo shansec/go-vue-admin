@@ -6,8 +6,8 @@ import (
 
 	"go.uber.org/zap"
 
-	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/initialize"
+	"github.com/shansec/go-vue-admin/global"
+	"github.com/shansec/go-vue-admin/initialize"
 )
 
 type server interface {
@@ -20,6 +20,8 @@ func RunWindowsServer() {
 	}
 
 	Router := initialize.Routers()
+	Router.Static("/form-generator", "./template/page")
+
 	address := fmt.Sprintf(":%d", global.MAY_CONFIG.System.Addr)
 	s := initServer(address, Router)
 

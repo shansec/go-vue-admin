@@ -1,19 +1,19 @@
 package system
 
 import (
-	req "github/shansec/go-vue-admin/dao/request"
-	res "github/shansec/go-vue-admin/dao/response"
+	req "github.com/shansec/go-vue-admin/dao/request"
+	res "github.com/shansec/go-vue-admin/dao/response"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 
-	"github/shansec/go-vue-admin/dao/common/request"
-	"github/shansec/go-vue-admin/dao/common/response"
-	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/system"
-	"github/shansec/go-vue-admin/utils"
-	commonVerify "github/shansec/go-vue-admin/verify/common"
-	systemVerify "github/shansec/go-vue-admin/verify/system"
+	"github.com/shansec/go-vue-admin/dao/common/request"
+	"github.com/shansec/go-vue-admin/dao/common/response"
+	"github.com/shansec/go-vue-admin/global"
+	"github.com/shansec/go-vue-admin/model/system"
+	"github.com/shansec/go-vue-admin/utils"
+	commonVerify "github.com/shansec/go-vue-admin/verify/common"
+	systemVerify "github.com/shansec/go-vue-admin/verify/system"
 )
 
 type RoleApi struct{}

@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github/shansec/go-vue-admin/service/system"
+	"github.com/shansec/go-vue-admin/service/system"
 )
 
 type ServiceGroup struct {

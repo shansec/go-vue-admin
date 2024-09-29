@@ -3,7 +3,7 @@ package system
 import (
 	"context"
 
-	"github/shansec/go-vue-admin/service/system"
+	"github.com/shansec/go-vue-admin/service/system"
 
 	adapter "github.com/casbin/gorm-adapter/v3"
 	"github.com/pkg/errors"
@@ -83,6 +83,18 @@ func (i *initCasbin) InitData(ctx context.Context) (context.Context, error) {
 		{Ptype: "p", V0: "888", V1: "/menu/getMenuTree", V2: "POST"},
 		{Ptype: "p", V0: "888", V1: "/menu/getRoleMenu", V2: "GET"},
 		{Ptype: "p", V0: "888", V1: "/menu/getSpecialRoleMenu", V2: "POST"},
+
+		{Ptype: "p", V0: "888", V1: "/dictionary/createDictionary", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/dictionary/deleteDictionary", V2: "DELETE"},
+		{Ptype: "p", V0: "888", V1: "/dictionary/updateDictionary", V2: "PUT"},
+		{Ptype: "p", V0: "888", V1: "/dictionary/getDictionary", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/dictionary/getDictionaryInfoList", V2: "POST"},
+
+		{Ptype: "p", V0: "888", V1: "/dictionaryDetail/createDictionaryDetail", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/dictionaryDetail/deleteDictionaryDetail", V2: "DELETE"},
+		{Ptype: "p", V0: "888", V1: "/dictionaryDetail/updateDictionaryDetail", V2: "PUT"},
+		{Ptype: "p", V0: "888", V1: "/dictionaryDetail/getDictionaryDetail", V2: "POST"},
+		{Ptype: "p", V0: "888", V1: "/dictionaryDetail/getDictionaryDetailList", V2: "POST"},
 
 		{Ptype: "p", V0: "888", V1: "/system/getServerInfo", V2: "GET"},
 

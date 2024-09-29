@@ -3,7 +3,7 @@ package system
 import (
 	"github.com/gofrs/uuid/v5"
 
-	"github/shansec/go-vue-admin/global"
+	"github.com/shansec/go-vue-admin/global"
 )
 
 type SysUser struct {

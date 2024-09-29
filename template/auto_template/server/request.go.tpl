@@ -5,7 +5,7 @@ import (
 
 	{{ if .NeedJSON }}"gorm.io/datatypes"{{ end }}
       
-	"github/shansec/go-vue-admin/model/common/request"
+	"github.com/shansec/go-vue-admin/model/common/request"
 )
 
 type {{.StructName}}Search struct{

@@ -6,10 +6,10 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github/shansec/go-vue-admin/dao/common/response"
-	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/service/system"
-	"github/shansec/go-vue-admin/utils"
+	"github.com/shansec/go-vue-admin/dao/common/response"
+	"github.com/shansec/go-vue-admin/global"
+	"github.com/shansec/go-vue-admin/service/system"
+	"github.com/shansec/go-vue-admin/utils"
 )
 
 func CasbinAuth() gin.HandlerFunc {

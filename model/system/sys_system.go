@@ -1,6 +1,6 @@
 package system
 
-import "github/shansec/go-vue-admin/config"
+import "github.com/shansec/go-vue-admin/config"
 
 type System struct {
 	Config config.System `json:"config"`

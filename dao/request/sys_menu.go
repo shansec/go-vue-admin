@@ -1,9 +1,9 @@
 package request
 
 import (
-	"github/shansec/go-vue-admin/model/system"
+	"github.com/shansec/go-vue-admin/model/system"
 
-	"github/shansec/go-vue-admin/global"
+	"github.com/shansec/go-vue-admin/global"
 )
 
 type MenuRoleInfo struct {

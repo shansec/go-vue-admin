@@ -3,7 +3,7 @@ package response
 import (
 	"github.com/gofrs/uuid/v5"
 
-	"github/shansec/go-vue-admin/model/system"
+	"github.com/shansec/go-vue-admin/model/system"
 )
 
 type SysUserResponse struct {

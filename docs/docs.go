@@ -34,7 +34,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_shansec_go-vue-admin_model_system.SysApi"
+                            "$ref": "#/definitions/github_com_shansec_go-vue-admin_model_system.SysApi"
                         }
                     }
                 ],
@@ -91,7 +91,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_shansec_go-vue-admin_model_system.SysApi"
+                            "$ref": "#/definitions/github_com_shansec_go-vue-admin_model_system.SysApi"
                         }
                     }
                 ],
@@ -170,7 +170,7 @@ const docTemplate = `{
                                         "list": {
                                             "type": "array",
                                             "items": {
-                                                "$ref": "#/definitions/github_shansec_go-vue-admin_model_system.SysApi"
+                                                "$ref": "#/definitions/github_com_shansec_go-vue-admin_model_system.SysApi"
                                             }
                                         }
                                     }
@@ -212,7 +212,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/github_shansec_go-vue-admin_model_system.SysApi"
+                            "$ref": "#/definitions/github_com_shansec_go-vue-admin_model_system.SysApi"
                         }
                     }
                 ],
@@ -860,6 +860,568 @@ const docTemplate = `{
                 }
             }
         },
+        "/dictionary/createDictionary": {
+            "post": {
+                "description": "添加字典，返回添加结果",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysDictionary"
+                ],
+                "summary": "添加字典",
+                "parameters": [
+                    {
+                        "description": "添加字典",
+                        "name": "dictionaryInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.SysDictionary"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "添加字典,返回添加结果",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "添加字典失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/dictionary/deleteDictionary": {
+            "delete": {
+                "description": "删除字典，返回添加结果",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysDictionary"
+                ],
+                "summary": "删除字典",
+                "parameters": [
+                    {
+                        "description": "删除字典",
+                        "name": "dictionaryInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.SysDictionary"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "删除字典,返回删除结果",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "删除字典失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/dictionary/getDictionary": {
+            "post": {
+                "description": "获取字典详情",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysDictionary"
+                ],
+                "summary": "获取字典详情",
+                "parameters": [
+                    {
+                        "description": "获取字典详情",
+                        "name": "dictionaryInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.SysDictionary"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "获取字典详情",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        " msg": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/definitions/system.SysDictionary"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "获取字典详情失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/dictionary/getDictionaryInfoList": {
+            "post": {
+                "description": "分页获取字典",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysDictionary"
+                ],
+                "summary": "分页获取字典",
+                "parameters": [
+                    {
+                        "description": "分页获取字典",
+                        "name": "dictionaryInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.SysDictionary"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "分页获取字典",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        " msg": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/definitions/system.SysDictionary"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "分页获取字典失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/dictionary/updateDictionary": {
+            "put": {
+                "description": "修改字典，返回修改结果",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysDictionary"
+                ],
+                "summary": "修改字典",
+                "parameters": [
+                    {
+                        "description": "修改字典",
+                        "name": "dictionaryInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.SysDictionary"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "修改字典,返回修改结果",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "修改字典失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/dictionaryDetail/createDictionaryDetail": {
+            "post": {
+                "description": "添加字典详情，返回添加结果",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysDictionaryDetail"
+                ],
+                "summary": "添加字典详情",
+                "parameters": [
+                    {
+                        "description": "添加字典详情",
+                        "name": "dictionaryDetailInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.SysDictionaryDetail"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "添加字典详情,返回添加结果",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "添加字典详情失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/dictionaryDetail/deleteDictionaryDetail": {
+            "delete": {
+                "description": "删除字典详情，返回删除结果",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysDictionaryDetail"
+                ],
+                "summary": "删除字典详情",
+                "parameters": [
+                    {
+                        "description": "删除字典详情",
+                        "name": "dictionaryDetailInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.SysDictionaryDetail"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "删除字典详情,返回删除结果",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "删除字典详情失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/dictionaryDetail/getDictionaryDetail": {
+            "post": {
+                "description": "获取字典详情",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysDictionaryDetail"
+                ],
+                "summary": "获取字典详情",
+                "parameters": [
+                    {
+                        "description": "获取字典详情",
+                        "name": "dictionaryDetailInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.SysDictionaryDetail"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "获取字典详情",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        " msg": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/definitions/system.SysDictionaryDetail"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "获取字典详情失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/dictionaryDetail/getDictionaryDetailList": {
+            "post": {
+                "description": "分页获取字典详情",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysDictionaryDetail"
+                ],
+                "summary": "分页获取字典详情",
+                "parameters": [
+                    {
+                        "description": "分页获取字典详情",
+                        "name": "pageInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.SysDictionaryDetailSearch"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "分页获取字典详情",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        " msg": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/definitions/response.PageResult"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "分页获取字典详情失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/dictionaryDetail/updateDictionaryDetail": {
+            "put": {
+                "description": "修改字典详情，返回修改结果",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysDictionaryDetail"
+                ],
+                "summary": "修改字典详情",
+                "parameters": [
+                    {
+                        "description": "修改字典详情",
+                        "name": "dictionaryDetailInfo",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/system.SysDictionaryDetail"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "修改字典详情,返回修改结果",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "修改字典详情失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/init/checkDB": {
             "post": {
                 "description": "检查是否已初始化",
@@ -1082,6 +1644,147 @@ const docTemplate = `{
                 }
             }
         },
+        "/menu/getMenuTree": {
+            "post": {
+                "description": "获取树状菜单",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysBaseMenu"
+                ],
+                "summary": "获取树状菜单",
+                "responses": {
+                    "200": {
+                        "description": "获取树状菜单",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        " msg": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/definitions/response.NoPageResult"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "获取树状菜单失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/menu/getRoleMenu": {
+            "post": {
+                "description": "获取当前登录角色菜单",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysBaseMenu"
+                ],
+                "summary": "获取当前登录角色菜单",
+                "responses": {
+                    "200": {
+                        "description": "获取当前登录角色菜单",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        " msg": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/definitions/response.NoPageResult"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "获取当前登录角色菜单失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/menu/getSpecialRoleMenu": {
+            "post": {
+                "description": "获取指定角色菜单",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysBaseMenu"
+                ],
+                "summary": "获取指定角色菜单",
+                "responses": {
+                    "200": {
+                        "description": "获取指定角色菜单",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        " msg": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "$ref": "#/definitions/response.NoPageResult"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "获取指定角色菜单失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/menu/updateMenu": {
             "put": {
                 "description": "修改菜单，返回操作结果",
@@ -1130,6 +1833,61 @@ const docTemplate = `{
                     },
                     "500": {
                         "description": "修改菜单失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    }
+                }
+            }
+        },
+        "/role/addRoleMenu": {
+            "post": {
+                "description": "角色设置菜单权限",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SysRole"
+                ],
+                "summary": "角色设置菜单权限",
+                "parameters": [
+                    {
+                        "description": "角色设置菜单权限",
+                        "name": "info",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.MenuRoleInfo"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "角色设置菜单权限",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/response.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "msg": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数验证失败",
+                        "schema": {
+                            "$ref": "#/definitions/response.Response"
+                        }
+                    },
+                    "500": {
+                        "description": "角色设置菜单权限失败",
                         "schema": {
                             "$ref": "#/definitions/response.Response"
                         }
@@ -1753,7 +2511,7 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "github_shansec_go-vue-admin_model_system.SysApi": {
+        "github_com_shansec_go-vue-admin_model_system.SysApi": {
             "type": "object",
             "properties": {
                 "apiGroup": {
@@ -1944,6 +2702,20 @@ const docTemplate = `{
                 }
             }
         },
+        "request.MenuRoleInfo": {
+            "type": "object",
+            "properties": {
+                "menus": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/system.SysBaseMenu"
+                    }
+                },
+                "roleId": {
+                    "type": "integer"
+                }
+            }
+        },
         "request.PageInfo": {
             "type": "object",
             "properties": {
@@ -2008,6 +2780,48 @@ const docTemplate = `{
                 }
             }
         },
+        "request.SysDictionaryDetailSearch": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "extend": {
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键 ID",
+                    "type": "integer"
+                },
+                "label": {
+                    "type": "string"
+                },
+                "page": {
+                    "description": "页码",
+                    "type": "integer"
+                },
+                "pageSize": {
+                    "description": "每页大小",
+                    "type": "integer"
+                },
+                "sort": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "boolean"
+                },
+                "sysDictionaryID": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
         "response.Login": {
             "type": "object",
             "properties": {
@@ -2020,6 +2834,12 @@ const docTemplate = `{
                 "user": {
                     "$ref": "#/definitions/system.SysUser"
                 }
+            }
+        },
+        "response.NoPageResult": {
+            "type": "object",
+            "properties": {
+                "list": {}
             }
         },
         "response.PageResult": {
@@ -2351,6 +3171,74 @@ const docTemplate = `{
                 }
             }
         },
+        "system.SysDictionary": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键 ID",
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "boolean"
+                },
+                "sys-dictionary-details": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/system.SysDictionaryDetail"
+                    }
+                },
+                "type": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "system.SysDictionaryDetail": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "extend": {
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键 ID",
+                    "type": "integer"
+                },
+                "label": {
+                    "type": "string"
+                },
+                "sort": {
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "boolean"
+                },
+                "sysDictionaryID": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
         "system.SysRole": {
             "type": "object",
             "properties": {
@@ -2369,6 +3257,10 @@ const docTemplate = `{
                     "items": {
                         "$ref": "#/definitions/system.SysRole"
                     }
+                },
+                "defaultRouter": {
+                    "description": "默认菜单(默认dashboard)",
+                    "type": "string"
                 },
                 "deletedAt": {
                     "description": "删除时间",

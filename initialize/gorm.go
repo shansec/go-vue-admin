@@ -6,8 +6,8 @@ import (
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 
-	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/system"
+	"github.com/shansec/go-vue-admin/global"
+	"github.com/shansec/go-vue-admin/model/system"
 )
 
 func Gorm() *gorm.DB {
@@ -27,6 +27,8 @@ func RegisterTable(db *gorm.DB) {
 		system.SysRole{},
 		system.SysDept{},
 		system.SysAutoCode{},
+		system.SysDictionary{},
+		system.SysDictionaryDetail{},
 	)
 	if err != nil {
 		global.MAY_LOGGER.Error("初始化数据库表失败", zap.Error(err))

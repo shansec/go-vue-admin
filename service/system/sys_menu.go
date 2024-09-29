@@ -2,9 +2,9 @@ package system
 
 import (
 	"errors"
-	"github/shansec/go-vue-admin/dao/common/request"
-	"github/shansec/go-vue-admin/global"
-	"github/shansec/go-vue-admin/model/system"
+	"github.com/shansec/go-vue-admin/dao/common/request"
+	"github.com/shansec/go-vue-admin/global"
+	"github.com/shansec/go-vue-admin/model/system"
 	"time"
 
 	"gorm.io/gorm"

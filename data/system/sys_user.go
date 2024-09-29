@@ -7,9 +7,9 @@ import (
 	"github.com/pkg/errors"
 	"gorm.io/gorm"
 
-	model "github/shansec/go-vue-admin/model/system"
-	"github/shansec/go-vue-admin/service/system"
-	"github/shansec/go-vue-admin/utils"
+	model "github.com/shansec/go-vue-admin/model/system"
+	"github.com/shansec/go-vue-admin/service/system"
+	"github.com/shansec/go-vue-admin/utils"
 )
 
 const initOrderUser = initOrderRole + 1
